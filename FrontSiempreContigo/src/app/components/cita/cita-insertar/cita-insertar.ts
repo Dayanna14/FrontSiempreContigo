@@ -4,18 +4,23 @@ import { Cita } from '../../../models/cita';
 import { Router } from '@angular/router'; 
 import { CitaService } from '../../../services/cita-service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @Component({
   selector: 'app-cita-insertar',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule , MatButtonModule, MatDatepickerModule, MatNativeDateModule],
   templateUrl: './cita-insertar.html',
   styleUrl: './cita-insertar.css',
 })
 export class CitaInsertar implements OnInit{
 
   form: FormGroup = new FormGroup({});
-  cita: Cita = new Cita();
+  cita: Cita = new Cita();  
 
   constructor(
     private cT:CitaService,

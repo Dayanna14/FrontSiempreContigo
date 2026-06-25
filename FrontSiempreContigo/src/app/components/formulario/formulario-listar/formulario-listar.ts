@@ -1,27 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 import { Formulario } from '../../../models/formulario';
 import { FormularioService } from '../../../services/formulario-service';
 import { NavigationEnd, Router } from '@angular/router';
-import { MatTableDataSource } from '@angular/material/table';
+
+// Imports de Angular Material
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-formulario-listar',
-  imports: [],
+  standalone: true,
+  imports: [
+    MatTableModule,  
+    MatButtonModule  
+  ],
   templateUrl: './formulario-listar.html',
   styleUrl: './formulario-listar.css',
 })
-export class FormularioListar implements OnInit{
+export class FormularioListar implements OnInit {
 
   dataSource: MatTableDataSource<Formulario> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4'];
 
-
   constructor(
-  private fS: FormularioService,
-  private router: Router,
+    private fS: FormularioService,
+    private router: Router,
   ){}
-
 
   ngOnInit(): void {
     this.cargarFormulario();
@@ -42,11 +47,8 @@ export class FormularioListar implements OnInit{
 
   eliminar(id: number){
     this.fS.delete(id).subscribe(()=>{
-      this.fS.list().subscribe((data)=>{
-        this.dataSource.data = data;
-      });
+      this.cargarFormulario(); 
     });
   }
-
 
 }

@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { Cita } from '../cita';
+import { Cita } from '../../../models/cita';
 import { CitaService } from '../../../services/cita-service';
 import { Router } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-cita-listar',
-  imports: [],
+  standalone: true,
+  imports: [MatTableModule,MatButtonModule ],
   templateUrl: './cita-listar.html',
   styleUrl: './cita-listar.css',
 })

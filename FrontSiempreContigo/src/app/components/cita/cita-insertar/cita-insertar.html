@@ -1,23 +1,44 @@
-
-
 <h1>Ingresar Cita:</h1>
+
 <div>
+  <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+    
+    <mat-form-field class="example-full-width">
+      <mat-label>ID del Usuario</mat-label>
+      <input matInput formControlName="idUsuario" placeholder="Ej. 12345">
+    </mat-form-field>
+    <br/>
 
-    <!--IDCITA: NUMBER-->
-    <form class="example-form">
-  <mat-form-field class="example-full-width">
-    <mat-label>Favorite food</mat-label>
-    <input matInput placeholder="Ex. Pizza" value="Sushi">
-  </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>Fecha de la Cita</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="fechaCita" placeholder="Elige una fecha">
+      <mat-hint>DD/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <br/>
 
-  <br/>
-<!--FECHA CITA: DATE-->
+    <mat-form-field class="example-full-width">
+      <mat-label>Hora de la Cita</mat-label>
+      <input matInput type="time" formControlName="horaCita">
+    </mat-form-field>
+    <br/>
 
-<!--MOTIVO: STRING-->
+    <mat-form-field class="example-full-width">
+      <mat-label>Motivo de la Cita</mat-label>
+      <input matInput formControlName="motivo" placeholder="Ej. Consulta de rutina">
+    </mat-form-field>
+    <br/>
 
-<!--HORA CITA: DATE-->
+    <mat-form-field class="example-full-width">
+      <mat-label>Estado de la Cita</mat-label>
+      <input matInput formControlName="estadoCita" placeholder="Ej. Pendiente">
+    </mat-form-field>
+    <br/>
 
-<!--ESTADO CITA: STRING-->
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Guardar Cita
+    </button>
 
-
+  </form>
 </div>

@@ -1,20 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common'; 
+
 import { PerfilProf } from '../../../models/perfil-prof';
 import { PerfilProfService } from '../../../services/perfil-prof-service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-prof-insertar',
-  imports: [],
+  standalone: true, 
+  imports: [
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    CommonModule
+  ],
   templateUrl: './perfil-prof-insertar.html',
   styleUrl: './perfil-prof-insertar.css',
 })
-export class PerfilProfInsertar implements OnInit{
+export class PerfilProfInsertar implements OnInit {
 
   form: FormGroup = new FormGroup({});
-  perfilprof: PerfilProf = new PerfilProf();
-
+  perfilprof: PerfilProf = new PerfilProf(); 
 
   constructor(
     private pP: PerfilProfService,
@@ -31,15 +43,16 @@ export class PerfilProfInsertar implements OnInit{
     });
   }
 
-  aceptar(): void{
-    if (this.form.valid){
+  aceptar(): void {
+    if (this.form.valid) {
       this.perfilprof.especialidad = this.form.value.especialidad;
       this.perfilprof.biografia = this.form.value.biografia;
       this.perfilprof.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
       
       this.pP.insert(this.perfilprof).subscribe({
-        next: ()=>{
-          this.router.navigate(['/perfilProfesional/nuevo'])
+        next: () => {
+          
+          this.router.navigate(['/perfilProfesional/nuevo']); 
         }
       });
     }
