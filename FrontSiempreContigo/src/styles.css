@@ -1,0 +1,41 @@
+/* You can add global styles to this file, and also import other style files */
+/* Importar la fuente oficial del manual */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #F8FAFC; /* Fondo neutro para reducir fatiga visual */
+  font-size: 18px; /* Tamaño mínimo del manual */
+  color: #2C3E50;
+}
+
+/* Encabezados legibles */
+h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #5A90C5;
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: 600;
+  color: #5A90C5;
+}
+
+/* Contenedor adaptativo y espaciado (UX minimalista) */
+.container {
+  width: 85%;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Tarjetas (Cards) con bordes redondeados y sombra suave del manual */
+.mat-elevation-z8 {
+  background: #FFFFFF !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+  border: none !important;
+  overflow: hidden;
+}

@@ -1,0 +1,55 @@
+<div class="container">
+  <div style="text-align: center; margin: 5%"><h2>Buzón de Avisos por Usuario (Campana)</h2></div>
+  
+  <div class="search-container" style="text-align: center; margin-bottom: 3%;">
+    <form [formGroup]="form" (submit)="buscarAlertasActivas()">
+      <mat-form-field style="width: 40%; margin-right: 15px;">
+        <mat-label>Ingresar ID de Usuario</mat-label>
+        <input matInput formControlName="usuarioId" placeholder="Ej: 1" />
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="button" (click)="buscarAlertasActivas()" [disabled]="form.invalid">Revisar Campana</button>
+    </form>
+  </div>
+
+  <div *ngIf="userIdActual && dataSource.data.length > 0" style="text-align: right; margin-bottom: 15px;">
+    <!-- US010: Botón especial de Marcar todas como leídas -->
+    <button mat-raised-button color="accent" (click)="marcarTodoVisto()">
+      <mat-icon>done_all</mat-icon> Marcar todas como leídas
+    </button>
+  </div>
+
+  <div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="c1">
+        <th mat-header-cell *matHeaderCellDef>No. Aviso</th>
+        <td mat-cell *matCellDef="let element">{{ element.idNotificacion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c2">
+        <th mat-header-cell *matHeaderCellDef>Aviso</th>
+        <td mat-cell *matCellDef="let element" style="font-weight: 500;">{{ element.mensaje }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c3">
+        <th mat-header-cell *matHeaderCellDef>Fecha Recibida</th>
+        <td mat-cell *matCellDef="let element">{{ element.fechaNotificacion }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="c4">
+        <th mat-header-cell *matHeaderCellDef>Estado</th>
+        <td mat-cell *matCellDef="let element">
+          <span [style.color]="element.leido ? 'green' : 'red'" style="font-weight: bold;">
+            {{ element.leido ? 'Leída' : 'Nueva' }}
+          </span>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    
+    <div *ngIf="dataSource.data.length === 0" style="text-align: center; margin-top: 20px; color: gray;">
+      No hay avisos pendientes o activos para este usuario.
+    </div>
+  </div>
+</div>

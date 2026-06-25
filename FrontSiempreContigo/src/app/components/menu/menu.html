@@ -1,0 +1,84 @@
+<mat-sidenav-container class="sidenav-container">
+  
+  <mat-sidenav #sidenav mode="over" class="custom-sidenav">
+    <div class="sidenav-header">
+      <h3>⚙️ Tablas del Sistema</h3>
+    </div>
+    <mat-nav-list (click)="sidenav.close()">
+      <a mat-list-item routerLink="/alertas/lista"><mat-icon>notification_important</mat-icon> <span>Alertas</span></a>
+      <a mat-list-item routerLink="/cita/lista"><mat-icon>calendar_month</mat-icon> <span>Citas</span></a>
+      <a mat-list-item routerLink="/config-app/lista"><mat-icon>settings</mat-icon> <span>Configuración App</span></a>
+      <a mat-list-item routerLink="/cursos/lista"><mat-icon>school</mat-icon> <span>Cursos</span></a>
+      <a mat-list-item routerLink="/est-emocional/lista"><mat-icon>mood</mat-icon> <span>Estados Emocionales</span></a>
+      <a mat-list-item routerLink="/formulario/lista"><mat-icon>description</mat-icon> <span>Formularios</span></a>
+      <a mat-list-item routerLink="/chat/lista"><mat-icon>forum</mat-icon> <span>Mensajería Chat</span></a>
+      <a mat-list-item routerLink="/notificacion/lista"><mat-icon>notifications</mat-icon> <span>Notificaciones</span></a>
+      <a mat-list-item routerLink="/perfil-prof/lista"><mat-icon>assignment_ind</mat-icon> <span>Perfiles Profesionales</span></a>
+      <a mat-list-item routerLink="/prog-sesion/lista"><mat-icon>trending_up</mat-icon> <span>Progreso Sesión</span></a>
+      <a mat-list-item routerLink="/rol/lista"><mat-icon>manage_accounts</mat-icon> <span>Roles</span></a>
+      <a mat-list-item routerLink="/sesion/lista"><mat-icon>auto_stories</mat-icon> <span>Sesiones</span></a>
+      <a mat-list-item routerLink="/usuario/lista"><mat-icon>people</mat-icon> <span>Usuarios</span></a>
+      <a mat-list-item routerLink="/user-curso/lista"><mat-icon>local_library</mat-icon> <span>Inscripciones Cursos</span></a>
+      <a mat-list-item routerLink="/valoracion/lista"><mat-icon>star</mat-icon> <span>Valoraciones Cursos</span></a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar class="custom-toolbar">
+      
+      <div class="left-section">
+        @if (isLoggedIn) {
+          <button mat-icon-button (click)="sidenav.toggle()" class="btn-toggle" aria-label="Tablas CRUD">
+            <mat-icon>settings</mat-icon>
+          </button>
+        }
+        
+        <span class="brand-title" routerLink="/home">
+          <mat-icon>healing</mat-icon> SiempreContigo
+        </span>
+        
+        @if (isLoggedIn && userRole === 'PATIENT') {
+          <div class="nav-tabs">
+            <a routerLink="/home" routerLinkActive="active-tab" class="tab-link">Inicio</a>
+            <a routerLink="/cursos" routerLinkActive="active-tab" class="tab-link">Mis Cursos</a>
+            <a routerLink="/chat" routerLinkActive="active-tab" class="tab-link">Asistente IA</a>
+            <a routerLink="/est-emocional/buscar" routerLinkActive="active-tab" class="tab-link">Mi Progreso</a>
+          </div>
+        }
+
+        @if (isLoggedIn && userRole === 'PROFESSIONAL') {
+          <div class="nav-tabs">
+            <span class="role-badge">Profesional</span>
+            <a routerLink="/perfil-prof/buscar" routerLinkActive="active-tab" class="tab-link"><mat-icon>group</mat-icon> Mis Pacientes</a>
+            <a routerLink="/alertas/buscar" routerLinkActive="active-tab" class="tab-link"><mat-icon>warning</mat-icon> Alertas</a>
+            <a routerLink="/cursos/lista" routerLinkActive="active-tab" class="tab-link"><mat-icon>menu_book</mat-icon> Gestionar Cursos</a>
+            <a routerLink="/chat/lista" routerLinkActive="active-tab" class="tab-link"><mat-icon>chat</mat-icon> Mensajería</a>
+          </div>
+        }
+      </div>
+
+      <div class="right-section">
+        @if (!isLoggedIn) {
+          <button mat-flat-button class="btn-login-trigger" routerLink="/login/iniciar">
+            <mat-icon>login</mat-icon> Acceder
+          </button>
+        } @else {
+          @if (userRole === 'PATIENT') {
+            <button mat-flat-button class="btn-emergency" routerLink="/alertas/nuevo">
+              <mat-icon>phone_in_talk</mat-icon> Necesito ayuda
+            </button>
+          }
+          
+          <button mat-icon-button class="btn-logout" (click)="logout()" aria-label="Cerrar Sesión">
+            <mat-icon>logout</mat-icon>
+          </button>
+        }
+      </div>
+    </mat-toolbar>
+
+    <div class="main-content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

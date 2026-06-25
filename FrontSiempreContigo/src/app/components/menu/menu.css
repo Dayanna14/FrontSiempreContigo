@@ -1,0 +1,109 @@
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.custom-toolbar {
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 40px;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A365D;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand-title mat-icon {
+  color: #A1D6A0; /* Corazón verde */
+}
+
+/* Contenedor de las pestañas horizontales de tus imágenes */
+.nav-tabs {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: 20px;
+}
+
+.tab-link {
+  text-decoration: none;
+  color: #718096;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.tab-link:hover {
+  background-color: #F8FAFC;
+  color: #5A90C5;
+}
+
+/* Pestaña activa (Look exacto de tus imágenes de Adulto Mayor/Profesional) */
+.active-tab {
+  background-color: #A1D6A0 !important; /* Verde pastilla */
+  color: #FFFFFF !important;
+  font-weight: 600;
+}
+
+/* Badge indicativo de rol profesional */
+.role-badge {
+  background-color: #5A90C5;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+/* Botón "Necesito Ayuda" (Rojo corporativo de tus imágenes) */
+.btn-emergency {
+  background-color: #C53030 !important;
+  color: #FFFFFF !important;
+  font-size: 18px !important;
+  font-weight: 600;
+  border-radius: 20px !important;
+  padding: 8px 20px !important;
+  margin-right: 15px;
+}
+
+.btn-login-trigger {
+  background-color: #5A90C5 !important;
+  color: white !important;
+  border-radius: 20px !important;
+  font-size: 18px !important;
+}
+
+.btn-logout {
+  color: #718096 !important;
+}
+
+.custom-sidenav {
+  width: 280px;
+}
+
+.main-content-wrapper {
+  background-color: #F8FAFC;
+  min-height: calc(100vh - 80px);
+}
