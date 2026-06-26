@@ -1,0 +1,41 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Registrar Rol</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      <mat-form-field class="example-full-width">
+        <mat-label>Rol</mat-label>
+        <input matInput formControlName="nombreRol" placeholder="Ej. Administrador" />
+        <mat-error>
+          @if (form.get('nombreRol')?.hasError('required')) {
+            Ingrese el nombre del rol!!
+          }
+          @if (form.get('nombreRol')?.hasError('maxlength')) {
+            Max50!!
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <br />
+      <mat-form-field class="example-full-width">
+        <mat-label>Descripción</mat-label>
+        <textarea matInput formControlName="descripcionRol" placeholder="Descripción del rol"></textarea>
+        <mat-error>
+          @if (form.get('descripcionRol')?.hasError('maxlength')) {
+            Máximo 100 caracteres.
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+      <br />
+      <div>
+        <button mat-raised-button color="primary">Registrar</button>
+      </div>
+      <div *ngIf="mensajeError" style="margin-top:16px; color:#b00020; font-weight:600;">
+        {{ mensajeError }}
+      </div>
+      <div *ngIf="mensajeExito" style="margin-top:16px; color:#00796b; font-weight:600;">
+        {{ mensajeExito }}
+      </div>
+    </form>
+  </div>
+</div>

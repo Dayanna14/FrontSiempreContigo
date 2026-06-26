@@ -1,0 +1,89 @@
+/* Contenedor principal */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Esto centra la tarjeta verticalmente para que no se pegue al menú */
+  min-height: calc(100vh - 120px); /* Calcula el alto exacto de la pantalla menos la barra */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* La tarjeta blanca */
+.welcome-card {
+  background-color: #ffffff;
+  padding: 45px 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Sombra elegante */
+  max-width: 650px;
+  width: 100%;
+  text-align: center;
+  border-top: 6px solid #2d68ff; /* Línea azul que hace juego con tu botón de Roles */
+}
+
+/* Títulos y textos */
+.welcome-card h1 {
+  color: #1e293b;
+  margin-bottom: 25px;
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.welcome-card p {
+  color: #64748b;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+/* Lista de integrantes */
+.welcome-card ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 auto 30px auto;
+  max-width: 480px; 
+}
+
+.welcome-card li {
+  background-color: #f8fafc; /* Fondo casi blanco */
+  margin-bottom: 10px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  color: #334155;
+  font-size: 1.1rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e2e8f0; /* Borde muy sutil */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efecto hover al pasar el ratón por los nombres */
+.welcome-card li:hover {
+  transform: translateX(5px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background-color: #ffffff;
+  border-color: #2d68ff; /* Se pinta un poco del azul principal */
+}
+
+/* Ícono de computadora al lado del nombre */
+.welcome-card li::before {
+  content: "💻"; 
+  margin-right: 15px;
+  font-size: 1.3rem;
+}
+
+/* Animación del gráfico de abajo */
+.hero-icon {
+  font-size: 4.5rem;
+  margin-top: 15px;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}

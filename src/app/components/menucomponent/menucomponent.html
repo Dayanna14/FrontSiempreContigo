@@ -1,0 +1,27 @@
+<div class="container">
+  <mat-toolbar class="custom-toolbar">
+    <span class="navbar-brand">SIEMPRE CONTIGO</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/home" class="nav-btn-inicio">
+      <mat-icon>home</mat-icon> Inicio
+    </button>
+    <button
+      mat-button
+      class="btn-roles"
+      [matMenuTriggerFor]="menuRol"
+    >
+      <mat-icon>manage_accounts</mat-icon> Roles
+    </button>
+  </mat-toolbar>
+  <mat-menu #menuRol="matMenu">
+    <button mat-menu-item routerLink="/roles/nuevo">
+      <mat-icon>add</mat-icon> Registrar
+    </button>
+    <button mat-menu-item routerLink="/roles">
+      <mat-icon>list</mat-icon> Listar
+    </button>
+  </mat-menu>
+</div>
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
