@@ -1,0 +1,50 @@
+<div class="login-wrapper">
+  <div class="login-card mat-elevation-z8">
+    <div class="login-header">
+      <mat-icon class="brand-icon">healing</mat-icon>
+      <h2>¡Hola! Te damos la bienvenida a</h2>
+      <h1>SiempreContigo</h1>
+      <p>Por favor, ingresa a tu cuenta para continuar con tu bienestar.</p>
+    </div>
+
+    <form [formGroup]="form" (submit)="ingresar()" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre de usuario o Correo</mat-label>
+        <input matInput formControlName="username" placeholder="Ej: maria_elena" />
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" formControlName="contrasena" />
+        <mat-icon matSuffix>lock</mat-icon>
+      </mat-form-field>
+
+      <button mat-flat-button type="submit" [disabled]="form.invalid" class="btn-submit-login">
+        Ingresar a la Plataforma
+      </button>
+    </form>
+
+    <div class="register-link">
+      <p>¿Aún no tienes cuenta? 
+        <a routerLink="/usuario/nuevo">Regístrate aquí</a>
+      </p>
+    </div>
+
+    <div class="divider">
+      <span>O ingresa usando tus redes sociales</span>
+    </div>
+
+    <div class="social-login-group">
+      <button mat-stroked-button class="btn-google" (click)="loginWithGoogle()">
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google logo" />
+        Continuar con Google
+      </button>
+
+      <button mat-flat-button class="btn-facebook" (click)="loginWithFacebook()">
+        <mat-icon>facebook</mat-icon>
+        Continuar con Facebook
+      </button>
+    </div>
+  </div>
+</div>

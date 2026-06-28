@@ -7,6 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Rol } from '../../../models/rol';
 import { Rolservice } from '../../../services/rolservice';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-rol-actualizar',
@@ -30,7 +31,8 @@ export class RolActualizar implements OnInit {
     private rS: Rolservice,
     private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -55,6 +57,7 @@ export class RolActualizar implements OnInit {
       console.log(JSON.stringify(this.rolObj));
       this.rS.update(this.rolObj).subscribe({
         next: () => {
+          this.snackBar.open('Rol actualizado correctamente', 'Cerrar', { duration: 3000 });
           this.router.navigate(['/roles']);
         }
       });

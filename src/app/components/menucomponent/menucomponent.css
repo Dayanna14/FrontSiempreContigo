@@ -1,69 +1,93 @@
-/* Forzamos al contenedor a ocupar absolutamente todo el ancho sin límites */
-.container {
+.sidenav-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+.custom-sidenav {
+  width: 280px;
+  background-color: #FFFFFF;
+}
+
+.sidenav-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F8FAFC;
+}
+
+.sidenav-header h3 {
   margin: 0;
-  padding: 0;
-  width: 100%;
-  max-width: 100%; 
-  display: block;
+  color: #1A365D;
+  font-weight: 600;
 }
 
-/* La barra superior */
+.mat-mdc-list-item {
+  border-radius: 12px;
+  margin: 5px 10px;
+  transition: all 0.3s ease;
+  color: #4A5568;
+}
+
+.mat-mdc-list-item:hover {
+  background-color: #EBF4FA !important;
+  color: #5A90C5 !important;
+}
+
+/* Alineación de íconos en el menú */
+mat-icon[matListItemIcon] {
+  margin-right: 16px;
+  color: #A0AEC0;
+}
+
+.mat-mdc-list-item:hover mat-icon[matListItemIcon] {
+  color: #5A90C5;
+}
+
+/* Toolbar y barra superior */
 .custom-toolbar {
-  background-color: #2c3e50; 
-  color: white;
+  background-color: #FFFFFF !important;
+  border-bottom: 1px solid #E2E8F0;
   display: flex;
-  padding: 0 30px;
-  height: 64px;
-  width: 100%; /* Obliga a la barra a estirarse al 100% */
-  box-sizing: border-box; /* CRÍTICO: Evita que el padding rompa el ancho de la pantalla */
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  padding: 0 40px;
 }
 
-.navbar-brand {
-  font-size: 1.4rem;
-  font-weight: bold;
-  letter-spacing: 0.5px;
-}
-
-/* El truco para separar los elementos a los extremos */
-.spacer {
-  flex: 1 1 auto;
-}
-
-/* Estilo para el botón de Inicio */
-.nav-btn-inicio {
-  color: #bdc3c7; 
-  font-weight: 500;
-  font-size: 1rem;
-  margin-right: 15px; /* Espacio entre Inicio y Roles */
+.left-section {
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
-.nav-btn-inicio:hover {
-  color: #ffffff;
-}
-
-/* ESTILO DEL BOTÓN DE ROLES (Igual a tu captura) */
-.btn-roles {
-  background-color: #22cfa6; /* Azul brillante */
-  color: #1a1a1a; /* Texto oscuro/negro como en la foto */
-  font-weight: 500;
-  font-size: 1rem;
-  border-radius: 8px; /* Bordes redondeados */
-  padding: 0 16px;
+.brand-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1A365D;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  height: 40px; /* Altura controlada para que parezca un botón real */
+  gap: 8px;
 }
 
-/* Espacio entre el ícono y el texto */
-mat-icon {
-  margin-right: 6px;
+.brand-title mat-icon {
+  color: #A1D6A0;
 }
 
-.main-content {
-  padding: 40px 20px;
-  min-height: calc(100vh - 64px);
-  box-sizing: border-box;
-  background-color: #f4f6f9;
+.btn-login-trigger {
+  background-color: #5A90C5 !important;
+  color: white !important;
+  border-radius: 20px !important;
+  font-size: 18px !important;
+}
+
+.btn-logout {
+  color: #718096 !important;
+}
+
+.main-content-wrapper {
+  background-color: #F8FAFC;
+  min-height: calc(100vh - 80px);
+  padding: 20px;
 }

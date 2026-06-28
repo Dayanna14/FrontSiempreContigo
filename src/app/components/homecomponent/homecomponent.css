@@ -1,89 +1,201 @@
-/* Contenedor principal */
-.home-container {
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Esto centra la tarjeta verticalmente para que no se pegue al menú */
-  min-height: calc(100vh - 120px); /* Calcula el alto exacto de la pantalla menos la barra */
+.landing-page {
   width: 100%;
-  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-/* La tarjeta blanca */
-.welcome-card {
-  background-color: #ffffff;
-  padding: 45px 40px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08); /* Sombra elegante */
-  max-width: 650px;
-  width: 100%;
+section {
+  padding: 60px 10%;
+}
+
+.section-gray {
+  background-color: #F8FAFC;
+}
+
+.section-blue-light {
+  background-color: #EEF4F8;
+}
+
+.section-title {
   text-align: center;
-  border-top: 6px solid #2d68ff; /* Línea azul que hace juego con tu botón de Roles */
+  margin-bottom: 40px;
 }
 
-/* Títulos y textos */
-.welcome-card h1 {
-  color: #1e293b;
-  margin-bottom: 25px;
-  font-size: 2rem;
-  font-weight: 800;
-  line-height: 1.3;
-}
-
-.welcome-card p {
-  color: #64748b;
-  font-size: 1.1rem;
-  font-weight: 700;
-  margin-bottom: 20px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-/* Lista de integrantes */
-.welcome-card ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0 auto 30px auto;
-  max-width: 480px; 
-}
-
-.welcome-card li {
-  background-color: #f8fafc; /* Fondo casi blanco */
+.section-title h2 {
+  font-size: 28px;
+  color: #2C3E50;
   margin-bottom: 10px;
-  padding: 14px 20px;
-  border-radius: 8px;
-  color: #334155;
-  font-size: 1.1rem;
-  font-weight: 500;
+}
+
+/* HERO */
+.hero-section {
   display: flex;
   align-items: center;
-  border: 1px solid #e2e8f0; /* Borde muy sutil */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  justify-content: space-between;
+  gap: 40px;
+  background-color: #FFFFFF;
 }
 
-/* Efecto hover al pasar el ratón por los nombres */
-.welcome-card li:hover {
-  transform: translateX(5px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  background-color: #ffffff;
-  border-color: #2d68ff; /* Se pinta un poco del azul principal */
+.hero-content {
+  flex: 1;
 }
 
-/* Ícono de computadora al lado del nombre */
-.welcome-card li::before {
-  content: "💻"; 
-  margin-right: 15px;
-  font-size: 1.3rem;
+.badge {
+  background-color: #EBF4FA;
+  color: #5A90C5;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
-/* Animación del gráfico de abajo */
-.hero-icon {
-  font-size: 4.5rem;
+.hero-content h1 {
+  font-size: 42px;
+  color: #1A2B3C;
+  line-height: 1.2;
+  margin: 20px 0;
+}
+
+.highlight {
+  color: #A1D6A0;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #556677;
+  margin-bottom: 30px;
+}
+
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.btn-primary {
+  background-color: #A1D6A0;
+  color: white;
+  border: none;
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #FFFFFF;
+  color: #778899;
+  border: 2px solid #E2E8F0;
+  padding: 14px 28px;
+  font-size: 18px;
+  border-radius: 25px;
+  cursor: pointer;
+}
+
+.hero-image-box {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 30px;
+}
+
+.floating-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 10%;
+  background: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+}
+
+.card {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.02);
+  text-align: center;
+}
+
+.card-icon {
+  font-size: 35px;
+  margin-bottom: 15px;
+}
+
+/* ACCOMPANIMENT */
+.accompaniment-section {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  background: white;
+}
+
+.acc-image-box {
+  flex: 1;
+}
+
+.acc-img {
+  width: 100%;
+  border-radius: 30px;
+}
+
+.acc-content {
+  flex: 1;
+}
+
+.acc-list {
+  list-style: none;
+  padding: 0;
+}
+
+.acc-list li {
+  font-size: 18px;
+  margin-bottom: 15px;
+  color: #4A5568;
+}
+
+/* COURSES GRID */
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.course-card {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+}
+
+.course-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.btn-course {
+  background-color: #5A90C5;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  width: 100%;
   margin-top: 15px;
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-  100% { transform: translateY(0px); }
+  font-weight: 500;
 }
