@@ -1,0 +1,49 @@
+<div class="container">
+  <div class="header-actions">
+    <h2>Perfiles Profesionales</h2>
+    <button mat-raised-button color="primary" routerLink="/perfilProfesional/nuevo">
+      <mat-icon>add</mat-icon> Nuevo Perfil
+    </button>
+  </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.idPerfilProfesional}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="especialidad">
+      <th mat-header-cell *matHeaderCellDef> Especialidad </th>
+      <td mat-cell *matCellDef="let element"> {{element.especialidad}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="biografia">
+      <th mat-header-cell *matHeaderCellDef> Biografía </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.biografia?.length > 40 ? (element.biografia | slice:0:40) + '...' : element.biografia}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef> Usuario (DNI) </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.usuario?.username}} ({{element.usuario?.dni}})
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="['/perfilProfesional/actualizar', element.idPerfilProfesional]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminar(element.idPerfilProfesional)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

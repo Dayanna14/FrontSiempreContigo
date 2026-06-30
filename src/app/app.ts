@@ -1,13 +1,13 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Menucomponent } from './components/menucomponent/menucomponent';
+import { Menucomponent } from './components/menu/menu';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, Menucomponent],
+  imports: [RouterOutlet,Menucomponent],
   templateUrl: './app.html',
-  styleUrls: ['./app.css']
+  styleUrl: './app.css'
 })
 export class App {
   protected readonly title = signal('FrontSiempreContigo');
