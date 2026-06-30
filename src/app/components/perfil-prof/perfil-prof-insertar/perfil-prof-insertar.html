@@ -1,1 +1,34 @@
-<p>perfil-prof-insertar works!</p>
+
+<h1>Ingresar Perfil Profesional:</h1>
+
+<div>
+<form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+    
+    <mat-form-field class="example-full-width">
+    <mat-label>ID del Usuario</mat-label>
+    <input matInput formControlName="idUsuario" placeholder="Ej. 12345">
+      <mat-error *ngIf="form.get('idUsuario')?.hasError('pattern')">
+        Solo se permiten números.
+    </mat-error>
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+    <mat-label>Especialidad</mat-label>
+    <input matInput formControlName="especialidad" placeholder="Ej. Desarrollador Backend">
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+    <mat-label>Biografía</mat-label>
+    <textarea matInput formControlName="biografia" placeholder="Escribe un breve resumen profesional..." rows="4"></textarea>
+    </mat-form-field>
+    <br/>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+    Guardar Perfil
+    </button>
+
+</form>
+</div>
+

@@ -3,6 +3,51 @@
   width: 100vw;
 }
 
+<<<<<<< HEAD
+=======
+.custom-sidenav {
+  width: 280px;
+  background-color: #FFFFFF;
+}
+
+.sidenav-header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #F8FAFC;
+}
+
+.sidenav-header h3 {
+  margin: 0;
+  color: #1A365D;
+  font-weight: 600;
+}
+
+.mat-mdc-list-item {
+  border-radius: 12px;
+  margin: 5px 10px;
+  transition: all 0.3s ease;
+  color: #4A5568;
+}
+
+.mat-mdc-list-item:hover {
+  background-color: #EBF4FA !important;
+  color: #5A90C5 !important;
+}
+
+/* Alineación de íconos en el menú */
+mat-icon[matListItemIcon] {
+  margin-right: 16px;
+  color: #A0AEC0;
+}
+
+.mat-mdc-list-item:hover mat-icon[matListItemIcon] {
+  color: #5A90C5;
+}
+
+/* Toolbar y barra superior */
+>>>>>>> origin/develop
 .custom-toolbar {
   background-color: #FFFFFF !important;
   border-bottom: 1px solid #E2E8F0;
@@ -16,7 +61,11 @@
 .left-section {
   display: flex;
   align-items: center;
+<<<<<<< HEAD
   gap: 30px;
+=======
+  gap: 20px;
+>>>>>>> origin/develop
 }
 
 .brand-title {
@@ -30,6 +79,7 @@
 }
 
 .brand-title mat-icon {
+<<<<<<< HEAD
   color: #A1D6A0; /* Corazón verde */
 }
 
@@ -86,6 +136,9 @@
   border-radius: 20px !important;
   padding: 8px 20px !important;
   margin-right: 15px;
+=======
+  color: #A1D6A0;
+>>>>>>> origin/develop
 }
 
 .btn-login-trigger {
@@ -99,6 +152,7 @@
   color: #718096 !important;
 }
 
+<<<<<<< HEAD
 .custom-sidenav {
   width: 280px;
 }
@@ -106,4 +160,10 @@
 .main-content-wrapper {
   background-color: #F8FAFC;
   min-height: calc(100vh - 80px);
+=======
+.main-content-wrapper {
+  background-color: #F8FAFC;
+  min-height: calc(100vh - 80px);
+  padding: 20px;
+>>>>>>> origin/develop
 }

@@ -7,4 +7,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './login.html',
   styleUrl: './login.css',
 })
+
 export class Login {}
+

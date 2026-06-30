@@ -1,1 +1,35 @@
-<p>formulario-insertar works!</p>
+
+<h1>Ingresar Formulario:</h1>
+
+<div>
+  <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+    
+    
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput type="email" formControlName="correo" placeholder="ejemplo@correo.com">
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Mensaje</mat-label>
+      <textarea matInput formControlName="mensaje" placeholder="Escribe tu mensaje aquí..." rows="4"></textarea>
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field>
+        <mat-label>Usuario respectivo:</mat-label>
+        <mat-select formControlName="UsuarioN">
+          @for (food of listasUsuario; track food) {
+            <mat-option [value]="food.idUsuario">{{ food.idUsuario }}</mat-option>
+          }
+        </mat-select>
+</mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      Guardar Formulario
+    </button>
+
+  </form>
+</div>

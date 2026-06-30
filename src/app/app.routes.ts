@@ -6,7 +6,11 @@ import { AlertaActualizar } from './components/alerta/alerta-actualizar/alerta-a
 import { AlertaBuscar } from './components/alerta/alerta-buscar/alerta-buscar';
 import { CitaInsertar } from './components/cita/cita-insertar/cita-insertar';
 import { CitaListar } from './components/cita/cita-listar/cita-listar';
+<<<<<<< HEAD
 import { CitaActualizar } from './components/cita/cita-actualizar/cita-actualizar';
+=======
+//import { CitaActualizar } from './components/cita/cita-actualizar/cita-actualizar';
+>>>>>>> origin/develop
 import { CitaBuscar } from './components/cita/cita-buscar/cita-buscar';
 import { ConfigAppInsertar } from './components/config-app/config-app-insertar/config-app-insertar';
 import { ConfigAppListar } from './components/config-app/config-app-listar/config-app-listar';
@@ -61,7 +65,11 @@ import { ValoracionListar } from './components/valoracion/valoracion-listar/valo
 import { ValoracionActualizar } from './components/valoracion/valoracion-actualizar/valoracion-actualizar';
 import { ValoracionBuscar } from './components/valoracion/valoracion-buscar/valoracion-buscar';
 import { Login } from './components/login/login';
+<<<<<<< HEAD
 import { IniciarSesion } from './components/login/iniciar-sesion/iniciar-sesion';
+=======
+import { IniciarSeccion } from './components/login/iniciar-sesion/iniciar-sesion';
+>>>>>>> origin/develop
 
 export const routes: Routes = [
     {
@@ -85,12 +93,20 @@ export const routes: Routes = [
     ]
   },
   // 2. Citas
+<<<<<<< HEAD
   {
+=======
+  {  
+>>>>>>> origin/develop
     path: 'cita',
     children: [
       { path: 'nuevo', component: CitaInsertar },
       { path: 'lista', component: CitaListar },
+<<<<<<< HEAD
       { path: 'edits/:id', component: CitaActualizar },
+=======
+      
+>>>>>>> origin/develop
       { path: 'buscar', component: CitaBuscar }
     ]
   },
@@ -229,8 +245,15 @@ export const routes: Routes = [
     component: Login,
     children: [
       { path: '', redirectTo: 'iniciar', pathMatch: 'full' },
+<<<<<<< HEAD
       { path: 'iniciar', component: IniciarSesion }
     ]
   }
    
+=======
+      { path: 'iniciar', component: IniciarSeccion }
+    ]
+  }
+
+>>>>>>> origin/develop
 ];
