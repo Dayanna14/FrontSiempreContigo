@@ -7,45 +7,44 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
   selector: 'app-menu',
-  imports: [CommonModule,
+  standalone: true,
+  imports: [
+    CommonModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule, // 👈 INYECTADO AQUÍ PARA RECONOCER LOS SUBMENÚS
+    MatMenuModule,
+    MatDividerModule,
     RouterLink,
-    RouterOutlet],
+    RouterOutlet
+  ],
   templateUrl: './menu.html',
-  styleUrl: './menu.css',
+  styleUrls: ['./menu.css'],
 })
-export class Menu implements OnInit {
-  isLoggedIn: boolean = false;
-  userRole: string | null = null; 
-
-  // Inyectamos el ID de la plataforma para saber si es el navegador o el servidor
+export class Menucomponent {
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
-  ngOnInit(): void {
-    // 🛡️ CONTROL SEGURO: Solo ejecuta localStorage si está en el navegador
-    if (isPlatformBrowser(this.platformId)) {
-      this.isLoggedIn = !!localStorage.getItem('token');
-      this.userRole = localStorage.getItem('role');
-    }
+  get isLoggedIn(): boolean {
+    return isPlatformBrowser(this.platformId) && !!localStorage.getItem('token');
+  }
+
+  get userRole(): string | null {
+    return isPlatformBrowser(this.platformId) ? localStorage.getItem('role') : null;
   }
 
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
-    this.isLoggedIn = false;
-    this.userRole = null;
-    this.router.navigate(['/home']);
+    this.router.navigate(['/homes']);
   }
 }

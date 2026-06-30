@@ -1,1 +1,42 @@
-<p>usuario-actualizar works!</p>
+<div class="container">
+  <div class="title-section">
+    <h2>Actualizar Usuario</h2>
+  </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido Paterno</mat-label>
+      <input matInput formControlName="apellidoPaterno" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Apellido Materno</mat-label>
+      <input matInput formControlName="apellidoMaterno" />
+    </mat-form-field>
+
+    <div class="photo-section full-width">
+      <p>Actualizar foto de perfil:</p>
+      <mat-radio-group [(ngModel)]="tieneFoto" (change)="onFotoChange()">
+         <mat-radio-button [value]="true">Sí</mat-radio-button>
+         <mat-radio-button [value]="false">No</mat-radio-button>
+      </mat-radio-group>
+
+      @if (tieneFoto) {
+        <mat-form-field appearance="outline" class="full-width" style="margin-top: 15px;">
+          <mat-label>Nueva URL de foto</mat-label>
+          <input matInput formControlName="fotoPerfil" />
+        </mat-form-field>
+      }
+    </div>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit">Guardar Cambios</button>
+      <button mat-stroked-button type="button" routerLink="/usuario">Cancelar</button>
+    </div>
+  </form>
+</div>

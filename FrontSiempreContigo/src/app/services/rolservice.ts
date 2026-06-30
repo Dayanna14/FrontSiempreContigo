@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environment.development/environment.development'; 
 import { Rol } from '../models/rol';
 import { Subject, Observable } from 'rxjs';
-import { environment } from '../../environment.development/environment.development';
 const base_url = environment.base;
 @Injectable({
   providedIn: 'root',
@@ -13,8 +13,12 @@ export class Rolservice {
     private listaCambio = new Subject<Rol[]>();
     constructor(private http: HttpClient) { }
 
-    list(): Observable<Rol[]> {
+  list(): Observable<Rol[]> {
     return this.http.get<Rol[]>(this.url);
+  }
+
+  listId(id: number): Observable<Rol> {
+    return this.http.get<Rol>(`${this.url}/${id}`);
   }
 
   insert(r: Rol): Observable<Rol> {

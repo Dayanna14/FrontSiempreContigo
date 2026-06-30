@@ -3,6 +3,8 @@
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+  min-height: 100vh;
+  background-color: #F8FAFC;
 }
 
 .login-card {
@@ -33,6 +35,23 @@
   font-size: 32px;
   color: #5A90C5;
   margin: 5px 0 15px 0;
+}
+
+/* Enlace de registro */
+.register-link {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #4A5568;
+}
+
+.register-link a {
+  color: #5A90C5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link a:hover {
+  text-decoration: underline;
 }
 
 .login-form {
@@ -74,7 +93,7 @@ mat-form-field {
 }
 
 .divider span {
-  background: #F8FAFC;
+  background: #FFFFFF;
   padding: 0 15px;
   color: #A0AEC0;
   font-size: 14px;

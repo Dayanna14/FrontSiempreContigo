@@ -36,6 +36,16 @@
     </mat-form-field>
     <br/>
 
+<mat-form-field>
+        <mat-label>Usuario respectivo:</mat-label>
+        <mat-select formControlName="UsuarioN">
+          @for (food of listasUsuario; track food) {
+            <mat-option [value]="food.idUsuario">{{ food.username }}</mat-option> 
+          }
+        </mat-select>
+</mat-form-field>
+
+
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
       Guardar Cita
     </button>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Formulario } from '../../../models/formulario';
+import { FormularioDTO } from '../../../models/formulario'; 
 import { FormularioService } from '../../../services/formulario-service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -24,7 +24,7 @@ import { CommonModule } from '@angular/common';
 export class FormularioActualizar implements OnInit {
 
   form: FormGroup = new FormGroup({});
-  formulario: Formulario = new Formulario(); 
+  formulario: FormularioDTO = new FormularioDTO(); 
   id: number = 0;
 
   constructor(
@@ -40,7 +40,7 @@ export class FormularioActualizar implements OnInit {
       codigo: [''],
       mensaje: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]], // Agregado Validators.email
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      usuarioN: ['',Validators.required]
     });
 
     
@@ -55,7 +55,7 @@ export class FormularioActualizar implements OnInit {
       this.formulario.idFormulario = this.form.value.codigo;
       this.formulario.mensaje = this.form.value.mensaje;
       this.formulario.correo = this.form.value.correo;
-      this.formulario.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
+      this.formulario.idUsuario = this.form.value.usuarioN;
 
       this.fS.update(this.formulario).subscribe({
         next:()=>{
@@ -73,7 +73,7 @@ export class FormularioActualizar implements OnInit {
           codigo: FormEdicion.idFormulario,
           mensaje: FormEdicion.mensaje,
           correo: FormEdicion.correo,
-          idUsuario: FormEdicion.usuario?.idUsuario
+          usuarioN: FormEdicion.idUsuario
         });
       }
     });

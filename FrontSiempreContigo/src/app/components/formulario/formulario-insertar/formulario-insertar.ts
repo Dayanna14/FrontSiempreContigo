@@ -1,43 +1,48 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Formulario } from '../../../models/formulario';
+import { FormularioDTO } from '../../../models/formulario';
 import { FormularioService } from '../../../services/formulario-service';
 import { Router } from '@angular/router'; 
+import {  MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatSelectModule } from '@angular/material/select';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
 
 @Component({
   selector: 'app-formulario-insertar',
-  standalone: true, 
   imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    CommonModule
+    MatIconModule,MatInputModule, MatButtonModule,ReactiveFormsModule, MatDatepickerModule, MatSelectModule, CommonModule, MatFormFieldModule
   ],
   templateUrl: './formulario-insertar.html',
   styleUrl: './formulario-insertar.css',
 })
 export class FormularioInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
-  formulario: Formulario = new Formulario(); 
+  formulario: FormularioDTO = new FormularioDTO(); 
+  listasUsuario: Usuario[] = [];
 
   constructor(
     private fI: FormularioService,
+    private uS: UsuarioService,
     private router: Router,
     private formBuilder: FormBuilder
   ){}
 
   ngOnInit(): void {
+
+    this.uS.list().subscribe((data)=>{
+      this.listasUsuario = data
+    });
     this.form = this.formBuilder.group({
       mensaje: ['', Validators.required],
-      
       correo: ['', [Validators.required, Validators.email]], 
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      usuarioN: ['',Validators.required]
     });
   }
 
@@ -45,7 +50,7 @@ export class FormularioInsertar implements OnInit {
     if(this.form.valid){
       this.formulario.mensaje = this.form.value.mensaje;
       this.formulario.correo = this.form.value.correo;
-      this.formulario.usuario = {idUsuario: parseInt(this.form.value.idUsuario)};
+      this.formulario.idUsuario = this.form.value.usuarioN;
     
       this.fI.insert(this.formulario).subscribe({
         next:()=>{
