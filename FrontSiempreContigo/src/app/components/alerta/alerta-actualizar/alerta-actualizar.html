@@ -1,0 +1,60 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Actualizar Alerta</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      
+      <mat-form-field>
+        <mat-label>ID Alerta:</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Fecha y Hora Alerta</mat-label>
+        <input matInput type="datetime-local" formControlName="fechaHoraAlerta" />
+        @if (form.get('fechaHoraAlerta')?.hasError('required')) {
+          <mat-error>La fecha es requerida.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Fecha y Hora Atendida</mat-label>
+        <input matInput type="datetime-local" formControlName="fechaHoraAtendida" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Estado</mat-label>
+        <mat-select formControlName="estadoAlerta">
+          <mat-option *ngFor="let est of estados" [value]="est">{{ est }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Tipo Alerta</mat-label>
+        <mat-select formControlName="tipoAlerta">
+          <mat-option *ngFor="let tipo of tiposAlerta" [value]="tipo">{{ tipo }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Usuario</mat-label>
+        <input matInput formControlName="idUsuario" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Observación</mat-label>
+        <textarea matInput formControlName="observacion" rows="3"></textarea>
+      </mat-form-field>
+      <br />
+
+      <div>
+        <button mat-raised-button class="btn-submit" type="submit" [disabled]="form.invalid">Actualizar</button>
+      </div>
+    </form>
+  </div>
+</div>

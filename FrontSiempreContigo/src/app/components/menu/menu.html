@@ -1,0 +1,52 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="over" class="custom-sidenav">
+    <div class="sidenav-header">
+      <h3>⚙️ Tablas del Sistema</h3>
+      <button mat-icon-button (click)="sidenav.close()"><mat-icon>close</mat-icon></button>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-nav-list (click)="sidenav.close()">
+      <a mat-list-item routerLink="/roles"><mat-icon matListItemIcon>manage_accounts</mat-icon> Roles</a>
+      <a mat-list-item routerLink="/usuario/lista"><mat-icon matListItemIcon>people</mat-icon> Usuarios</a>
+      <mat-divider></mat-divider>
+      <a mat-list-item routerLink="/alertas"><mat-icon matListItemIcon>notification_important</mat-icon> Alertas</a>
+      <a mat-list-item routerLink="/cita/nuevo"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
+      <a mat-list-item routerLink="/configuracion"><mat-icon matListItemIcon>settings</mat-icon> Configuración</a>
+      <a mat-list-item routerLink="/cursos"><mat-icon matListItemIcon>school</mat-icon> Cursos</a>
+      <a mat-list-item routerLink="/estados-emocionales"><mat-icon matListItemIcon>mood</mat-icon> Estados Emocionales</a>
+      <a mat-list-item routerLink="/formulario"><mat-icon matListItemIcon>description</mat-icon> Formularios</a>
+      <a mat-list-item routerLink="/mensajes-chat"><mat-icon matListItemIcon>forum</mat-icon> Mensajería</a>
+      <a mat-list-item routerLink="/notificaciones"><mat-icon matListItemIcon>notifications</mat-icon> Notificaciones</a>
+      <a mat-list-item routerLink="/perfilProfesional"><mat-icon matListItemIcon>assignment_ind</mat-icon> Perfiles Prof.</a>
+      <a mat-list-item routerLink="/progresoSesion"><mat-icon matListItemIcon>trending_up</mat-icon> Progreso Sesión</a>
+      <a mat-list-item routerLink="/Sesion"><mat-icon matListItemIcon>auto_stories</mat-icon> Sesiones</a>
+      <a mat-list-item routerLink="/usuarioCurso"><mat-icon matListItemIcon>local_library</mat-icon> Inscripciones</a>
+      <a mat-list-item routerLink="/valoracionCurso"><mat-icon matListItemIcon>star</mat-icon> Valoraciones</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+
+
+  <mat-sidenav-content>
+    <mat-toolbar class="custom-toolbar">
+      <div class="left-section">
+        @if (isLoggedIn) {
+          <button mat-icon-button (click)="sidenav.toggle()" class="btn-toggle"><mat-icon>settings</mat-icon></button>
+        }
+        <span class="brand-title" routerLink="/homes">
+          <mat-icon>healing</mat-icon> SiempreContigo
+        </span>
+      </div>
+      <div class="right-section">
+        @if (!isLoggedIn) {
+          <button mat-flat-button class="btn-login-trigger" routerLink="/login/iniciar"><mat-icon>login</mat-icon> Acceder</button>
+        } @else {
+          <button mat-icon-button class="btn-logout" (click)="logout()"><mat-icon>logout</mat-icon></button>
+        }
+      </div>
+    </mat-toolbar>
+    <div class="main-content-wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
