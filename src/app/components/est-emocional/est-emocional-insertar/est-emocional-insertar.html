@@ -1,0 +1,74 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>¿Cómo te sientes hoy? (Registro Diario)</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      
+      <mat-form-field>
+        <mat-label>Fecha y Hora del Registro</mat-label>
+        <input matInput type="datetime-local" formControlName="fechaRegistro" />
+        @if (form.get('fechaRegistro')?.hasError('required')) {
+          <mat-error>La fecha es obligatoria.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Selecciona tu Emoción</mat-label>
+        <mat-select formControlName="tipoEstadoEmocional">
+          <mat-option *ngFor="let emo of emociones" [value]="emo.value">{{ emo.label }}</mat-option>
+        </mat-select>
+        @if (form.get('tipoEstadoEmocional')?.hasError('required')) {
+          <mat-error>Debe elegir una emoción.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Nivel de Bienestar (1 al 5)</mat-label>
+        <mat-select formControlName="nivelBienestar">
+          <mat-option *ngFor="let niv of niveles" [value]="niv">{{ niv }}</mat-option>
+        </mat-select>
+        @if (form.get('nivelBienestar')?.hasError('required')) {
+          <mat-error>El nivel es obligatorio.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Paciente</mat-label>
+        <input matInput formControlName="idUsuario" />
+        @if (form.get('idUsuario')?.hasError('required')) {
+          <mat-error>Requerido.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Profesional Asignado</mat-label>
+        <input matInput formControlName="idPerfilProfesional" />
+        @if (form.get('idPerfilProfesional')?.hasError('required')) {
+          <mat-error>Requerido.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Cuéntanos más (Observaciones)</mat-label>
+        <textarea matInput formControlName="observacion" rows="3"></textarea>
+        <mat-error>
+          @if (form.get('observacion')?.hasError('required')) {
+            <span>La observación es obligatoria.</span>
+          }
+          @if (form.get('observacion')?.hasError('maxlength')) {
+            <span>Máximo 200 caracteres.</span>
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <div>
+        <button mat-raised-button type="submit" [disabled]="form.invalid" class="btn-submit">Confirmar Registro</button>
+      </div>
+    </form>
+  </div>
+</div>
