@@ -1,13 +1,4 @@
-<<<<<<< HEAD
-export interface Cita{
-    idCita: number;
-    idUsuarioEmisor: number;
-    idUsuarioReceptor: number;
-    fechaCita: Date;
-    motivo : string;
-    horaCita: Date;
-    estadoCita: string;
-=======
+
 import { Usuario } from "./usuario";
 
 export class Cita{
@@ -17,5 +8,5 @@ export class Cita{
     horaCita: Date = new Date();
     estadoCita: string = '';
     idUsuario: number = 0;
->>>>>>> origin/develop
+
 }
