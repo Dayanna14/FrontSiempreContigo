@@ -7,10 +7,10 @@
     <mat-divider></mat-divider>
     <mat-nav-list (click)="sidenav.close()">
       <a mat-list-item routerLink="/roles"><mat-icon matListItemIcon>manage_accounts</mat-icon> Roles</a>
-      <a mat-list-item routerLink="/usuario"><mat-icon matListItemIcon>people</mat-icon> Usuarios</a>
+      <a mat-list-item routerLink="/usuario/lista"><mat-icon matListItemIcon>people</mat-icon> Usuarios</a>
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/alertas"><mat-icon matListItemIcon>notification_important</mat-icon> Alertas</a>
-      <a mat-list-item routerLink="/citas"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
+      <a mat-list-item routerLink="/cita/nuevo"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
       <a mat-list-item routerLink="/configuracion"><mat-icon matListItemIcon>settings</mat-icon> Configuración</a>
       <a mat-list-item routerLink="/cursos"><mat-icon matListItemIcon>school</mat-icon> Cursos</a>
       <a mat-list-item routerLink="/estados-emocionales"><mat-icon matListItemIcon>mood</mat-icon> Estados Emocionales</a>
@@ -24,6 +24,8 @@
       <a mat-list-item routerLink="/valoracionCurso"><mat-icon matListItemIcon>star</mat-icon> Valoraciones</a>
     </mat-nav-list>
   </mat-sidenav>
+
+
 
   <mat-sidenav-content>
     <mat-toolbar class="custom-toolbar">
