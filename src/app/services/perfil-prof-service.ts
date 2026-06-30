@@ -31,15 +31,21 @@ export class PerfilProfService {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 
-  buscarPorEspecialidad(especialidad: string) {
-    return this.http.get<any[]>(`${this.url}/buscar`, {
-      params: { especialidad: especialidad }
-    });
+
+listTop10PorUsuario(idUsuario: number) {
+    return this.http.get<PerfilProf[]>(`${this.url}/top10/usuario/${idUsuario}`);
   }
 
-  buscarInformacion(filtro: string) {
-    return this.http.get<any[]>(`${this.url}/Query02`, {
-      params: { filtro: filtro }
-    });
-  }
+
+  //buscarPorEspecialidad(especialidad: string) {
+  //  return this.http.get<any[]>(`${this.url}/buscar`, {
+  //    params: { especialidad: especialidad }
+  //  });
+  //}
+//
+  //buscarInformacion(filtro: string) {
+  //  return this.http.get<any[]>(`${this.url}/Query02`, {
+  //    params: { filtro: filtro }
+  //  });
+  //}
 }

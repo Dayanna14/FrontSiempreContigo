@@ -24,6 +24,15 @@
     </mat-form-field>
     <br/>
 
+    <mat-form-field>
+        <mat-label>Seleccione al usuario:</mat-label>
+        <mat-select formControlName="usuarioN">
+          @for (food of listasUsuario; track food) {
+            <mat-option [value]="food.idUsuario>{{ food.username }}</mat-option>
+          }
+        </mat-select>
+</mat-form-field>
+
     <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
     Guardar Perfil
     </button>

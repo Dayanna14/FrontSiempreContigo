@@ -9,6 +9,7 @@ import { CommonModule } from '@angular/common';
 
 import { PerfilProf } from '../../../models/perfil-prof';
 import { PerfilProfService } from '../../../services/perfil-prof-service';
+import { Usuario } from '../../../models/usuario';
 
 @Component({
   selector: 'app-perfil-prof-insertar',
@@ -27,6 +28,7 @@ export class PerfilProfInsertar implements OnInit {
 
   form: FormGroup = new FormGroup({});
   perfilprof: PerfilProf = new PerfilProf(); 
+  listasUsuario: Usuario[]=[];
 
   constructor(
     private pP: PerfilProfService,
@@ -39,7 +41,7 @@ export class PerfilProfInsertar implements OnInit {
       idPerfilProfesional: [0],
       especialidad: ['', Validators.required],
       biografia: ['', Validators.required],
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      usuarioN : ['', Validators.required]
     });
   }
 
@@ -47,12 +49,12 @@ export class PerfilProfInsertar implements OnInit {
     if (this.form.valid) {
       this.perfilprof.especialidad = this.form.value.especialidad;
       this.perfilprof.biografia = this.form.value.biografia;
-      this.perfilprof.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
+      this.perfilprof.idUsuario = this.form.value.projectN;
       
       this.pP.insert(this.perfilprof).subscribe({
         next: () => {
           
-          this.router.navigate(['/perfilProfesional/nuevo']); 
+          this.router.navigate(['/perfil-prof/nuevo']); 
         }
       });
     }
