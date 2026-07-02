@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { PerfilProf } from '../../../models/perfil-prof';
 import { PerfilProfService } from '../../../services/perfil-prof-service';
 import { Usuario } from '../../../models/usuario';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-perfil-prof-insertar',
@@ -19,7 +20,7 @@ import { Usuario } from '../../../models/usuario';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    CommonModule
+    CommonModule, MatSelectModule, CommonModule
   ],
   templateUrl: './perfil-prof-insertar.html',
   styleUrl: './perfil-prof-insertar.css',

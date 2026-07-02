@@ -60,8 +60,8 @@ import { ValoracionInsertar } from './components/valoracion/valoracion-insertar/
 import { ValoracionListar } from './components/valoracion/valoracion-listar/valoracion-listar';
 import { ValoracionActualizar } from './components/valoracion/valoracion-actualizar/valoracion-actualizar';
 import { ValoracionBuscar } from './components/valoracion/valoracion-buscar/valoracion-buscar';
-import { Login } from './components/login/login';
-import { IniciarSeccion } from './components/login/iniciar-sesion/iniciar-sesion';
+import { Authenticate } from './components/authenticate/authenticate';
+
 
 export const routes: Routes = [
     {
@@ -72,6 +72,10 @@ export const routes: Routes = [
     {
         path: 'homes',
         component: Home
+    },
+    {
+      path:'login',
+      component: Authenticate,
     },
 
     // 1. Alertas
@@ -224,13 +228,5 @@ export const routes: Routes = [
       { path: 'buscar', component: ValoracionBuscar }
     ]
   },
-  {
-    path: 'login',
-    component: Login,
-    children: [
-      { path: '', redirectTo: 'iniciar', pathMatch: 'full' },
-      { path: 'iniciar', component: IniciarSeccion }
-    ]
-  }
 
 ];

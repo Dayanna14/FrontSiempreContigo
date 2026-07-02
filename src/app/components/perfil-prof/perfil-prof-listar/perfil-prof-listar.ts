@@ -3,7 +3,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button'; 
 import { PerfilProf } from '../../../models/perfil-prof'; 
 import { PerfilProfService } from '../../../services/perfil-prof-service';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { UsuarioService } from '../../../services/usuario-service';
 import { Usuario } from '../../../models/usuario';
 
@@ -43,7 +43,7 @@ export class PerfilProfListar implements OnInit {
 }
 
   cargarPerfil(){
-    this.uS.list().subscribe({
+    this.pP.list().subscribe({
       next: (data)=>{
         this.dataSource.data = data;
       },

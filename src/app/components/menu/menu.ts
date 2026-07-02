@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
+import { Loginservice } from '../../services/login-service';
 
 @Component({
   selector: 'app-menu',
@@ -28,9 +29,14 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./menu.css'],
 })
 export class Menucomponent {
+
+role: string='';
+usuario: string ='';
+
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private loginservice: Loginservice
   ) {}
 
   get isLoggedIn(): boolean {
@@ -47,4 +53,22 @@ export class Menucomponent {
     }
     this.router.navigate(['/homes']);
   }
+
+
+  verificar():boolean{
+    const existe = this.loginservice.verificar();
+    if(existe){
+      this.role = this.loginservice.showRole() ?? '';
+    }
+    return existe;
+  }
+
+  isProfesional(){
+    return this.role === 'PROFESIONAL';
+  }
+
+  isPaciente(){
+    return this.role === 'PACIENTE';
+  }
+
 }

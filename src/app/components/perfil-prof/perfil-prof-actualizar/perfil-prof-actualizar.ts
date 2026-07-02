@@ -41,7 +41,8 @@ export class PerfilProfActualizar implements OnInit {
       codigo: [''],
       especialidad: ['', Validators.required],
       biografia: ['', Validators.required],
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      usuarioN : ['', Validators.required]
+      
     });
 
     
@@ -57,7 +58,7 @@ export class PerfilProfActualizar implements OnInit {
         codigo: data.idPerfilProfesional, 
         especialidad: data.especialidad,
         biografia: data.biografia,
-        idUsuario: data.usuario?.idUsuario
+        usuario: data.idUsuario
       });
     });
   }
@@ -67,7 +68,7 @@ export class PerfilProfActualizar implements OnInit {
       this.perfilProf.idPerfilProfesional = this.form.value.codigo;
       this.perfilProf.especialidad = this.form.value.especialidad;
       this.perfilProf.biografia = this.form.value.biografia; 
-      this.perfilProf.usuario = {idUsuario: parseInt(this.form.value.idUsuario)};
+      this.perfilProf.idUsuario = this.form.value.projectN;
 
       this.pP.update(this.perfilProf).subscribe({
         next: ()=>{

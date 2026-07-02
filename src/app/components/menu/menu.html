@@ -9,6 +9,9 @@
       <a mat-list-item routerLink="/roles"><mat-icon matListItemIcon>manage_accounts</mat-icon> Roles</a>
       <a mat-list-item routerLink="/usuario/lista"><mat-icon matListItemIcon>people</mat-icon> Usuarios</a>
       <mat-divider></mat-divider>
+
+
+      
       <a mat-list-item routerLink="/alertas"><mat-icon matListItemIcon>notification_important</mat-icon> Alertas</a>
       <a mat-list-item routerLink="/cita/nuevo"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
       <a mat-list-item routerLink="/configuracion"><mat-icon matListItemIcon>settings</mat-icon> Configuración</a>
@@ -39,7 +42,7 @@
       </div>
       <div class="right-section">
         @if (!isLoggedIn) {
-          <button mat-flat-button class="btn-login-trigger" routerLink="/login/iniciar"><mat-icon>login</mat-icon> Acceder</button>
+          <button mat-flat-button class="btn-login-trigger" routerLink="/login"><mat-icon>login</mat-icon> Acceder</button>
         } @else {
           <button mat-icon-button class="btn-logout" (click)="logout()"><mat-icon>logout</mat-icon></button>
         }
