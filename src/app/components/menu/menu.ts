@@ -7,6 +7,7 @@ import { Router, RouterLink, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+
 import { MatDividerModule } from '@angular/material/divider';
 
 @Component({
@@ -14,6 +15,7 @@ import { MatDividerModule } from '@angular/material/divider';
   standalone: true,
   imports: [
     CommonModule,
+
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -28,23 +30,35 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrls: ['./menu.css'],
 })
 export class Menucomponent {
+>>>>>>> origin/develop
   constructor(
     private router: Router,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
+
+//                       ngOnInit(): void {
+//                         // 🛡️ CONTROL SEGURO: Solo ejecuta localStorage si está en el navegador
+//    Code de dayana             if (isPlatformBrowser(this.platformId)) {
+//                           this.isLoggedIn = !!localStorage.getItem('token');
+//                           this.userRole = localStorage.getItem('role');
+//                }
+//       
   get isLoggedIn(): boolean {
     return isPlatformBrowser(this.platformId) && !!localStorage.getItem('token');
   }
 
   get userRole(): string | null {
     return isPlatformBrowser(this.platformId) ? localStorage.getItem('role') : null;
+
   }
 
   logout(): void {
     if (isPlatformBrowser(this.platformId)) {
       localStorage.clear();
     }
+
     this.router.navigate(['/homes']);
+
   }
 }

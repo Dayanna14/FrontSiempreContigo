@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { AlertaService } from '../../../services/alerta-service';
 import { Router } from '@angular/router';
 import { Alerta } from '../../../models/alerta';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alerta-insertar',
@@ -23,42 +26,61 @@ import { Alerta } from '../../../models/alerta';
 })
 export class AlertaInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
-  alerta: Alerta = new Alerta();
-  
-  estados: string[] = ['Crítico', 'Moderado', 'Atendido', 'Pendiente'];
-  tiposAlerta: string[] = ['Emocional', 'Física', 'Pánico', 'Sistema'];
+  alertaObj: Alerta = new Alerta();
+  listaUsuarios: Usuario[] = [];
+
+  // Tipos predefinidos para simplificar la selección en la alerta
+  tiposAlerta: string[] = ['S.O.S', 'Médica', 'Emocional', 'Seguimiento', 'Otro'];
 
   constructor(
+    private formBuilder: FormBuilder,
     private aS: AlertaService,
+    private uS: UsuarioService, 
     private router: Router,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      fechaHora: ['', Validators.required],
-      fechaHoraAtendida: [''],
-      estado: ['', Validators.required],
-      tipo: ['', Validators.required],
-      observacion: ['', [Validators.required, Validators.maxLength(500)]],
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      estadoAlerta: ['PENDIENTE', [Validators.required, Validators.maxLength(50)]], // Por defecto inicia pendiente
+      observacion: ['', [Validators.required]],
+      tipoAlerta: ['', [Validators.required, Validators.maxLength(50)]],
+      usuarioId: ['', Validators.required] 
+    });
+
+    this.uS.list().subscribe(data => {
+      this.listaUsuarios = data;
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.alerta.fechaHoraAlerta = this.form.value.fechaHoraAlerta;
-      this.alerta.fechaHoraAtendida = this.form.value.fechaHoraAtendida || null;
-      this.alerta.estadoAlerta = this.form.value.estadoAlerta;
-      this.alerta.tipoAlerta = this.form.value.tipoAlerta;
-      this.alerta.observacion = this.form.value.observacion;
-      this.alerta.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
+      // Seteamos la fecha-hora actual del sistema de forma automática para fechaHoraAlerta
+      this.alertaObj.fechaHoraAlerta = new Date();
+      this.alertaObj.fechaHoraAtendida = null; // Al ser nueva, aún no se atiende
 
-      this.aS.insert(this.alerta).subscribe({
+      this.alertaObj.estadoAlerta = this.form.value.estadoAlerta;
+      this.alertaObj.observacion = this.form.value.observacion;
+      this.alertaObj.tipoAlerta = this.form.value.tipoAlerta;
+
+      // Solución limpia al error TS2740 asignando correctamente la instancia
+      let u = new Usuario();
+      u.idUsuario = this.form.value.usuarioId;
+      this.alertaObj.usuario = u; 
+
+      this.aS.insert(this.alertaObj).subscribe({
         next: () => {
-          this.router.navigate(['/alertas/lista']);
+          this.snackBar.open('Alerta registrada correctamente', 'Cerrar', { duration: 3000 });
+          // Avisamos a la tabla para que se actualice dinámicamente
+          this.aS.list().subscribe(data => this.aS.setList(data)); 
+          this.router.navigate(['/alertas']); // Asegúrate de que coincida con tu ruta en app.routes
+        },
+        error: () => {
+          this.snackBar.open('Error al registrar la alerta', 'Cerrar', { duration: 3000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

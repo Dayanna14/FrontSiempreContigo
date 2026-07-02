@@ -3,8 +3,11 @@
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+<<<<<<< HEAD
+=======
   min-height: 100vh;
   background-color: #F8FAFC;
+>>>>>>> origin/develop
 }
 
 .login-card {
@@ -37,6 +40,8 @@
   margin: 5px 0 15px 0;
 }
 
+<<<<<<< HEAD
+=======
 /* Enlace de registro */
 .register-link {
   margin-top: 15px;
@@ -54,6 +59,7 @@
   text-decoration: underline;
 }
 
+>>>>>>> origin/develop
 .login-form {
   display: flex;
   flex-direction: column;
@@ -93,7 +99,11 @@ mat-form-field {
 }
 
 .divider span {
+<<<<<<< HEAD
+  background: #F8FAFC;
+=======
   background: #FFFFFF;
+>>>>>>> origin/develop
   padding: 0 15px;
   color: #A0AEC0;
   font-size: 14px;

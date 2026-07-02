@@ -11,3 +11,4 @@ import { CitaListar } from './cita-listar/cita-listar';
 export class Cita {
   constructor(public route: ActivatedRoute){}
 }
+

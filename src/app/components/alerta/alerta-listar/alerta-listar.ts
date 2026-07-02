@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { Alerta } from '../../../models/alerta';
 import { AlertaService } from '../../../services/alerta-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-alerta-listar',
@@ -17,33 +18,34 @@ import { AlertaService } from '../../../services/alerta-service';
 })
 export class AlertaListar implements OnInit {
   dataSource: MatTableDataSource<Alerta> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'];
+  displayedColumns: string[] = ['id', 'fechaAlerta', 'fechaAtendida', 'estado', 'observacion', 'tipo', 'usuario', 'acciones'];
 
-  constructor(private aS: AlertaService, private router: Router) {}
+  constructor(private aS: AlertaService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.cargarAlertas();
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.cargarAlertas();
-      }
+    // Escucha los cambios reactivos del Subject
+    this.aS.getList().subscribe(data => {
+      this.dataSource.data = this.procesarDatos(data);
     });
+    // Primera carga al abrir el componente
+    this.aS.list().subscribe(data => this.aS.setList(data));
   }
 
-  cargarAlertas() {
-    this.aS.list().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-    });
+  procesarDatos(data: Alerta[]): Alerta[] {
+    return data
+      .sort((a, b) => b.idAlerta - a.idAlerta) // Ordena de la más reciente a la más antigua
+      .map(alerta => ({
+        ...alerta,
+        // Capitalizamos el estado por estética (ej: "PENDIENTE" -> "Pendiente")
+        estadoAlerta: alerta.estadoAlerta ? alerta.estadoAlerta.charAt(0).toUpperCase() + alerta.estadoAlerta.slice(1).toLowerCase() : ''
+      }));
   }
 
   eliminar(id: number) {
     this.aS.delete(id).subscribe(() => {
-      this.aS.list().subscribe((data) => {
-        this.dataSource.data = data;
-      });
+      this.snackBar.open('Alerta eliminada correctamente', 'Cerrar', { duration: 3000 });
+      // Refrescamos la lista
+      this.aS.list().subscribe(data => this.aS.setList(data));
     });
   }
 }

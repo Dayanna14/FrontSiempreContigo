@@ -1,74 +1,62 @@
 <div class="container">
-  <div style="text-align: center; margin: 2%"><h2>¿Cómo te sientes hoy? (Registro Diario)</h2></div>
-  <div style="text-align: center; margin: 3%">
-    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
-      
-      <mat-form-field>
-        <mat-label>Fecha y Hora del Registro</mat-label>
-        <input matInput type="datetime-local" formControlName="fechaRegistro" />
-        @if (form.get('fechaRegistro')?.hasError('required')) {
-          <mat-error>La fecha es obligatoria.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Selecciona tu Emoción</mat-label>
-        <mat-select formControlName="tipoEstadoEmocional">
-          <mat-option *ngFor="let emo of emociones" [value]="emo.value">{{ emo.label }}</mat-option>
-        </mat-select>
-        @if (form.get('tipoEstadoEmocional')?.hasError('required')) {
-          <mat-error>Debe elegir una emoción.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Nivel de Bienestar (1 al 5)</mat-label>
-        <mat-select formControlName="nivelBienestar">
-          <mat-option *ngFor="let niv of niveles" [value]="niv">{{ niv }}</mat-option>
-        </mat-select>
-        @if (form.get('nivelBienestar')?.hasError('required')) {
-          <mat-error>El nivel es obligatorio.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>ID Paciente</mat-label>
-        <input matInput formControlName="idUsuario" />
-        @if (form.get('idUsuario')?.hasError('required')) {
-          <mat-error>Requerido.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>ID Profesional Asignado</mat-label>
-        <input matInput formControlName="idPerfilProfesional" />
-        @if (form.get('idPerfilProfesional')?.hasError('required')) {
-          <mat-error>Requerido.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Cuéntanos más (Observaciones)</mat-label>
-        <textarea matInput formControlName="observacion" rows="3"></textarea>
-        <mat-error>
-          @if (form.get('observacion')?.hasError('required')) {
-            <span>La observación es obligatoria.</span>
-          }
-          @if (form.get('observacion')?.hasError('maxlength')) {
-            <span>Máximo 200 caracteres.</span>
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <div>
-        <button mat-raised-button type="submit" [disabled]="form.invalid" class="btn-submit">Confirmar Registro</button>
-      </div>
-    </form>
+  <div class="title-section">
+    <h2>Registrar Estado Emocional</h2>
   </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nivel de Bienestar (1 al 10)</mat-label>
+      <input matInput type="number" formControlName="nivelBienestar" min="1" max="10" placeholder="Ej. 8" />
+      <mat-error *ngIf="form.get('nivelBienestar').hasError('required')">El nivel de bienestar es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('nivelBienestar').hasError('min')">Mínimo es 1</mat-error>
+      <mat-error *ngIf="form.get('nivelBienestar').hasError('max')">Máximo es 10</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado de Ánimo Actual</mat-label>
+      <mat-select formControlName="tipoEstadoEmocional">
+        @for (tipo of tiposEmocionales; track tipo) {
+          <mat-option [value]="tipo">{{ tipo }}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('tipoEstadoEmocional').hasError('required')">Debe seleccionar un estado de ánimo</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Observación / ¿Cómo te sientes?</mat-label>
+      <textarea matInput formControlName="observacion" rows="3" placeholder="Escribe aquí tus pensamientos o síntomas..."></textarea>
+      <mat-error *ngIf="form.get('observacion').hasError('required')">La observación es obligatoria</mat-error>
+      <mat-error *ngIf="form.get('observacion').hasError('maxlength')">Máximo 200 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Paciente / Usuario</mat-label>
+      <mat-select formControlName="usuarioId">
+        @for (u of listaUsuarios; track u.idUsuario) {
+          <mat-option [value]="u.idUsuario">
+            {{ u.username }} - DNI: {{ u.dni }}
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('usuarioId').hasError('required')">Debe seleccionar un paciente</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Especialista / Profesional Asignado</mat-label>
+      <mat-select formControlName="perfilProfesionalId">
+        @for (p of listaProfesionales; track p.idPerfilProfesional) {
+          <mat-option [value]="p.idPerfilProfesional">
+            {{ p.usuario?.apellidoPaterno || 'Sin Nombre' }} - Especialidad: {{ p.especialidad }}
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('perfilProfesionalId').hasError('required')">Debe asignar un especialista</mat-error>
+    </mat-form-field>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar Registro</button>
+      <button mat-stroked-button type="button" routerLink="/est-emocional/lista">Cancelar</button>
+    </div>
+  </form>
 </div>

@@ -1,17 +1,21 @@
 import { Injectable } from '@angular/core';
+
 import { HttpClient } from '@angular/common/http';
 import { Usuario } from '../models/usuario';
 import { Observable, Subject } from 'rxjs';
 import { environment } from '../environment/environment.development';
 const base_url = environment.base;
 
+
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
   private url = `${base_url}/usuario`;
+
   
   private listaCambio = new Subject<Usuario[]>(); 
+
 
   constructor(private http: HttpClient) {}
 
@@ -35,6 +39,7 @@ export class UsuarioService {
     return this.http.delete(`${this.url}/usuario/${id}`, { responseType: 'text' });
   }
 
+
   setList(listaNueva: Usuario[]) {
     this.listaCambio.next(listaNueva);
   }
@@ -43,3 +48,4 @@ export class UsuarioService {
     return this.listaCambio.asObservable();
   }
 }
+

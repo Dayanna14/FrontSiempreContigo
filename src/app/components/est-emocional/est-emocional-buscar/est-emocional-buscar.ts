@@ -4,9 +4,11 @@ import { CommonModule } from '@angular/common';
 import { MatSelectModule } from '@angular/material/select';
 import { switchMap } from 'rxjs';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EstadoEmocional } from '../../../models/estado-emocional';
 import { EstadoEmocionalservice } from '../../../services/estado-emocionalservice';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
 
 @Component({
   selector: 'app-est-emocional-buscar',
@@ -14,40 +16,43 @@ import { EstadoEmocionalservice } from '../../../services/estado-emocionalservic
     CommonModule, 
     MatIconModule, 
     ReactiveFormsModule, 
-    MatSelectModule],
+    MatSelectModule, 
+    FormsModule],
   templateUrl: './est-emocional-buscar.html',
   styleUrl: './est-emocional-buscar.css',
 })
 export class EstEmocionalBuscar implements OnInit {
   dataSource: MatTableDataSource<EstadoEmocional> = new MatTableDataSource();
   displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5'];
-  form: FormGroup;
+  
+  listaUsuarios: Usuario[] = [];
+  usuarioSeleccionadoId!: number;
 
-  constructor(private eeS: EstadoEmocionalservice, private fb: FormBuilder) {
-    this.form = this.fb.group({
-      pacienteId: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-    });
-  }
+  constructor(
+    private eeS: EstadoEmocionalservice,
+    private uS: UsuarioService
+  ) { }
 
   ngOnInit(): void {
-    // Inicialmente carga todo el historial base
-    this.eeS.list().subscribe({
+    // Cargamos los usuarios disponibles para el filtro de selección
+    this.uS.list().subscribe({
       next: (data) => {
-        this.dataSource.data = data;
-      },
+        this.listaUsuarios = data;
+      }
     });
   }
 
-  buscar() {
-    if (this.form.valid) {
-      const id = this.form.value.pacienteId;
-      this.eeS.buscarHistorialPorPaciente(id).subscribe((data) => {
-        this.dataSource.data = data;
-      });
-    } else {
-      this.eeS.list().subscribe((data) => {
-        this.dataSource.data = data;
-      });
+  filtrarPorPaciente() {
+    if (!this.usuarioSeleccionadoId) {
+      this.dataSource.data = [];
+      return;
     }
+
+    // Consumimos el endpoint US007 del backend por ID de paciente
+    this.eeS.buscarHistorial(this.usuarioSeleccionadoId).subscribe({
+      next: (data) => {
+        this.dataSource.data = data.sort((a, b) => b.idEstadoEmocional - a.idEstadoEmocional);
+      }
+    });
   }
 }

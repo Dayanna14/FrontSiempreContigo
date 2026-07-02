@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+
 import { FormularioListar } from './formulario-listar/formulario-listar';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 

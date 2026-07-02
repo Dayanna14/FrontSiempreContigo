@@ -5,6 +5,7 @@ import { AlertaActualizar } from './components/alerta/alerta-actualizar/alerta-a
 import { AlertaBuscar } from './components/alerta/alerta-buscar/alerta-buscar';
 import { CitaInsertar } from './components/cita/cita-insertar/cita-insertar';
 import { CitaListar } from './components/cita/cita-listar/cita-listar';
+import { CitaActualizar } from './components/cita/cita-actualizar/cita-actualizar';
 import { CitaBuscar } from './components/cita/cita-buscar/cita-buscar';
 import { ConfigAppInsertar } from './components/config-app/config-app-insertar/config-app-insertar';
 import { ConfigAppListar } from './components/config-app/config-app-listar/config-app-listar';
@@ -52,16 +53,9 @@ import { ValoracionListar } from './components/valoracion/valoracion-listar/valo
 import { ValoracionActualizar } from './components/valoracion/valoracion-actualizar/valoracion-actualizar';
 import { ValoracionBuscar } from './components/valoracion/valoracion-buscar/valoracion-buscar';
 import { Login } from './components/login/login';
-import { IniciarSeccion } from './components/login/iniciar-sesion/iniciar-sesion';
-import { Home } from './components/home/home';
-import { Usuariocomponent } from './components/usuario/usuario';
-import { Rolcomponent } from './components/rol/rol';
-import { RolListar } from './components/rol/rol-listar/rol-listar';
-import { RolInsertar } from './components/rol/rol-insertar/rol-insertar';
-import { PerfilProf } from './components/perfil-prof/perfil-prof';
-import { PerfilProfListar } from './components/perfil-prof/perfil-prof-listar/perfil-prof-listar';
-import { PerfilProfInsertar } from './components/perfil-prof/perfil-prof-insertar/perfil-prof-insertar';
-import { PerfilProfActualizar } from './components/perfil-prof/perfil-prof-actualizar/perfil-prof-actualizar';
+
+import { IniciarSesion } from './components/login/iniciar-sesion/iniciar-sesion';
+
 
 export const routes: Routes = [
   { path: '', redirectTo: 'homes', pathMatch: 'full' },
@@ -79,8 +73,10 @@ export const routes: Routes = [
     ]
   },
   // 2. Citas
+
   {  
-    path: 'citas',
+
+    path: 'cita',
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: CitaInsertar },
@@ -234,7 +230,8 @@ export const routes: Routes = [
     component: Login,
     children: [
       { path: '', redirectTo: 'iniciar', pathMatch: 'full' },
-      { path: 'iniciar', component: IniciarSeccion }
+
+      { path: 'iniciar', component: IniciarSesion }
     ]
   }
 ];

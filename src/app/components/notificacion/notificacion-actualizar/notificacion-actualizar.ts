@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Notificacion } from '../../../models/notificacion';
 import { NotificacionService } from '../../../services/notificacion-service';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-notificacion-actualizar',
   imports: [MatSelectModule,
@@ -22,62 +25,75 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class NotificacionActualizar implements OnInit {
   form: FormGroup = new FormGroup({});
-  notif: Notificacion = new Notificacion();
-  id: number = 0;
+  notificacionObj: Notificacion = new Notificacion();
+  listaUsuarios: Usuario[] = [];
+  idNotificacionSeleccionada: number = 0;
+
+  tiposNotificaciones: string[] = ['Alerta', 'Cita', 'Sistema', 'Recordatorio', 'Mensajería'];
 
   constructor(
-    private nS: NotificacionService,
-    private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private nS: NotificacionService,
+    private uS: UsuarioService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.initForm();
+    this.form = this.formBuilder.group({
+      mensaje: ['', [Validators.required, Validators.maxLength(250)]],
+      tipoNotificacion: ['', Validators.required],
+      usuarioId: ['', Validators.required]
     });
 
-    this.form = this.formBuilder.group({
-      codigo: [''],
-      mensaje: ['', [Validators.required, Validators.maxLength(255)]],
-      fechaNotificacion: ['', Validators.required],
-      leido: [false, Validators.required],
-      activo: [true, Validators.required],
-      idUsuario: ['', Validators.required]
+    // Cargar catálogo de usuarios destinatarios
+    this.uS.list().subscribe(data => this.listaUsuarios = data);
+
+    // Capturar el ID de la URL de forma segura y rellenar el formulario
+    this.route.params.subscribe(params => {
+      this.idNotificacionSeleccionada = +params['id'];
+      
+      if (this.idNotificacionSeleccionada && !isNaN(this.idNotificacionSeleccionada)) {
+        // Buscamos la lista completa para extraer el registro a modificar
+        this.nS.list().subscribe(lista => {
+          const encontrado = lista.find(n => n.idNotificacion === this.idNotificacionSeleccionada);
+          if (encontrado) {
+            this.notificacionObj = encontrado; // Guardamos copia original
+            this.form.patchValue({
+              mensaje: encontrado.mensaje,
+              tipoNotificacion: encontrado.tipoNotificacion.charAt(0).toUpperCase() + encontrado.tipoNotificacion.slice(1).toLowerCase(),
+              usuarioId: encontrado.usuario?.idUsuario
+            });
+          }
+        });
+      }
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.notif.idNotificacion = this.form.value.codigo;
-      this.notif.mensaje = this.form.value.mensaje;
-      this.notif.fechaNotificacion = this.form.value.fechaNotificacion;
-      this.notif.leido = this.form.value.leido;
-      this.notif.activo = this.form.value.activo;
-      this.notif.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
+      this.notificacionObj.idNotificacion = this.idNotificacionSeleccionada;
+      this.notificacionObj.mensaje = this.form.value.mensaje;
+      this.notificacionObj.tipoNotificacion = this.form.value.tipoNotificacion.toUpperCase();
 
-      this.nS.update(this.notif).subscribe({
+      let u = new Usuario();
+      u.idUsuario = this.form.value.usuarioId;
+      this.notificacionObj.usuario = u;
+
+      // Invoca al endpoint /Modificar mediante el servicio
+      this.nS.update(this.notificacionObj).subscribe({
         next: () => {
+          this.snackBar.open('Notificación actualizada con éxito', 'Cerrar', { duration: 3000 });
+          this.nS.list().subscribe(data => this.nS.setList(data));
           this.router.navigate(['/notificacion/lista']);
+        },
+        error: () => {
+          this.snackBar.open('Error al modificar la notificación', 'Cerrar', { duration: 3000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
-  }
-
-  initForm() {
-    this.nS.list().subscribe((data) => {
-      const actual = data.find(x => x.idNotificacion == this.id);
-      if (actual) {
-        this.form.patchValue({
-          codigo: actual.idNotificacion,
-          mensaje: actual.mensaje,
-          fechaNotificacion: actual.fechaNotificacion,
-          leido: actual.leido,
-          activo: actual.activo,
-          idUsuario: actual.usuario?.idUsuario
-        });
-      }
-    });
   }
 }

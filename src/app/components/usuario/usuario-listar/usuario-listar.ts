@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-usuario-listar',
+  imports: [],
+  templateUrl: './usuario-listar.html',
+  styleUrl: './usuario-listar.css',
+})
+export class UsuarioListar {}
+=======
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
@@ -44,3 +55,4 @@ export class UsuarioListar implements OnInit {
     });
   }
 }
+>>>>>>> origin/develop

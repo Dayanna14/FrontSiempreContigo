@@ -1,4 +1,14 @@
 import { Component } from '@angular/core';
+<<<<<<< HEAD
+
+@Component({
+  selector: 'app-usuario',
+  imports: [],
+  templateUrl: './usuario.html',
+  styleUrl: './usuario.css',
+})
+export class Usuario {}
+=======
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -9,3 +19,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './usuario.css',
 })
 export class Usuariocomponent {}
+>>>>>>> origin/develop

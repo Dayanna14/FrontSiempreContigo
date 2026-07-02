@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-usuario-insertar',
+  imports: [],
+  templateUrl: './usuario-insertar.html',
+  styleUrl: './usuario-insertar.css',
+})
+export class UsuarioInsertar {}
+=======
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -92,3 +103,4 @@ export class UsuarioInsertar implements OnInit {
     }
   }
 }
+>>>>>>> origin/develop

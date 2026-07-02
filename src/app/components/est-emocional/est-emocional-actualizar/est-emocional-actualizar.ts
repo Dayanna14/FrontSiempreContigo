@@ -8,6 +8,11 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { EstadoEmocional } from '../../../models/estado-emocional';
 import { EstadoEmocionalservice } from '../../../services/estado-emocionalservice';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Usuario } from '../../../models/usuario';
+import { PerfilProf } from '../../../models/perfil-prof';
+import { UsuarioService } from '../../../services/usuario-service';
+import { PerfilProfService } from '../../../services/perfil-prof-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-est-emocional-actualizar',
@@ -23,71 +28,82 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 })
 export class EstEmocionalActualizar implements OnInit {
   form: FormGroup = new FormGroup({});
-  reg: EstadoEmocional = new EstadoEmocional();
-  id: number = 0;
+  estEmocionalObj: EstadoEmocional = new EstadoEmocional();
+  listaUsuarios: Usuario[] = [];
+  listaProfesionales: PerfilProf[] = [];
+  idEstadoSeleccionado: number = 0;
 
-  emociones = [
-    { value: 'Feliz', label: 'Feliz 😊' },
-    { value: 'Triste', label: 'Triste 😢' },
-    { value: 'Ansioso', label: 'Ansioso 😰' },
-    { value: 'Motivado', label: 'Motivado 💪' },
-    { value: 'Solo', label: 'Solo 😔' }
-  ];
-  niveles = [1, 2, 3, 4, 5];
+  tiposEmocionales: string[] = ['Alegre', 'Triste', 'Ansioso', 'Estresado', 'Enojado', 'Calmado', 'Neutro'];
 
   constructor(
-    private eeS: EstadoEmocionalservice,
-    private router: Router,
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute
+    private eeS: EstadoEmocionalservice,
+    private uS: UsuarioService,
+    private pS: PerfilProfService,
+    private router: Router,
+    private route: ActivatedRoute, 
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
-      this.id = params['id'];
-      this.initForm();
+    this.form = this.formBuilder.group({
+      nivelBienestar: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      tipoEstadoEmocional: ['', [Validators.required, Validators.maxLength(30)]],
+      observacion: ['', [Validators.required, Validators.maxLength(200)]],
+      usuarioId: ['', Validators.required],
+      perfilProfesionalId: ['', Validators.required]
     });
 
-    this.form = this.formBuilder.group({
-      codigo: [''],
-      fechaRegistro: ['', Validators.required],
-      nivelBienestar: ['', Validators.required],
-      tipoEstadoEmocional: ['', Validators.required],
-      observacion: ['', [Validators.required, Validators.maxLength(200)]],
-      idUsuario: ['', Validators.required],
-      idPerfilProfesional: ['', Validators.required]
+    // Cargar Catálogos/Listas de llaves foráneas
+    this.uS.list().subscribe(data => this.listaUsuarios = data);
+    this.pS.list().subscribe(data => this.listaProfesionales = data);
+
+    // Capturar ID de la ruta activa y recuperar el registro de la base de datos
+    this.route.params.subscribe(params => {
+      this.idEstadoSeleccionado = params['id'];
+      
+      if (this.idEstadoSeleccionado) {
+        this.eeS.listId(this.idEstadoSeleccionado).subscribe(data => {
+          this.estEmocionalObj = data; // Respaldamos el objeto original con su fechaRegistro original
+          this.form.patchValue({
+            nivelBienestar: data.nivelBienestar,
+            tipoEstadoEmocional: data.tipoEstadoEmocional,
+            observacion: data.observacion,
+            usuarioId: data.usuario?.idUsuario,
+            perfilProfesionalId: data.perfilProfesional?.idPerfilProfesional
+          });
+        });
+      }
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.reg.idEstadoEmocional = this.form.value.codigo;
-      this.reg.fechaRegistro = this.form.value.fechaRegistro;
-      this.reg.nivelBienestar = parseInt(this.form.value.nivelBienestar);
-      this.reg.tipoEstadoEmocional = this.form.value.tipoEstadoEmocional;
-      this.reg.observacion = this.form.value.observacion;
-      this.reg.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
-      this.reg.perfilProfesional = { idPerfilProfesional: parseInt(this.form.value.idPerfilProfesional) };
+      this.estEmocionalObj.idEstadoEmocional = this.idEstadoSeleccionado;
+      this.estEmocionalObj.nivelBienestar = parseInt(this.form.value.nivelBienestar);
+      this.estEmocionalObj.tipoEstadoEmocional = this.form.value.tipoEstadoEmocional;
+      this.estEmocionalObj.observacion = this.form.value.observacion;
 
-      this.eeS.update(this.reg).subscribe({
+      let u = new Usuario();
+      u.idUsuario = this.form.value.usuarioId;
+      this.estEmocionalObj.usuario = u;
+
+      let p = new PerfilProf();
+      p.idPerfilProfesional = this.form.value.perfilProfesionalId;
+      this.estEmocionalObj.perfilProfesional = p;
+
+      this.eeS.update(this.estEmocionalObj).subscribe({
         next: () => {
+          this.snackBar.open('Registro emocional actualizado con éxito', 'Cerrar', { duration: 3000 });
+          this.eeS.list().subscribe(data => this.eeS.setList(data)); 
           this.router.navigate(['/est-emocional/lista']);
+        },
+        error: () => {
+          this.snackBar.open('Error al actualizar el registro emocional', 'Cerrar', { duration: 3000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
-  }
-
-  initForm() {
-    this.eeS.listId(this.id).subscribe((data) => {
-      this.form.patchValue({
-        codigo: data.idEstadoEmocional,
-        fechaRegistro: data.fechaRegistro,
-        nivelBienestar: data.nivelBienestar,
-        tipoEstadoEmocional: data.tipoEstadoEmocional,
-        observacion: data.observacion,
-        idUsuario: data.usuario?.idUsuario,
-        idPerfilProfesional: data.perfilProfesional?.idPerfilProfesional
-      });
-    });
   }
 }

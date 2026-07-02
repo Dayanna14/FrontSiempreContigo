@@ -1,26 +1,38 @@
-mat-form-field {
-  width: 60%;
-  margin-bottom: 10px;
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-.radio-group-container {
-  margin: 10px 0;
-  text-align: left;
-  display: inline-block;
-  width: 60%;
+
+.title-section {
+  text-align: center;
+  margin-bottom: 25px;
 }
-.radio-label {
-  display: block;
+
+h2 {
+  color: #1e293b;
+  font-family: Roboto, sans-serif;
   font-weight: 500;
-  margin-bottom: 5px;
-  color: #555;
+  margin: 0;
 }
-mat-radio-button {
-  margin-right: 15px;
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
-.btn-submit {
-  background-color: rgb(251, 75, 0);
-  color: white;
-  padding: 0.5rem 1.25rem;
-  font-size: 1.1rem;
-  width: 60%;
+
+.full-width {
+  width: 100%;
+}
+
+.botones-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: center;
 }

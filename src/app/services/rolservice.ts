@@ -13,6 +13,7 @@ export class Rolservice {
     private listaCambio = new Subject<Rol[]>();
     constructor(private http: HttpClient) { }
 
+
   list(): Observable<Rol[]> {
     return this.http.get<Rol[]>(this.url);
   }

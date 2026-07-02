@@ -1,48 +1,38 @@
-/* Centrado y ancho del formulario minimalista */
-.example-form {
+.container {
+  width: 90%;
+  max-width: 600px;
+  margin: 30px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.title-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+h2 {
+  color: #1e293b;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+.form-grid {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
+  gap: 15px;
+}
+
+.full-width {
   width: 100%;
 }
 
-mat-form-field {
-  width: 70%;
-  max-width: 600px;
-}
-
-/* Inputs y Selectores más grandes para facilitar clics */
-::ng-deep .mat-mdc-form-field-infix {
-  min-height: 52px !important;
-  font-size: 18px !important;
-}
-
-/* Botones Grandes del Manual (Mínimo 44x44px, Bordes 20px, Azul) */
-button[type='submit'], .btn-submit {
-  background-color: #5A90C5 !important; /* Azul principal */
-  color: #FFFFFF !important;
-  font-size: 20px !important; /* Texto grande */
-  font-weight: 600;
-  padding: 12px 24px !important;
-  min-height: 50px !important; /* > 44px */
-  border-radius: 25px !important; /* Redondeado 20px+ */
-  border: none;
-  width: 70%;
-  max-width: 600px;
-  cursor: pointer;
-  box-shadow: 0 4px 15px rgba(90, 144, 197, 0.3);
-  transition: all 0.3s ease;
-}
-
-button[type='submit']:hover:not([disabled]), .btn-submit:hover:not([disabled]) {
-  background-color: #4A7BB0 !important;
-  transform: translateY(-2px);
-}
-
-button[disabled] {
-  background-color: #E2E8F0 !important;
-  color: #94A3B8 !important;
-  box-shadow: none;
-  cursor: not-allowed;
+.botones-container {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: center;
 }

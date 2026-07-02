@@ -1,3 +1,4 @@
+
 import { Usuario } from "./usuario";
 
 export class Cita{
@@ -7,4 +8,5 @@ export class Cita{
     horaCita: Date = new Date();
     estadoCita: string = '';
     idUsuario: number = 0;
+
 }

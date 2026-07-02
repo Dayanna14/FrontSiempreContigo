@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormularioDTO } from '../../../models/formulario';
 import { FormularioService } from '../../../services/formulario-service';
@@ -64,3 +65,4 @@ this.cargarFormulario();
   }
 
 }
+

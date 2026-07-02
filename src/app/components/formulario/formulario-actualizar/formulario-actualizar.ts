@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FormularioDTO } from '../../../models/formulario'; 
@@ -79,3 +80,4 @@ export class FormularioActualizar implements OnInit {
     });
   }
 }
+

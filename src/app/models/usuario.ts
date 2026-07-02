@@ -1,4 +1,5 @@
 export class Usuario {
+
   idUsuario: number = 0;
   tokenUnico: string = '';
   username: string = '';
@@ -14,3 +15,4 @@ export class Usuario {
   fotoPerfil: string = '';
   idRol: number = 0; 
 }
+

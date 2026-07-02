@@ -1,8 +1,17 @@
 .container {
-  width: 90%;
-  margin: 0 auto;
+  width: 95%;
+  max-width: 1200px;
+  margin: 30px auto;
 }
 
 table {
   width: 100%;
+}
+
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 10px 15px;
+}
+
+mat-radio-button {
+  margin: 0 10px;
 }

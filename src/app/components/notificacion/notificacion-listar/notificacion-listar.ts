@@ -11,6 +11,7 @@ import { NotificacionService } from '../../../services/notificacion-service';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-notificacion-listar',
   imports: [MatTableModule, 
@@ -22,31 +23,28 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class NotificacionListar  implements OnInit {
   dataSource: MatTableDataSource<Notificacion> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8'];
+  displayedColumns: string[] = ['id', 'mensaje', 'fecha', 'tipo', 'usuario', 'acciones'];
 
-  constructor(private nS: NotificacionService, private router: Router) {}
+  constructor(
+    private nS: NotificacionService, 
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
-    this.cargarNotificaciones();
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.cargarNotificaciones();
-      }
+    // Escuchar el estado reactivo del Subject
+    this.nS.getList().subscribe(data => {
+      this.dataSource.data = data.sort((a, b) => b.idNotificacion - a.idNotificacion);
     });
-  }
 
-  cargarNotificaciones() {
-    this.nS.list().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-    });
+    // Primera carga inicial del listado general
+    this.nS.list().subscribe(data => this.nS.setList(data));
   }
 
   eliminar(id: number) {
     this.nS.delete(id).subscribe(() => {
-      this.cargarNotificaciones();
+      this.snackBar.open('Notificación eliminada correctamente', 'Cerrar', { duration: 3000 });
+      // Refrescar reactivamente
+      this.nS.list().subscribe(data => this.nS.setList(data));
     });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,6 +8,9 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Notificacion } from '../../../models/notificacion';
 import { NotificacionService } from '../../../services/notificacion-service';
 import { Router } from '@angular/router';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -23,38 +26,60 @@ import { Router } from '@angular/router';
   styleUrl: './notificacion-insertar.css',
 })
 export class NotificacionInsertar implements OnInit {
-  form: FormGroup = new FormGroup({});
-  notif: Notificacion = new Notificacion();
+ form: FormGroup = new FormGroup({});
+  notificacionObj: Notificacion = new Notificacion();
+  listaUsuarios: Usuario[] = [];
+
+  // Categorías estéticas para el tipo de alerta/aviso
+  tiposNotificaciones: string[] = ['Alerta', 'Cita', 'Sistema', 'Recordatorio', 'Mensajería'];
 
   constructor(
+    private formBuilder: FormBuilder,
     private nS: NotificacionService,
+    private uS: UsuarioService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      mensaje: ['', [Validators.required, Validators.maxLength(255)]],
-      fechaNotificacion: ['', Validators.required],
-      leido: [false, Validators.required],
-      activo: [true, Validators.required],
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      mensaje: ['', [Validators.required, Validators.maxLength(250)]],
+      tipoNotificacion: ['', Validators.required],
+      usuarioId: ['', Validators.required]
+    });
+
+    // Cargar los usuarios para definir el destinatario
+    this.uS.list().subscribe(data => {
+      this.listaUsuarios = data;
+      this.cdr.detectChanges();
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.notif.mensaje = this.form.value.mensaje;
-      this.notif.fechaNotificacion = this.form.value.fechaNotificacion;
-      this.notif.leido = this.form.value.leido;
-      this.notif.activo = this.form.value.activo;
-      this.notif.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
+      this.notificacionObj.fechaEnvio = new Date();
+      this.notificacionObj.mensaje = this.form.value.mensaje;
+      this.notificacionObj.tipoNotificacion = this.form.value.tipoNotificacion.toUpperCase();
 
-      this.nS.insert(this.notif).subscribe({
+      // Instanciamos de forma limpia el Usuario (FK)
+      let u = new Usuario();
+      u.idUsuario = this.form.value.usuarioId;
+      this.notificacionObj.usuario = u;
+
+      this.nS.insert(this.notificacionObj).subscribe({
         next: () => {
+          this.snackBar.open('Notificación emitida con éxito', 'Cerrar', { duration: 3000 });
+          // Refrescamos la lista reactivamente antes de salir
+          this.nS.list().subscribe(data => this.nS.setList(data));
           this.router.navigate(['/notificacion/lista']);
+        },
+        error: () => {
+          this.snackBar.open('Error al registrar la notificación', 'Cerrar', { duration: 3000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

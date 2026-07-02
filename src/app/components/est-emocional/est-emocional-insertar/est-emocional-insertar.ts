@@ -8,6 +8,11 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { EstadoEmocionalservice } from '../../../services/estado-emocionalservice';
 import { Router } from '@angular/router';
 import { EstadoEmocional } from '../../../models/estado-emocional';
+import { Usuario } from '../../../models/usuario';
+import { PerfilProf } from '../../../models/perfil-prof';
+import { UsuarioService } from '../../../services/usuario-service';
+import { PerfilProfService } from '../../../services/perfil-prof-service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-est-emocional-insertar',
   imports: [MatInputModule,
@@ -22,50 +27,74 @@ import { EstadoEmocional } from '../../../models/estado-emocional';
 })
 export class EstEmocionalInsertar implements OnInit {
   form: FormGroup = new FormGroup({});
-  reg: EstadoEmocional = new EstadoEmocional();
-  
-  // US002: Las 5 emociones requeridas con sus etiquetas
-  emociones = [
-    { value: 'Feliz', label: 'Feliz 😊' },
-    { value: 'Triste', label: 'Triste 😢' },
-    { value: 'Ansioso', label: 'Ansioso 😰' },
-    { value: 'Motivado', label: 'Motivado 💪' },
-    { value: 'Solo', label: 'Solo 😔' }
-  ];
+  estEmocionalObj: EstadoEmocional = new EstadoEmocional();
+  listaUsuarios: Usuario[] = [];
+  listaProfesionales: PerfilProf[] = [];
 
-  niveles = [1, 2, 3, 4, 5];
+  // Opciones estéticas predefinidas para el estado de ánimo
+  tiposEmocionales: string[] = ['Alegre', 'Triste', 'Ansioso', 'Estresado', 'Enojado', 'Calmado', 'Neutro'];
 
   constructor(
+    private formBuilder: FormBuilder,
     private eeS: EstadoEmocionalservice,
+    private uS: UsuarioService, 
+    private pS: PerfilProfService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      fechaRegistro: ['', Validators.required],
-      nivelBienestar: ['', [Validators.required]],
-      tipoEstadoEmocional: ['', Validators.required],
+      nivelBienestar: ['', [Validators.required, Validators.min(1), Validators.max(10)]],
+      tipoEstadoEmocional: ['', [Validators.required, Validators.maxLength(30)]],
       observacion: ['', [Validators.required, Validators.maxLength(200)]],
-      idUsuario: ['', [Validators.required, Validators.pattern("^[0-9]+$")]],
-      idPerfilProfesional: ['', [Validators.required, Validators.pattern("^[0-9]+$")]]
+      usuarioId: ['', Validators.required],
+      perfilProfesionalId: ['', Validators.required]
+    });
+
+    // Cargar pacientes
+    this.uS.list().subscribe(data => {
+      this.listaUsuarios = data;
+    });
+
+    // Cargar especialistas
+    this.pS.list().subscribe(data => {
+      this.listaProfesionales = data;
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.reg.fechaRegistro = this.form.value.fechaRegistro;
-      this.reg.nivelBienestar = parseInt(this.form.value.nivelBienestar);
-      this.reg.tipoEstadoEmocional = this.form.value.tipoEstadoEmocional;
-      this.reg.observacion = this.form.value.observacion;
-      this.reg.usuario = { idUsuario: parseInt(this.form.value.idUsuario) };
-      this.reg.perfilProfesional = { idPerfilProfesional: parseInt(this.form.value.idPerfilProfesional) };
+      // Seteo automático de la fecha y hora del registro
+      this.estEmocionalObj.fechaRegistro = new Date();
 
-      this.eeS.insert(this.reg).subscribe({
+      this.estEmocionalObj.nivelBienestar = parseInt(this.form.value.nivelBienestar);
+      this.estEmocionalObj.tipoEstadoEmocional = this.form.value.tipoEstadoEmocional;
+      this.estEmocionalObj.observacion = this.form.value.observacion;
+
+      // Instancia limpia para la FK de Usuario
+      let u = new Usuario();
+      u.idUsuario = this.form.value.usuarioId;
+      this.estEmocionalObj.usuario = u;
+
+      // Instancia limpia para la FK de PerfilProfesional
+      let p = new PerfilProf();
+      p.idPerfilProfesional = this.form.value.perfilProfesionalId;
+      this.estEmocionalObj.perfilProfesional = p;
+
+      this.eeS.insert(this.estEmocionalObj).subscribe({
         next: () => {
+          this.snackBar.open('Estado emocional registrado correctamente', 'Cerrar', { duration: 3000 });
+          // Notificamos el cambio a la lista
+          this.eeS.list().subscribe(data => this.eeS.setList(data)); 
           this.router.navigate(['/est-emocional/lista']);
+        },
+        error: () => {
+          this.snackBar.open('Error al registrar el estado emocional', 'Cerrar', { duration: 3000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

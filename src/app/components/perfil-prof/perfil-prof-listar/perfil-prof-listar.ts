@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { PerfilProf } from '../../../models/perfil-prof';
@@ -60,3 +61,4 @@ export class PerfilProfListar implements OnInit {
     });
   }
 }
+
