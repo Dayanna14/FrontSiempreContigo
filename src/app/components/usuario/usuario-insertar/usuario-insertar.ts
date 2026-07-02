@@ -53,7 +53,8 @@ export class UsuarioInsertar implements OnInit {
       apellidoPaterno: ['', Validators.required],
       apellidoMaterno: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      fotoPerfil: [''] 
+      fotoPerfil: [''],
+      rol: ['', Validators.required],
     });
   }
 

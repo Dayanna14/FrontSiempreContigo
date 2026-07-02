@@ -7,18 +7,18 @@
       <p>Por favor, ingresa a tu cuenta para continuar con tu bienestar.</p>
     </div>
 
-    <!-- Eliminé [formGroup]="form" porque no está definido en el TS -->
+    
     <form (submit)="login()" class="login-form">
       <mat-form-field appearance="outline">
         <mat-label>Nombre de usuario o Correo</mat-label>
-        <!-- Agregué name="username" necesario para ngModel -->
+        
         <input matInput name="username" placeholder="Username" [(ngModel)]="username" />
         <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Contraseña</mat-label>
-        <!-- Agregué name="password" necesario para ngModel -->
+        
         <input type="password" name="password" matInput placeholder="Password" [(ngModel)]="password" />
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
