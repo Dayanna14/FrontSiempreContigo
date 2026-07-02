@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { environment } from '../../environment.development/environment.development'; 
 import { Rol } from '../models/rol';
 import { Subject, Observable } from 'rxjs';
-
+import { environment } from '../environment/environment.development';
 const base_url = environment.base;
 @Injectable({
   providedIn: 'root',
@@ -24,7 +22,6 @@ export class Rolservice {
     return this.http.get<Rol>(`${this.url}/${id}`);
   }
 
->>>>>>> origin/develop
   insert(r: Rol): Observable<Rol> {
     return this.http.post<Rol>(`${this.url}/nuevo`, r);
   }
@@ -36,7 +33,6 @@ export class Rolservice {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 
-  // MÉTODOS REACTIVOS (Para refrescar componentes)
   setList(listaNueva: Rol[]) {
     this.listaCambio.next(listaNueva);
   }
@@ -44,6 +40,4 @@ export class Rolservice {
   getList(): Observable<Rol[]> {
     return this.listaCambio.asObservable();
   }
-
 }
-

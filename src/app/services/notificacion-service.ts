@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environment.development/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Notificacion } from '../models/notificacion';
+import { environment } from '../environment/environment.development';
 const base_url = environment.base;
 @Injectable({
   providedIn: 'root',
