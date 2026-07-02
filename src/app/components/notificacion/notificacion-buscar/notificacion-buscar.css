@@ -1,7 +1,62 @@
 .container {
-  width: 90%;
-  margin: 0 auto;
+  width: 95%;
+  max-width: 1200px;
+  margin: 30px auto;
 }
+
+.filter-box {
+  background-color: #f8fafc;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  border: 1px solid #e2e8f0;
+}
+
+.filter-box p {
+  margin: 0 0 15px 0;
+  color: #334155;
+  font-weight: 500;
+}
+
+.search-actions {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.select-field {
+  width: 100%;
+  max-width: 350px;
+}
+
+.btn-action {
+  height: 54px;
+  padding: 0 20px;
+}
+
 table {
   width: 100%;
+}
+
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 10px 15px;
+}
+
+.tipo-badge {
+  font-weight: bold;
+  color: #475569;
+  background-color: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 30px;
+  color: #64748b;
+  background-color: #f8fafc;
+  border: 1px dashed #cbd5e1;
+  border-top: none;
 }

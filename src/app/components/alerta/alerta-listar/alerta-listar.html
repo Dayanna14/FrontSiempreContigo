@@ -1,63 +1,71 @@
 <div class="container">
-  <div style="text-align: center; margin: 5%"><h2>Lista de Alertas</h2></div>
-  <div>
-    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-      
-      <ng-container matColumnDef="c1">
-        <th mat-header-cell *matHeaderCellDef>No.</th>
-        <td mat-cell *matCellDef="let element">{{ element.idAlerta }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c2">
-        <th mat-header-cell *matHeaderCellDef>Fecha/Hora Registro</th>
-        <td mat-cell *matCellDef="let element">{{ element.fechaHoraAlerta }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c3">
-        <th mat-header-cell *matHeaderCellDef>Fecha/Hora Atendida</th>
-        <td mat-cell *matCellDef="let element">{{ element.fechaHoraAtendida || 'Pendiente' }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c4">
-        <th mat-header-cell *matHeaderCellDef>Estado</th>
-        <td mat-cell *matCellDef="let element">{{ element.estadoAlerta }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c5">
-        <th mat-header-cell *matHeaderCellDef>Tipo</th>
-        <td mat-cell *matCellDef="let element">{{ element.tipoAlerta }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c6">
-        <th mat-header-cell *matHeaderCellDef>Observación</th>
-        <td mat-cell *matCellDef="let element">{{ element.observacion }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c7">
-        <th mat-header-cell *matHeaderCellDef>ID Usuario</th>
-        <td mat-cell *matCellDef="let element">{{ element.usuario?.idUsuario }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="c8">
-        <th mat-header-cell *matHeaderCellDef>Actualizar</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-button [routerLink]="['/alertas/edits', element.idAlerta]" class="btn-accion btn-editar">
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="c9">
-        <th mat-header-cell *matHeaderCellDef>Eliminar</th>
-        <td mat-cell *matCellDef="let element">
-          <button mat-button (click)="eliminar(element.idAlerta)" class="btn-accion btn-eliminar">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
+  <div class="header-actions">
+    <h2>Listado de Alertas</h2>
+    <button mat-raised-button color="primary" routerLink="/alertas/nuevo">
+      <mat-icon>add</mat-icon> Nueva Alerta
+    </button>
   </div>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.idAlerta}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaAlerta">
+      <th mat-header-cell *matHeaderCellDef> Fecha / Hora Alerta </th>
+      <td mat-cell *matCellDef="let element"> {{element.fechaHoraAlerta | date:'dd/MM/yyyy HH:mm'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaAtendida">
+      <th mat-header-cell *matHeaderCellDef> Fecha / Hora Atendida </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.fechaHoraAtendida ? (element.fechaHoraAtendida | date:'dd/MM/yyyy HH:mm') : 'Sin atender'}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="estado">
+      <th mat-header-cell *matHeaderCellDef> Estado </th>
+      <td mat-cell *matCellDef="let element">
+        <span class="badge" [ngClass]="element.estadoAlerta.toLowerCase()">
+          {{element.estadoAlerta}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="observacion">
+      <th mat-header-cell *matHeaderCellDef> Observación </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.observacion?.length > 30 ? (element.observacion | slice:0:30) + '...' : element.observacion}} 
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tipo">
+      <th mat-header-cell *matHeaderCellDef> Tipo </th>
+      <td mat-cell *matCellDef="let element"> {{element.tipoAlerta || 'N/A'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="usuario">
+      <th mat-header-cell *matHeaderCellDef> Usuario (DNI) </th>
+      <td mat-cell *matCellDef="let element"> 
+        {{element.usuario?.username}} ({{element.usuario?.dni}})
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef> Acciones </th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-icon-button color="primary" [routerLink]="['/alertas/edits', element.idAlerta]">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="eliminar(element.idAlerta)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 </div>

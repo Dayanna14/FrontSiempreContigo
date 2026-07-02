@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { EstadoEmocional } from '../../../models/estado-emocional';
 import { EstadoEmocionalservice } from '../../../services/estado-emocionalservice';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-est-emocional-listar',
   imports: [MatTableModule, 
@@ -16,31 +17,35 @@ import { EstadoEmocionalservice } from '../../../services/estado-emocionalservic
 })
 export class EstEmocionalListar implements OnInit {
   dataSource: MatTableDataSource<EstadoEmocional> = new MatTableDataSource();
-  displayedColumns: string[] = ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9'];
+  displayedColumns: string[] = ['id', 'fecha', 'bienestar', 'tipo', 'observacion', 'usuario', 'profesional', 'acciones'];
 
-  constructor(private eeS: EstadoEmocionalservice, private router: Router) {}
+  constructor(private eeS: EstadoEmocionalservice, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
-    this.cargarRegistros();
-
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.cargarRegistros();
-      }
+    // Escucha los cambios reactivos del Subject
+    this.eeS.getList().subscribe(data => {
+      this.dataSource.data = this.procesarDatos(data);
     });
+
+    // Primera carga al abrir el componente
+    this.eeS.list().subscribe(data => this.eeS.setList(data));
   }
 
-  cargarRegistros() {
-    this.eeS.list().subscribe({
-      next: (data) => {
-        this.dataSource.data = data;
-      },
-    });
+  procesarDatos(data: EstadoEmocional[]): EstadoEmocional[] {
+    return data
+      .sort((a, b) => b.idEstadoEmocional - a.idEstadoEmocional) // Ordena de los más recientes primero
+      .map(ee => ({
+        ...ee,
+        // Formateamos el tipo de estado emocional (ej: "ANSIEDAD" -> "Ansiedad")
+        tipoEstadoEmocional: ee.tipoEstadoEmocional ? ee.tipoEstadoEmocional.charAt(0).toUpperCase() + ee.tipoEstadoEmocional.slice(1).toLowerCase() : 'N/A'
+      }));
   }
 
   eliminar(id: number) {
     this.eeS.delete(id).subscribe(() => {
-      this.cargarRegistros();
+      this.snackBar.open('Registro emocional eliminado correctamente', 'Cerrar', { duration: 3000 });
+      // Refrescamos la lista reactiva
+      this.eeS.list().subscribe(data => this.eeS.setList(data));
     });
   }
 }

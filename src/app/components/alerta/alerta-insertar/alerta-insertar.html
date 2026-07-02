@@ -1,76 +1,50 @@
 <div class="container">
-  <div style="text-align: center; margin: 2%"><h2>Registrar Alerta</h2></div>
-  <div style="text-align: center; margin: 3%">
-    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
-      
-      <mat-form-field>
-        <mat-label>Fecha y Hora de la Alerta</mat-label>
-        <input matInput type="datetime-local" formControlName="fechaHoraAlerta" />
-        @if (form.get('fechaHoraAlerta')?.hasError('required')) {
-          <mat-error>La fecha y hora de la alerta es obligatoria.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Fecha y Hora Atendida (Opcional)</mat-label>
-        <input matInput type="datetime-local" formControlName="fechaHoraAtendida" />
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Estado de la Alerta</mat-label>
-        <mat-select formControlName="estadoAlerta">
-          <mat-option *ngFor="let est of estados" [value]="est">{{ est }}</mat-option>
-        </mat-select>
-        @if (form.get('estadoAlerta')?.hasError('required')) {
-          <mat-error>Debe seleccionar un estado.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Tipo de Alerta</mat-label>
-        <mat-select formControlName="tipoAlerta">
-          <mat-option *ngFor="let tipo of tiposAlerta" [value]="tipo">{{ tipo }}</mat-option>
-        </mat-select>
-        @if (form.get('tipoAlerta')?.hasError('required')) {
-          <mat-error>Debe seleccionar el tipo de alerta.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>ID Usuario Asignado</mat-label>
-        <input matInput formControlName="idUsuario" placeholder="Ej: 1" />
-        <mat-error>
-          @if (form.get('idUsuario')?.hasError('required')) {
-            <span>El ID del usuario es obligatorio.</span>
-          }
-          @if (form.get('idUsuario')?.hasError('pattern')) {
-            <span>Solo se permiten números enteros.</span>
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Observación / Detalles</mat-label>
-        <textarea matInput formControlName="observacion" rows="4"></textarea>
-        <mat-error>
-          @if (form.get('observacion')?.hasError('required')) {
-            <span>La observación es obligatoria.</span>
-          }
-          @if (form.get('observacion')?.hasError('maxlength')) {
-            <span>Máximo 500 caracteres.</span>
-          }
-        </mat-error>
-      </mat-form-field>
-      <br />
-
-      <div>
-        <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Registrar Alerta</button>
-      </div>
-    </form>
+  <div class="title-section">
+    <h2>Registrar Nueva Alerta</h2>
   </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tipo de Alerta</mat-label>
+      <mat-select formControlName="tipoAlerta">
+        @for (tipo of tiposAlerta; track tipo) {
+          <mat-option [value]="tipo">{{ tipo }}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('tipoAlerta')?.hasError('required')">El tipo de alerta es obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado de la Alerta</mat-label>
+      <mat-select formControlName="estadoAlerta">
+        <mat-option value="PENDIENTE">Pendiente</mat-option>
+        <mat-option value="EN PROCESO">En Proceso</mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('estadoAlerta')?.hasError('required')">El estado es obligatorio</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Observación / Detalles</mat-label>
+      <textarea matInput formControlName="observacion" rows="4" placeholder="Describa la situación de la alerta..."></textarea>
+      <mat-error *ngIf="form.get('observacion')?.hasError('required')">La observación es obligatoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuario Afectado / Emisor</mat-label>
+      <mat-select formControlName="usuarioId">
+        @for (u of listaUsuarios; track u.idUsuario) {
+          <mat-option [value]="u.idUsuario">
+            {{ u.username }} - DNI: {{ u.dni }}
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('usuarioId')?.hasError('required')">Debe seleccionar un usuario</mat-error>
+    </mat-form-field>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Emitir Alerta</button>
+      <button mat-stroked-button type="button" routerLink="/alertas">Cancelar</button>
+    </div>
+  </form>
 </div>

@@ -1,56 +1,42 @@
 <div class="container">
-  <div style="text-align: center; margin: 2%"><h2>Editar Notificación / Aviso</h2></div>
-  <div style="text-align: center; margin: 3%">
-    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
-      
-      <mat-form-field>
-        <mat-label>ID Notificación:</mat-label>
-        <input matInput formControlName="codigo" readonly="true" />
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Mensaje del Aviso</mat-label>
-        <textarea matInput formControlName="mensaje" rows="3"></textarea>
-        @if (form.get('mensaje')?.hasError('required')) {
-          <mat-error>El contenido es obligatorio.</mat-error>
-        }
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>Fecha de Emisión</mat-label>
-        <input matInput type="datetime-local" formControlName="fechaNotificacion" />
-      </mat-form-field>
-      <br />
-
-      <mat-form-field>
-        <mat-label>ID Usuario</mat-label>
-        <input matInput formControlName="idUsuario" />
-      </mat-form-field>
-      <br />
-
-      <div class="radio-group-container">
-        <label class="radio-label">¿Ya fue leído?</label>
-        <mat-radio-group formControlName="leido">
-          <mat-radio-button [value]="true">Sí, leído</mat-radio-button>
-          <mat-radio-button [value]="false">No, nuevo</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <br />
-
-      <div class="radio-group-container">
-        <label class="radio-label">Estado de Vigencia</label>
-        <mat-radio-group formControlName="activo">
-          <mat-radio-button [value]="true">Vigente (Activo)</mat-radio-button>
-          <mat-radio-button [value]="false">No vigente (Inactivo)</mat-radio-button>
-        </mat-radio-group>
-      </div>
-      <br />
-
-      <div>
-        <button mat-raised-button class="btn-submit" type="submit" [disabled]="form.invalid">Guardar Ajustes</button>
-      </div>
-    </form>
+  <div class="title-section">
+    <h2>Modificar Registro de Notificación</h2>
   </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contenido / Mensaje de aviso</mat-label>
+      <textarea matInput formControlName="mensaje" rows="4"></textarea>
+      <mat-error *ngIf="form.get('mensaje').hasError('required')">El mensaje es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('mensaje').hasError('maxlength')">Máximo 250 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Categoría / Tipo</mat-label>
+      <mat-select formControlName="tipoNotificacion">
+        @for (tipo of tiposNotificaciones; track tipo) {
+          <mat-option [value]="tipo">{{ tipo }}</mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('tipoNotificacion').hasError('required')">Debe seleccionar una categoría</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Destinatario (Usuario)</mat-label>
+      <mat-select formControlName="usuarioId">
+        @for (u of listaUsuarios; track u.idUsuario) {
+          <mat-option [value]="u.idUsuario">
+            {{ u.username }} - DNI: {{ u.dni }}
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('usuarioId').hasError('required')">Debe asignar un destinatario</mat-error>
+    </mat-form-field>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar Cambios</button>
+      <button mat-stroked-button type="button" routerLink="/notificacion/lista">Cancelar</button>
+    </div>
+  </form>
 </div>

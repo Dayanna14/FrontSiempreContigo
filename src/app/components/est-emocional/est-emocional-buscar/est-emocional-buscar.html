@@ -1,46 +1,65 @@
-
 <div class="container">
-  <div style="text-align: center; margin: 5%"><h2>Buscar Historial Emocional por Paciente</h2></div>
-  
-  <div class="search-container" style="text-align: center; margin-bottom: 3%;">
-    <form [formGroup]="form" (submit)="buscar()">
-      <mat-form-field style="width: 40%; margin-right: 15px;">
-        <mat-label>Escribe el ID del Paciente</mat-label>
-        <input matInput formControlName="pacienteId" placeholder="Ej: 2" />
+  <div class="filter-box">
+    <p>Seleccione un paciente para consultar su historial emocional:</p>
+    
+    <div class="search-actions">
+      <mat-form-field appearance="outline" class="select-field">
+        <mat-label>Paciente / Usuario</mat-label>
+        <mat-select [(ngModel)]="usuarioSeleccionadoId">
+          @for (u of listaUsuarios; track u.idUsuario) {
+            <mat-option [value]="u.idUsuario">
+              {{ u.username }} - DNI: {{ u.dni }}
+            </mat-option>
+          }
+        </mat-select>
       </mat-form-field>
-      <button mat-raised-button color="primary" type="button" (click)="buscar()" [disabled]="form.invalid">Buscar</button>
-    </form>
+
+      <button mat-flat-button color="primary" class="btn-search" (click)="filtrarPorPaciente()">
+        <mat-icon>search</mat-icon> Buscar Historial
+      </button>
+    </div>
   </div>
 
   <div>
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      
       <ng-container matColumnDef="c1">
-        <th mat-header-cell *matHeaderCellDef>No. Registro</th>
+        <th mat-header-cell *matHeaderCellDef>No.</th>
         <td mat-cell *matCellDef="let element">{{ element.idEstadoEmocional }}</td>
       </ng-container>
 
       <ng-container matColumnDef="c2">
-        <th mat-header-cell *matHeaderCellDef>Fecha</th>
-        <td mat-cell *matCellDef="let element">{{ element.fechaRegistro }}</td>
+        <th mat-header-cell *matHeaderCellDef>Fecha Registro</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.fechaRegistro | date: 'dd/MM/yyyy HH:mm' }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="c3">
-        <th mat-header-cell *matHeaderCellDef>Bienestar</th>
-        <td mat-cell *matCellDef="let element">{{ element.nivelBienestar }}</td>
+        <th mat-header-cell *matHeaderCellDef>Nivel Bienestar</th>
+        <td mat-cell *matCellDef="let element">
+          <span class="bienestar-badge">{{ element.nivelBienestar }} / 10</span>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="c4">
-        <th mat-header-cell *matHeaderCellDef>Emoción</th>
-        <td mat-cell *matCellDef="let element">{{ element.tipoEstadoEmocional }}</td>
+        <th mat-header-cell *matHeaderCellDef>Estado Emocional</th>
+        <td mat-cell *matCellDef="let element">{{ element.tipoEstadoEmocional || 'N/A' }}</td>
       </ng-container>
 
       <ng-container matColumnDef="c5">
-        <th mat-header-cell *matHeaderCellDef>Comentario/Observación</th>
+        <th mat-header-cell *matHeaderCellDef>Observación / Síntomas</th>
         <td mat-cell *matCellDef="let element">{{ element.observacion }}</td>
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
     </table>
+
+    @if (dataSource.data.length === 0) {
+      <div class="empty-state">
+        <p>No se han encontrado registros emocionales para este paciente o no ha seleccionado ninguno todavía.</p>
+      </div>
+    }
   </div>
 </div>

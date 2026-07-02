@@ -6,30 +6,49 @@ const base_url = environment.base;
 @Injectable({
   providedIn: 'root',
 })
-export class NotificacionService {private url = `${base_url}/notificaciones`;
+export class NotificacionService {
+  private url = `${base_url}/notificaciones`; 
 
-  constructor(private http: HttpClient) {}
+  private listaCambio = new Subject<Notificacion[]>();
 
-  list() {
+  constructor(private http: HttpClient) { }
+
+  // @GetMapping("/listar")
+  list(): Observable<Notificacion[]> {
     return this.http.get<Notificacion[]>(`${this.url}/listar`);
   }
 
-  insert(n: Notificacion) {
-    return this.http.post(`${this.url}/nuevo`, n);
+  // @PostMapping("/nuevo")
+  insert(n: Notificacion): Observable<void> {
+    return this.http.post<void>(`${this.url}/nuevo`, n);
   }
 
-  update(n: Notificacion) {
-    return this.http.put(`${this.url}/Modificar`, n);
+  // @PutMapping("/Modificar") -> Ojo con la 'M' mayúscula de tu Controller
+  update(n: Notificacion): Observable<void> {
+    return this.http.put<void>(`${this.url}/Modificar`, n);
   }
 
-  delete(id: number) {
-    return this.http.delete(`${this.url}/${id}`);
+  // @DeleteMapping("/{id}")
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}/${id}`);
   }
 
-  listActivas(idUsuario: number) {
+  // US010/US011: @GetMapping("/usuario/{id}")
+  listarActivas(idUsuario: number): Observable<Notificacion[]> {
     return this.http.get<Notificacion[]>(`${this.url}/usuario/${idUsuario}`);
   }
 
-  leerTodo(idUsuario: number) {
-    return this.http.put(`${this.url}/leer-todo/${idUsuario}`, {});
-  }}
+  // US010: @PutMapping("/leer-todo/{idUsuario}")
+  leerTodo(idUsuario: number): Observable<void> {
+    return this.http.put<void>(`${this.url}/leer-todo/${idUsuario}`, {});
+  }
+
+  // Métodos reactivos para refrescar componentes
+  setList(listaNueva: Notificacion[]) {
+    this.listaCambio.next(listaNueva);
+  }
+
+  getList() {
+    return this.listaCambio.asObservable();
+  }
+}
