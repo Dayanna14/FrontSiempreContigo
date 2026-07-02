@@ -27,9 +27,9 @@ export class UsuarioService {
     return this.http.get<Usuario>(`${this.url}/usuario/${id}`);
   }
 
-  update(u: Usuario) {
-    return this.http.put(`${this.url}/usuario/actualiza`, u, { responseType: 'text' });
-  }
+  update(u: Usuario): Observable<any> {
+  return this.http.put(`${this.url}/usuario/actualiza`, u, { responseType: 'text' });
+}
 
   delete(id: number) {
     return this.http.delete(`${this.url}/usuario/${id}`, { responseType: 'text' });

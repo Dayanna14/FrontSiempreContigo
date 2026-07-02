@@ -21,14 +21,14 @@
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Usuario Vinculado</mat-label>
-      <mat-select formControlName="usuarioId">
+      <mat-select formControlName="idUsuario">
         @for (u of listaUsuarios; track u.idUsuario) {
           <mat-option [value]="u.idUsuario">
             {{ u.username }} - DNI: {{ u.dni }}
           </mat-option>
         }
       </mat-select>
-      <mat-error *ngIf="form.get('usuarioId')?.hasError('required')">Debe seleccionar un usuario</mat-error>
+      <mat-error *ngIf="form.get('idUsuario')?.hasError('required')">Debe seleccionar un usuario</mat-error>
     </mat-form-field>
 
     <div class="botones-container full-width">

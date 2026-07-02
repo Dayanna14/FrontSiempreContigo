@@ -29,6 +29,8 @@
       <br />
       <div>
         <button mat-raised-button color="primary">Registrar</button>
+        <button mat-raised-button color="warn" type="button" routerLink="/roles">Cancelar</button>
+
       </div>
       <div *ngIf="mensajeError" style="margin-top:16px; color:#b00020; font-weight:600;">
         {{ mensajeError }}

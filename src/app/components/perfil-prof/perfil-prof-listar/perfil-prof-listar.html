@@ -24,10 +24,11 @@
       </td>
     </ng-container>
 
+    <!-- Columna usuario corregida -->
     <ng-container matColumnDef="usuario">
-      <th mat-header-cell *matHeaderCellDef> Usuario (DNI) </th>
+      <th mat-header-cell *matHeaderCellDef> Profesional </th>
       <td mat-cell *matCellDef="let element"> 
-        {{element.usuario?.username}} ({{element.usuario?.dni}})
+        {{ obtenerNombreProfesional(element.idUsuario) }} 
       </td>
     </ng-container>
 

@@ -83,7 +83,6 @@ export class UsuarioInsertar implements OnInit {
 
       this.uS.insert(this.usuarioObj).subscribe({
         next: () => {
-          // Actualizamos la tabla reactivamente y volvemos
           this.uS.list().subscribe(data => {
             this.uS.setList(data);
           });

@@ -32,7 +32,6 @@ export class Rolservice {
     return this.http.delete(`${this.url}/${id}`, { responseType: 'text' });
   }
 
-  // MÉTODOS REACTIVOS (Para refrescar componentes)
   setList(listaNueva: Rol[]) {
     this.listaCambio.next(listaNueva);
   }

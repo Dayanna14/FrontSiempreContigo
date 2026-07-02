@@ -61,9 +61,7 @@ export class CursosInsertar implements OnInit {
       this.cursoObj.descripcion = this.form.value.descripcion;
       this.cursoObj.objetivos = this.form.value.objetivos;
       
-      let perfil = new PerfilProf();
-      perfil.idPerfilProfesional = this.form.value.idPerfilProfesional;
-      this.cursoObj.perfilProfesional = perfil;
+      (this.cursoObj as any).idPerfilProfesional = this.form.value.idPerfilProfesional;
 
       this.curS.insert(this.cursoObj).subscribe({
         next: () => {

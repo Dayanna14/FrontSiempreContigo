@@ -40,10 +40,11 @@ export class PerfilProfInsertar implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // AQUÍ ESTÁ LA CORRECCIÓN: Se llama idUsuario
     this.form = this.formBuilder.group({
       especialidad: ['', [Validators.required, Validators.maxLength(50)]],
       biografia: ['', [Validators.required, Validators.maxLength(150)]],
-      usuarioId: ['', Validators.required] 
+      idUsuario: ['', Validators.required] 
     });
 
     this.uS.list().subscribe(data => {
@@ -55,18 +56,18 @@ export class PerfilProfInsertar implements OnInit {
     if (this.form.valid) {
       this.perfilObj.especialidad = this.form.value.especialidad;
       this.perfilObj.biografia = this.form.value.biografia;
-            let u = new Usuario();
-      u.idUsuario = this.form.value.usuarioId;
-      this.perfilObj.usuario = u; 
+      
+      (this.perfilObj as any).idUsuario = this.form.value.idUsuario;
+
       this.pS.insert(this.perfilObj).subscribe({
         next: () => {
           this.snackBar.open('Perfil registrado correctamente', 'Cerrar', { duration: 3000 });
-          // Actualizamos la lista para que la tabla reaccione
           this.pS.list().subscribe(data => this.pS.setList(data)); 
-          this.router.navigate(['/perfil-profesional']);
+          this.router.navigate(['/perfilProfesional']);
         },
-        error: () => {
-          this.snackBar.open('Error al registrar el perfil', 'Cerrar', { duration: 3000 });
+        error: (err) => {
+          console.error(err);
+          this.snackBar.open('Error al registrar. Posiblemente el usuario ya tiene un perfil.', 'Cerrar', { duration: 4000 });
         }
       });
     } else {

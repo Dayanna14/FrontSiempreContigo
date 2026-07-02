@@ -6,10 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Rol } from '../../../models/rol';
 import { Rolservice } from '../../../services/rolservice';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-rol-insertar',
 imports: [
     MatInputModule,
+    CommonModule,
     MatButtonModule,
     ReactiveFormsModule,
     MatIconModule
@@ -29,7 +31,6 @@ export class RolInsertar implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Definimos el formulario con nombre y descripción del rol
     this.form = this.formBuilder.group({
       nombreRol: ['', [Validators.required, Validators.maxLength(50)]],
       descripcionRol: ['', [Validators.maxLength(200)]]

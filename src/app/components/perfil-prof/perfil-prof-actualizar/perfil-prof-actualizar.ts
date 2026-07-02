@@ -45,7 +45,7 @@ export class PerfilProfActualizar implements OnInit {
     this.form = this.formBuilder.group({
       especialidad: ['', [Validators.required, Validators.maxLength(50)]],
       biografia: ['', [Validators.required, Validators.maxLength(150)]],
-      usuarioId: ['', Validators.required] 
+      idUsuario: ['', Validators.required] 
     });
 
     this.uS.list().subscribe(data => {
@@ -60,7 +60,7 @@ export class PerfilProfActualizar implements OnInit {
           this.form.patchValue({
             especialidad: data.especialidad,
             biografia: data.biografia,
-            usuarioId: data.usuario?.idUsuario 
+            idUsuario: data.usuario?.idUsuario 
           });
         });
       }
@@ -73,15 +73,13 @@ export class PerfilProfActualizar implements OnInit {
       this.perfilObj.especialidad = this.form.value.especialidad;
       this.perfilObj.biografia = this.form.value.biografia;
       
-      let u = new Usuario();
-      u.idUsuario = this.form.value.usuarioId;
-      this.perfilObj.usuario = u; 
+      (this.perfilObj as any).idUsuario = this.form.value.idUsuario;
 
       this.pS.update(this.perfilObj).subscribe({
         next: () => {
           this.snackBar.open('Perfil actualizado correctamente', 'Cerrar', { duration: 3000 });
           this.pS.list().subscribe(data => this.pS.setList(data)); 
-          this.router.navigate(['/perfil-profesional']);
+          this.router.navigate(['/perfilProfesional']);
         },
         error: () => {
           this.snackBar.open('Error al actualizar el perfil', 'Cerrar', { duration: 3000 });
