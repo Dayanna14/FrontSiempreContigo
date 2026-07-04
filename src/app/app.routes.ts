@@ -52,14 +52,32 @@ import { ValoracionInsertar } from './components/valoracion/valoracion-insertar/
 import { ValoracionListar } from './components/valoracion/valoracion-listar/valoracion-listar';
 import { ValoracionActualizar } from './components/valoracion/valoracion-actualizar/valoracion-actualizar';
 import { ValoracionBuscar } from './components/valoracion/valoracion-buscar/valoracion-buscar';
-import { Login } from './components/login/login';
-
-import { IniciarSesion } from './components/login/iniciar-sesion/iniciar-sesion';
-
+import { Home } from './components/home/home';
+import { Usuariocomponent } from './components/usuario/usuario';
+import { Rolcomponent } from './components/rol/rol';
+import { RolListar } from './components/rol/rol-listar/rol-listar';
+import { RolInsertar } from './components/rol/rol-insertar/rol-insertar';
+import { PerfilProf } from './components/perfil-prof/perfil-prof';
+import { PerfilProfListar } from './components/perfil-prof/perfil-prof-listar/perfil-prof-listar';
+import { PerfilProfInsertar } from './components/perfil-prof/perfil-prof-insertar/perfil-prof-insertar';
+import { PerfilProfActualizar } from './components/perfil-prof/perfil-prof-actualizar/perfil-prof-actualizar';
+import { Authenticate } from './components/authenticate/authenticate';
+import { seguridadGuard } from './components/guard/seguridad-guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'homes', pathMatch: 'full' },
-  { path: 'homes', component: Home },
+  { path: '', 
+    redirectTo: 'homes', 
+    pathMatch: 'full' 
+  },
+  
+  { path: 'homes', 
+    component: Home,
+  },
+
+  {
+      path:'login',
+      component: Authenticate,
+  },
 
   // 1. Alertas
   {
@@ -225,13 +243,4 @@ export const routes: Routes = [
       { path: 'buscar', component: ValoracionBuscar }
     ]
   },
-  {
-    path: 'login',
-    component: Login,
-    children: [
-      { path: '', redirectTo: 'iniciar', pathMatch: 'full' },
-
-      { path: 'iniciar', component: IniciarSesion }
-    ]
-  }
 ];

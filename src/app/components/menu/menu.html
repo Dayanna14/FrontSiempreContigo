@@ -116,7 +116,8 @@
       </div>
       <div class="right-section">
         @if (!isLoggedIn) {
-          <button mat-flat-button class="btn-login-trigger" routerLink="/login/iniciar"><mat-icon>login</mat-icon> Acceder</button>
+          <button mat-flat-button class="btn-login-trigger" routerLink="/login">
+            <mat-icon>login</mat-icon> Acceder</button>
         } @else {
           <button mat-icon-button class="btn-logout" (click)="logout()"><mat-icon>logout</mat-icon></button>
         }
