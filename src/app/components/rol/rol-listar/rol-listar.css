@@ -1,0 +1,28 @@
+.container {
+  width: 90%;
+  max-width: 1000px;
+  margin: 30px auto;
+}
+
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #1e293b;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  margin: 0;
+}
+
+table {
+  width: 100%;
+}
+
+/* Alineación de celdas */
+.mat-mdc-cell, .mat-mdc-header-cell {
+  padding: 10px 20px;
+}

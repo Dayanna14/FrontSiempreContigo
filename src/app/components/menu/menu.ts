@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
-import { Loginservice } from '../../services/login-service';
+import { LoginService } from '../../services/login-service';
 
 @Component({
   selector: 'app-menu',
@@ -29,46 +29,21 @@ import { Loginservice } from '../../services/login-service';
   styleUrls: ['./menu.css'],
 })
 export class Menucomponent {
-
-role: string='';
-usuario: string ='';
-
   constructor(
     private router: Router,
-    @Inject(PLATFORM_ID) private platformId: Object,
-    private loginservice: Loginservice
+    private loginService: LoginService 
   ) {}
 
   get isLoggedIn(): boolean {
-    return isPlatformBrowser(this.platformId) && !!localStorage.getItem('token');
+    return this.loginService.verificar();
   }
 
   get userRole(): string | null {
-    return isPlatformBrowser(this.platformId) ? localStorage.getItem('role') : null;
+    return this.loginService.showRole();
   }
 
   logout(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      localStorage.clear();
-    }
-    this.router.navigate(['/homes']);
+    this.loginService.cerrarSesion();
+    this.router.navigate(['/login']); 
   }
-
-
-  verificar():boolean{
-    const existe = this.loginservice.verificar();
-    if(existe){
-      this.role = this.loginservice.showRole() ?? '';
-    }
-    return existe;
-  }
-
-  isProfesional(){
-    return this.role === 'PROFESIONAL';
-  }
-
-  isPaciente(){
-    return this.role === 'PACIENTE';
-  }
-
 }

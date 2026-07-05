@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environment.development/environment.development';
+import { environment } from '../environment/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Alerta } from '../models/alerta';
 

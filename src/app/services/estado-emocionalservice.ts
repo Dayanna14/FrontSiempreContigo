@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { EstadoEmocional } from "../models/estado-emocional";
-import { environment } from "../../environment.development/environment.development";
+import { environment } from '../environment/environment.development';
 
 
 

@@ -1,63 +1,77 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router, RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common'; 
-
-import { PerfilProf } from '../../../models/perfil-prof';
-import { PerfilProfService } from '../../../services/perfil-prof-service';
-import { Usuario } from '../../../models/usuario';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
+import { PerfilProf } from '../../../models/perfil-prof';
+import { Usuario } from '../../../models/usuario';
+import { UsuarioService } from '../../../services/usuario-service';
+import { PerfilProfService } from '../../../services/perfil-prof-service';
 
 @Component({
   selector: 'app-perfil-prof-insertar',
-  standalone: true, 
+  standalone: true,
   imports: [
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    CommonModule, MatSelectModule, CommonModule
+    MatInputModule, 
+    MatButtonModule, 
+    ReactiveFormsModule, 
+    MatSelectModule, 
+    MatSnackBarModule,
+    CommonModule,
+    RouterLink
   ],
   templateUrl: './perfil-prof-insertar.html',
   styleUrl: './perfil-prof-insertar.css',
 })
 export class PerfilProfInsertar implements OnInit {
-
   form: FormGroup = new FormGroup({});
-  perfilprof: PerfilProf = new PerfilProf(); 
-  listasUsuario: Usuario[]=[];
+  perfilObj: PerfilProf = new PerfilProf();
+  listaUsuarios: Usuario[] = [];
 
   constructor(
-    private pP: PerfilProfService,
+    private formBuilder: FormBuilder,
+    private pS: PerfilProfService,
+    private uS: UsuarioService, 
     private router: Router,
-    private formBuilder: FormBuilder
-  ){}
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
+    // AQUÍ ESTÁ LA CORRECCIÓN: Se llama idUsuario
     this.form = this.formBuilder.group({
-      idPerfilProfesional: [0],
-      especialidad: ['', Validators.required],
-      biografia: ['', Validators.required],
-      usuarioN : ['', Validators.required]
+      especialidad: ['', [Validators.required, Validators.maxLength(50)]],
+      biografia: ['', [Validators.required, Validators.maxLength(150)]],
+      idUsuario: ['', Validators.required] 
+    });
+
+    this.uS.list().subscribe(data => {
+      this.listaUsuarios = data;
     });
   }
 
   aceptar(): void {
     if (this.form.valid) {
-      this.perfilprof.especialidad = this.form.value.especialidad;
-      this.perfilprof.biografia = this.form.value.biografia;
-      this.perfilprof.idUsuario = this.form.value.projectN;
+      this.perfilObj.especialidad = this.form.value.especialidad;
+      this.perfilObj.biografia = this.form.value.biografia;
       
-      this.pP.insert(this.perfilprof).subscribe({
+      (this.perfilObj as any).idUsuario = this.form.value.idUsuario;
+
+      this.pS.insert(this.perfilObj).subscribe({
         next: () => {
-          
-          this.router.navigate(['/perfil-prof/nuevo']); 
+          this.snackBar.open('Perfil registrado correctamente', 'Cerrar', { duration: 3000 });
+          this.pS.list().subscribe(data => this.pS.setList(data)); 
+          this.router.navigate(['/perfilProfesional']);
+        },
+        error: (err) => {
+          console.error(err);
+          this.snackBar.open('Error al registrar. Posiblemente el usuario ya tiene un perfil.', 'Cerrar', { duration: 4000 });
         }
       });
+    } else {
+      this.form.markAllAsTouched();
     }
   }
 }

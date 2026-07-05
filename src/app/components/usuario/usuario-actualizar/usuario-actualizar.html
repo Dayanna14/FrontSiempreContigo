@@ -21,7 +21,7 @@
 
     <div class="photo-section full-width">
       <p>Actualizar foto de perfil:</p>
-      <mat-radio-group [(ngModel)]="tieneFoto" (change)="onFotoChange()">
+      <mat-radio-group [(ngModel)]="tieneFoto" [ngModelOptions]="{standalone: true}" (change)="onFotoChange()">
          <mat-radio-button [value]="true">Sí</mat-radio-button>
          <mat-radio-button [value]="false">No</mat-radio-button>
       </mat-radio-group>
@@ -33,6 +33,13 @@
         </mat-form-field>
       }
     </div>
+
+    <!-- AQUÍ ESTÁ EL MENSAJE DE ERROR VISUAL -->
+    @if (mensajeError) {
+      <div class="full-width" style="color: #f44336; text-align: center; font-weight: bold; margin-bottom: 15px;">
+        {{ mensajeError }}
+      </div>
+    }
 
     <div class="botones-container full-width">
       <button mat-flat-button color="primary" type="submit">Guardar Cambios</button>

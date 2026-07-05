@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -53,8 +54,7 @@ export class UsuarioInsertar implements OnInit {
       apellidoPaterno: ['', Validators.required],
       apellidoMaterno: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      fotoPerfil: [''],
-      rol: ['', Validators.required],
+      fotoPerfil: [''] 
     });
   }
 
@@ -84,7 +84,6 @@ export class UsuarioInsertar implements OnInit {
 
       this.uS.insert(this.usuarioObj).subscribe({
         next: () => {
-          // Actualizamos la tabla reactivamente y volvemos
           this.uS.list().subscribe(data => {
             this.uS.setList(data);
           });
@@ -94,3 +93,4 @@ export class UsuarioInsertar implements OnInit {
     }
   }
 }
+

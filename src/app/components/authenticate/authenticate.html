@@ -7,28 +7,27 @@
       <p>Por favor, ingresa a tu cuenta para continuar con tu bienestar.</p>
     </div>
 
-    
     <form (submit)="login()" class="login-form">
       <mat-form-field appearance="outline">
         <mat-label>Nombre de usuario o Correo</mat-label>
-        
-        <input matInput name="username" placeholder="Username" [(ngModel)]="username" />
+        <input matInput name="username" placeholder="Username" [(ngModel)]="username" required />
         <mat-icon matSuffix>person</mat-icon>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Contraseña</mat-label>
-        
-        <input type="password" name="password" matInput placeholder="Password" [(ngModel)]="password" />
+        <!-- CORRECCIÓN: type="password" -->
+        <input type="password" name="contrasena" matInput placeholder="Contraseña" [(ngModel)]="contrasena" required />
         <mat-icon matSuffix>lock</mat-icon>
       </mat-form-field>
 
-      <button mat-raised-button color="primary" type="submit">Ingresar</button>
+      <!-- CORRECCIÓN: Agregada la clase btn-submit-login de tu CSS -->
+      <button mat-raised-button color="primary" type="submit" class="btn-submit-login">Ingresar</button>
     </form>
 
     <div class="register-link">
       <p>¿Aún no tienes cuenta? 
-        <a routerLink="/usuario/lista">Regístrate aquí</a>
+        <a routerLink="/usuario/nuevo">Regístrate aquí</a>
       </p>
     </div>
 

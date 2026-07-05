@@ -1,10 +1,10 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from '@angular/core';
-import { Loginservice } from '../../services/login-service'; 
+import { LoginService } from '../../services/login-service';
 
 export const seguridadGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
-  const loginService = inject(Loginservice);
+  const loginService = inject(LoginService);
 
   if (loginService.verificar()) {
     return true;

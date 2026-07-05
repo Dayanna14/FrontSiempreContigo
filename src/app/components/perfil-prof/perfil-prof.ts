@@ -1,16 +1,10 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
-
-import { PerfilProfListar } from './perfil-prof-listar/perfil-prof-listar';
-
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-prof',
-  imports: [PerfilProfListar, RouterOutlet],
+  imports: [RouterOutlet],
   templateUrl: './perfil-prof.html',
   styleUrl: './perfil-prof.css',
 })
-export class PerfilProf {
-  constructor(public route: ActivatedRoute){
-  }
-}
+export class PerfilProf {}
