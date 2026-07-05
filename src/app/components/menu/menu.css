@@ -1,93 +1,108 @@
-.sidenav-container {
-  height: 100vh;
-  width: 100vw;
+:host {
+  --color-primary: #c62828;
+  --color-primary-dark: #8e1c1c;
+  --color-primary-light: #fdecea;
+  --color-accent: #c62828;
+  --color-text: #2b2b2b;
+  --color-text-muted: #6b6b6b;
+  --color-bg: #fafafa;
+  --color-white: #ffffff;
+
+  display: block;
+  font-family: 'Atkinson Hyperlegible', 'Nunito Sans', sans-serif;
 }
 
-.custom-sidenav {
-  width: 280px;
-  background-color: #FFFFFF;
-}
-
-.sidenav-header {
-  padding: 20px;
+.app-toolbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  background-color: #F8FAFC;
+  height: 68px;
+  padding: 0 24px;
+  background: var(--color-white);
+  color: var(--color-text);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-.sidenav-header h3 {
-  margin: 0;
-  color: #1A365D;
-  font-weight: 600;
-}
-
-.mat-mdc-list-item {
-  border-radius: 12px;
-  margin: 5px 10px;
-  transition: all 0.3s ease;
-  color: #4A5568;
-}
-
-.mat-mdc-list-item:hover {
-  background-color: #EBF4FA !important;
-  color: #5A90C5 !important;
-}
-
-/* Alineación de íconos en el menú */
-mat-icon[matListItemIcon] {
-  margin-right: 16px;
-  color: #A0AEC0;
-}
-
-.mat-mdc-list-item:hover mat-icon[matListItemIcon] {
-  color: #5A90C5;
-}
-
-/* Toolbar y barra superior */
-.custom-toolbar {
-  background-color: #FFFFFF !important;
-  border-bottom: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
-  padding: 0 40px;
-}
-
-.left-section {
+.toolbar-left {
   display: flex;
   align-items: center;
-  gap: 20px;
 }
 
 .brand-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1A365D;
-  cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-primary-dark);
+  cursor: pointer;
 }
 
 .brand-title mat-icon {
-  color: #A1D6A0;
+  color: var(--color-primary);
 }
 
-.btn-login-trigger {
-  background-color: #5A90C5 !important;
-  color: white !important;
-  border-radius: 20px !important;
-  font-size: 18px !important;
+.toolbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.btn-logout {
-  color: #718096 !important;
+.nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 10px;
+  color: var(--color-text);
+  font-weight: 600;
+  padding: 0 14px;
+  height: 44px;
+  transition: background-color 0.15s ease, color 0.15s ease;
 }
 
-.main-content-wrapper {
-  background-color: #F8FAFC;
-  min-height: calc(100vh - 80px);
-  padding: 20px;
+.nav-btn mat-icon {
+  color: var(--color-primary);
+}
+
+.nav-btn:hover,
+.nav-btn:focus-visible {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.user-btn {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary-dark);
+}
+
+.role-item {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+.page-container {
+  min-height: calc(100vh - 68px);
+  background-color: var(--color-bg);
+}
+
+@media (max-width: 640px) {
+  .app-toolbar {
+    padding: 0 12px;
+  }
+
+  .brand-text,
+  .nav-label {
+    display: none;
+  }
+
+  .brand-title mat-icon {
+    font-size: 26px;
+  }
+
+  .nav-btn {
+    padding: 0 8px;
+  }
 }

@@ -1,81 +1,97 @@
-<div class="landing-page">
-  <section class="hero-section">
-    <div class="hero-content">
-      <span class="badge">Bienestar emocional para adultos mayores</span>
-      <h1>Nunca estará <br><span class="highlight">solo/a</span> de nuevo.</h1>
-      <p>SiempreContigo es su compañero digital de bienestar: cursos, apoyo emocional con IA y conexión directa con su terapeuta, disponibles las 24 horas del día.</p>
-      <div class="hero-buttons">
-        <button class="btn-primary">🌱 Empezar ahora</button>
-        <button class="btn-secondary">🔊 Escuchar más</button>
-      </div>
+@if (!isLoggedIn) {
+  <mat-toolbar class="app-toolbar">
+    <div class="toolbar-left">
+      <span class="brand-title">
+        <mat-icon>healing</mat-icon> <span class="brand-text">SiempreContigo</span>
+      </span>
     </div>
-    <div class="hero-image-box">
-      <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=500" alt="Terapeuta sonriendo" class="hero-img" />
-      <div class="floating-badge">😊 +12,000 adultos acompañados</div>
+    <div class="toolbar-actions">
+      <button mat-flat-button class="btn-login" routerLink="/login">
+        <mat-icon>login</mat-icon> Acceder
+      </button>
     </div>
-  </section>
-  <section class="section-gray">
-    <div class="section-title">
-      <h2>Todo lo que necesita, en un solo lugar</h2>
-      <p>Diseñado especialmente para personas mayores de 60 años, con tecnología que se adapta a usted.</p>
+  </mat-toolbar>
+}
+
+<section class="hero-section">
+  <div class="hero-content">
+    <span class="badge">Bienestar emocional para adultos mayores</span>
+    <h1>Nunca estará <br /><span class="highlight">solo/a</span> de nuevo.</h1>
+    <p>SiempreContigo es su compañero digital de bienestar: cursos, apoyo emocional con IA y conexión directa con su terapeuta, disponibles las 24 horas del día.</p>
+    <div class="hero-buttons">
+      <button class="btn-primary">Empezar ahora</button>
+      <button class="btn-secondary">Escuchar más</button>
     </div>
-    <div class="cards-grid">
-      <div class="card">
-        <div class="card-icon icon-blue">📖</div>
-        <h3>Gestión de Cursos</h3>
-        <p>Cursos de bienestar, comunicación y autocuidado diseñados por especialistas, accesibles a su propio ritmo con letras grandes y audio.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon icon-green">🩺</div>
-        <h3>Monitoreo de Salud</h3>
-        <p>Su equipo de profesionales realiza un seguimiento continuo de su bienestar emocional y le contacta si detectan que necesita apoyo.</p>
-      </div>
-      <div class="card">
-        <div class="card-icon icon-light-blue">📊</div>
-        <h3>Analítica de Bienestar</h3>
-        <p>Gráficas claras y sencillas que muestran su progreso semanal para que usted y su familia vean cómo mejora cada día.</p>
-      </div>
+  </div>
+  <div class="hero-image-box">
+    <img src="https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?q=80&w=500" alt="Terapeuta sonriendo" class="hero-img" />
+    <div class="floating-badge"><mat-icon>favorite</mat-icon> +12,000 adultos acompañados</div>
+  </div>
+</section>
+
+<section class="section-gray">
+  <div class="section-title">
+    <h2>Todo lo que necesita, en un solo lugar</h2>
+    <p>Diseñado especialmente para personas mayores de 60 años, con tecnología que se adapta a usted.</p>
+  </div>
+  <div class="cards-grid">
+    <div class="card">
+      <div class="card-icon icon-blue"><mat-icon>menu_book</mat-icon></div>
+      <h3>Gestión de Cursos</h3>
+      <p>Cursos de bienestar, comunicación y autocuidado diseñados por especialistas, accesibles a su propio ritmo con letras grandes y audio.</p>
     </div>
-  </section>
-  <section class="accompaniment-section">
-    <div class="acc-image-box">
-      <img src="https://images.unsplash.com/photo-1516841273335-e39b37888115?q=80&w=500" alt="Adulto mayor interactuando" class="acc-img" />
+    <div class="card">
+      <div class="card-icon icon-green"><mat-icon>monitor_heart</mat-icon></div>
+      <h3>Monitoreo de Salud</h3>
+      <p>Su equipo de profesionales realiza un seguimiento continuo de su bienestar emocional y le contacta si detectan que necesita apoyo.</p>
     </div>
-    <div class="acc-content">
-      <h2>Acompañamiento 24/7 y ejercicios cognitivos</h2>
-      <ul class="acc-list">
-        <li>✨ <strong>Asistente de IA:</strong> disponible a cualquier hora del día o la noche, con voz amigable y empática.</li>
-        <li>🚨 <strong>Botón de emergencia:</strong> directo a su terapeuta asignado cuando más lo necesite.</li>
-        <li>🧠 <strong>Ejercicios cognitivos:</strong> adaptados a su ritmo para mantener la mente activa y alerta.</li>
-        <li>👥 <strong>Comunidad:</strong> de personas mayores con intereses similares para reducir el aislamiento.</li>
-      </ul>
+    <div class="card">
+      <div class="card-icon icon-light-blue"><mat-icon>bar_chart</mat-icon></div>
+      <h3>Analítica de Bienestar</h3>
+      <p>Gráficas claras y sencillas que muestran su progreso semanal para que usted y su familia vean cómo mejora cada día.</p>
     </div>
-  </section>
-  <section class="section-blue-light">
-    <div class="section-title">
-      <h2>Cursos diseñados para usted</h2>
+  </div>
+</section>
+
+<section class="accompaniment-section">
+  <div class="acc-image-box">
+    <img src="https://images.unsplash.com/photo-1516841273335-e39b37888115?q=80&w=500" alt="Adulto mayor interactuando" class="acc-img" />
+  </div>
+  <div class="acc-content">
+    <h2>Acompañamiento 24/7 y ejercicios cognitivos</h2>
+    <ul class="acc-list">
+      <li><mat-icon>smart_toy</mat-icon> <strong>Asistente de IA:</strong> disponible a cualquier hora del día o la noche, con voz amigable y empática.</li>
+      <li><mat-icon>emergency</mat-icon> <strong>Botón de emergencia:</strong> directo a su terapeuta asignado cuando más lo necesite.</li>
+      <li><mat-icon>psychology</mat-icon> <strong>Ejercicios cognitivos:</strong> adaptados a su ritmo para mantener la mente activa y alerta.</li>
+      <li><mat-icon>groups</mat-icon> <strong>Comunidad:</strong> de personas mayores con intereses similares para reducir el aislamiento.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-blue-light">
+  <div class="section-title">
+    <h2>Cursos diseñados para usted</h2>
+  </div>
+  <div class="courses-grid">
+    <div class="course-card">
+      <div class="course-icon"><mat-icon>bolt</mat-icon></div>
+      <h3>Desarrollo de Habilidades</h3>
+      <button class="btn-course">Inscribirme</button>
     </div>
-    <div class="courses-grid">
-      <div class="course-card">
-        <div class="course-icon">⚡</div>
-        <h3>Desarrollo de Habilidades</h3>
-        <button class="btn-course">Inscribirme</button>
-      </div>
-      <div class="course-card">
-        <div class="course-icon">🗣️</div>
-        <h3>Comunicación con la Familia</h3>
-        <button class="btn-course">Inscribirme</button>
-      </div>
-      <div class="course-card">
-        <div class="course-icon">💚</div>
-        <h3>Bienestar Emocional</h3>
-        <button class="btn-course">Inscribirme</button>
-      </div>
-      <div class="course-card">
-        <div class="course-icon">🩺</div>
-        <h3>Autocuidado y Salud</h3>
-        <button class="btn-course">Inscribirme</button>
-      </div>
+    <div class="course-card">
+      <div class="course-icon"><mat-icon>chat</mat-icon></div>
+      <h3>Comunicación con la Familia</h3>
+      <button class="btn-course">Inscribirme</button>
     </div>
-  </section>
-</div>
+    <div class="course-card">
+      <div class="course-icon"><mat-icon>favorite</mat-icon></div>
+      <h3>Bienestar Emocional</h3>
+      <button class="btn-course">Inscribirme</button>
+    </div>
+    <div class="course-card">
+      <div class="course-icon"><mat-icon>health_and_safety</mat-icon></div>
+      <h3>Autocuidado y Salud</h3>
+      <button class="btn-course">Inscribirme</button>
+    </div>
+  </div>
+</section>
