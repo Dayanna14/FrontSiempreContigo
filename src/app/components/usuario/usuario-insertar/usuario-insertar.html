@@ -53,6 +53,20 @@
   }
 </div>
 
+<br/>
+
+<mat-form-field>
+        <mat-label>Seleccione el rol:</mat-label>
+        <mat-select formControlName="rol">
+          @for (food of listaRoles; track food) {
+            <mat-option [value]="food.idRol">{{ food.nameRol }}</mat-option>
+          }
+        </mat-select>
+</mat-form-field>
+
+      <br/>
+
+
     <div class="botones-container full-width">
       <button mat-flat-button color="primary" type="submit" routerLink = "/home" >Registrar</button>
       <button mat-stroked-button type="button" routerLink="/usuario">Cancelar</button>

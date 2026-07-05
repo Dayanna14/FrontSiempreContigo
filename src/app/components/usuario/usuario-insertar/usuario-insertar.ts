@@ -11,6 +11,7 @@ import { Rol } from '../../../models/rol';
 import { Rolservice } from '../../../services/rolservice';
 import { UsuarioService } from '../../../services/usuario-service';
 import {MatRadioModule} from '@angular/material/radio';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-usuario-insertar',
@@ -23,7 +24,8 @@ standalone: true,
     MatSelectModule,
     ReactiveFormsModule,
     CommonModule,
-    RouterLink
+    RouterLink,
+    MatFormFieldModule
   ],
   templateUrl: './usuario-insertar.html',
   styleUrl: './usuario-insertar.css',
@@ -34,6 +36,10 @@ export class UsuarioInsertar implements OnInit {
   listaRoles: Rol[] = [];
   tieneFoto: boolean = false;
   passwordVisible: boolean = false;
+  tipos: { value: string; viewValue: string }[] = [
+    { value: 'PROFESIONAL', viewValue: 'PROFESIONAL' },
+    { value: 'PACIENTE', viewValue: 'PACIENTE' },
+  ];
 
   constructor(
     private uS: UsuarioService,
@@ -54,7 +60,8 @@ export class UsuarioInsertar implements OnInit {
       apellidoPaterno: ['', Validators.required],
       apellidoMaterno: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
-      fotoPerfil: [''] 
+      fotoPerfil: [''],
+      rol : ['',Validators.required]
     });
   }
 
@@ -80,7 +87,7 @@ export class UsuarioInsertar implements OnInit {
       this.usuarioObj.fechaPrimerAcceso = this.form.value.fechaPrimerAcceso;
       this.usuarioObj.autorizacionFamiliar = this.form.value.autorizacionFamiliar;
       this.usuarioObj.tutorialCompletado = this.form.value.tutorialCompletado;
-      this.usuarioObj.idRol = this.form.value.idRol;
+      this.usuarioObj.idRol = this.form.value.rol;
 
       this.uS.insert(this.usuarioObj).subscribe({
         next: () => {
