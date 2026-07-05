@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="title-section">
+    <h2>Actualizar Curso</h2>
+  </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tipo de Curso</mat-label>
+      <input matInput formControlName="tipoCurso" placeholder="Ej. Taller, Seminario, Especialización..." />
+      <mat-error *ngIf="form.get('tipoCurso')?.hasError('required')">El tipo de curso es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('tipoCurso')?.hasError('maxlength')">Máximo 100 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre del Curso</mat-label>
+      <input matInput formControlName="nombreCurso" placeholder="Ej. Gestión de la Ansiedad" />
+      <mat-error *ngIf="form.get('nombreCurso')?.hasError('required')">El nombre es obligatorio</mat-error>
+      <mat-error *ngIf="form.get('nombreCurso')?.hasError('maxlength')">Máximo 150 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="descripcion" rows="3" placeholder="Detalles sobre el curso..."></textarea>
+      <mat-error *ngIf="form.get('descripcion')?.hasError('required')">La descripción es obligatoria</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Objetivos</mat-label>
+      <textarea matInput formControlName="objetivos" rows="3" placeholder="¿Qué se logrará con este curso?"></textarea>
+      <mat-error *ngIf="form.get('objetivos')?.hasError('required')">Los objetivos son obligatorios</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Perfil Profesional a Cargo</mat-label>
+      <mat-select formControlName="idPerfilProfesional">
+        @for (p of listaPerfiles; track p.idPerfilProfesional) {
+          <mat-option [value]="p.idPerfilProfesional">
+            {{ p.especialidad }} (Prof. ID: {{ p.idPerfilProfesional }})
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('idPerfilProfesional')?.hasError('required')">Debe asignar un perfil profesional</mat-error>
+    </mat-form-field>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Guardar Cambios</button>
+      <button mat-stroked-button type="button" routerLink="/cursos">Cancelar</button>
+    </div>
+  </form>
+</div>
