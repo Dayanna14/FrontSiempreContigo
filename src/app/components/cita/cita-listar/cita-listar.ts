@@ -30,18 +30,20 @@ export class CitaListar implements OnInit{
 
 
   ngOnInit(): void {
+    this.cargarCitas();
     this.uS.list().subscribe(data =>{
       this.usuario = data;
     });
+  }
     
-    this.cargarCitas();
+    //this.cargarCitas();
 
-    this.router.events.subscribe(event =>{
-      if(event instanceof NavigationEnd){
-        this.cargarCitas();
-      }
-      });
-    }
+    //this.router.events.subscribe(event =>{
+    //  if(event instanceof NavigationEnd){
+    //    this.cargarCitas();
+    //  }
+    //  });
+    //}
   
 
   cargarCitas(){
@@ -49,8 +51,9 @@ export class CitaListar implements OnInit{
       next: (data) =>{
         this.dataSource.data = data;
       }
-    })
+    });
   }
+  
 
   eliminar (id:number){
     this.cT.delete(id).subscribe(()=>{
