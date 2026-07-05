@@ -23,27 +23,50 @@ import { LoginService } from '../../services/login-service';
     MatMenuModule,
     MatDividerModule,
     RouterLink,
-    RouterOutlet
   ],
   templateUrl: './menu.html',
   styleUrls: ['./menu.css'],
 })
 export class Menucomponent {
+  role: string = '';
+  usuario: string = '';
   constructor(
     private router: Router,
     private loginService: LoginService 
   ) {}
 
-  get isLoggedIn(): boolean {
-    return this.loginService.verificar();
-  }
+  
 
-  get userRole(): string | null {
-    return this.loginService.showRole();
-  }
+  //get isLoggedIn(): boolean {
+  //  return this.loginService.verificar();
+  //}
+//
+  //get userRole(): string | null {
+  //  return this.loginService.showRole();
+  //}
+
+verificar(): boolean{
+const existe = this.loginService.verificar();
+if(existe){
+  this.role = this.loginService.showRole() ?? '';
+}
+return existe;
+}
+
+
 
   logout(): void {
     this.loginService.cerrarSesion();
     this.router.navigate(['/login']); 
   }
+
+
+isPROFESIONAL(){
+  return this.role === "PROFESIONAL";
+}
+
+isPACIENTE(){
+  return this.role === "PACIENTE";
+}
+
 }

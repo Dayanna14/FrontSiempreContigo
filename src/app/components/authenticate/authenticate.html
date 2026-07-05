@@ -36,15 +36,19 @@
     </div>
 
     <div class="social-login-group">
-      <button mat-stroked-button class="btn-google" (click)="loginWithGoogle()">
+      <!-- Opción A: Botón nativo de la librería (más fácil y seguro) -->
+      <asl-google-signin-button type="standard" size="medium"></asl-google-signin-button>
+
+      <!-- Si prefieres mantener tu diseño propio (Opción B), 
+          cambia (click)="loginWithGoogle()" por esto: -->
+      <!--
+      <button mat-stroked-button class="btn-google" (click)="authService.signIn('GOOGLE')">
         <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-24dp/logo_googleg_color_24dp.png" alt="Google logo" />
         Continuar con Google
       </button>
+      -->
 
-      <button mat-flat-button class="btn-facebook" (click)="loginWithFacebook()">
-        <mat-icon>facebook</mat-icon>
-        Continuar con Facebook
-      </button>
+      <!-- Elimina o comenta el botón de Facebook si no lo vas a usar -->
     </div>
   </div>
 </div>

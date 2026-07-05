@@ -62,6 +62,17 @@ import { PerfilProfInsertar } from './components/perfil-prof/perfil-prof-inserta
 import { PerfilProfActualizar } from './components/perfil-prof/perfil-prof-actualizar/perfil-prof-actualizar';
 import { Authenticate } from './components/authenticate/authenticate';
 import { seguridadGuard } from './components/guard/seguridad-guard';
+import { Alerta } from './models/alerta';
+import { Cita } from './models/cita';
+import { ConfigApp } from './models/config-app';
+import { Cursos } from './models/cursos';
+import { EstEmocional } from './components/est-emocional/est-emocional';
+import { Formulario } from './components/formulario/formulario';
+import { Chat } from './models/chat';
+import { Notificacion } from './models/notificacion';
+import { Sesion } from './models/sesion';
+import { UserCurso } from './models/user-curso';
+import { Valoracion } from './models/valoracion';
 
 export const routes: Routes = [
   { path: '', 
@@ -70,7 +81,7 @@ export const routes: Routes = [
   },
   
   { path: 'homes', 
-    component: Home,
+    component: Home, canActivate: [seguridadGuard]
   },
 
   {
@@ -81,8 +92,10 @@ export const routes: Routes = [
   // 1. Alertas
   {
     path: 'alertas',
+    component:Alerta, canActivate: [seguridadGuard],
     children: [
-      { path: '', redirectTo: 'lista', pathMatch: 'full' }, // <--- EL TRUCO ESTÁ AQUÍ
+      { path: '', redirectTo: 'lista', pathMatch: 'full' },
+      
       { path: 'nuevo', component: AlertaInsertar },
       { path: 'lista', component: AlertaListar },
       { path: 'edits/:id', component: AlertaActualizar },
@@ -92,6 +105,7 @@ export const routes: Routes = [
   // 2. Citas
   {  
     path: 'citas',
+    component: Cita, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: CitaInsertar },
@@ -102,6 +116,7 @@ export const routes: Routes = [
   // 3. Configuración Aplicación
   {
     path: 'config-app',
+    component: ConfigApp, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: ConfigAppInsertar },
@@ -113,6 +128,7 @@ export const routes: Routes = [
   // 4. Cursos
   {
     path: 'cursos',
+    component: Cursos, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: CursosInsertar },
@@ -124,6 +140,7 @@ export const routes: Routes = [
   // 5. Estado Emocional
   {
     path: 'est-emocional',
+    component: EstEmocional, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: EstEmocionalInsertar },
@@ -135,6 +152,7 @@ export const routes: Routes = [
   // 6. Formulario
   {
     path: 'formulario',
+    component: Formulario, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: FormularioInsertar },
@@ -146,6 +164,7 @@ export const routes: Routes = [
   // 7. Mensajes de Chat
   {
     path: 'chat',
+    component: Chat, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: ChatInsertar },
@@ -157,6 +176,7 @@ export const routes: Routes = [
   // 8. Notificaciones
   {
     path: 'notificacion',
+    component: Notificacion, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: NotificacionInsertar },
@@ -168,7 +188,7 @@ export const routes: Routes = [
   // 9. Perfil Profesional (TUYO)
   {
     path: 'perfilProfesional',
-    component: PerfilProf, 
+    component: PerfilProf,  canActivate: [seguridadGuard],
     children: [
       { path: '', component: PerfilProfListar }, 
       { path: 'nuevo', component: PerfilProfInsertar },
@@ -177,7 +197,7 @@ export const routes: Routes = [
   },
   // 10. Progreso Sesión
   {
-    path: 'prog-sesion',
+    path: 'prog-sesion', canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: ProgSesionInsertar },
@@ -189,7 +209,7 @@ export const routes: Routes = [
   // 11. Rol (TUYO)
   {
      path: 'roles',
-        component: Rolcomponent,
+        component: Rolcomponent, canActivate: [seguridadGuard],
         children: [
         { path: '', component: RolListar},
         { path: 'nuevo', component: RolInsertar},
@@ -199,6 +219,7 @@ export const routes: Routes = [
   // 12. Sesion
   {
     path: 'sesion',
+    component: Sesion, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: SesionInsertar },
@@ -210,7 +231,7 @@ export const routes: Routes = [
   // 13. Usuario (TUYO)
   {
      path: 'usuario',
-    component:Usuariocomponent,
+    component:Usuariocomponent,canActivate: [seguridadGuard],
     children: [
       { path: '', component: UsuarioListar },
       { path: 'nuevo', component: UsuarioInsertar },
@@ -221,6 +242,7 @@ export const routes: Routes = [
   // 14. Usuario Curso (Inscripciones)
   {
     path: 'user-curso',
+    component: UserCurso, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: UserCursoInsertar },
@@ -232,6 +254,7 @@ export const routes: Routes = [
   // 15. Valoración Curso
   {
     path: 'valoracion',
+    component: Valoracion, canActivate: [seguridadGuard],
     children: [
       { path: '', redirectTo: 'lista', pathMatch: 'full' },
       { path: 'nuevo', component: ValoracionInsertar },

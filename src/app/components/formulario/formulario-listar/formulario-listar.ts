@@ -31,17 +31,20 @@ export class FormularioListar implements OnInit {
   ){}
 
   ngOnInit(): void {
+this.cargarFormulario();
+
     this.uS.list().subscribe(data=>{
       this.usuario = data;
     });
-this.cargarFormulario();
-
-    this.router.events.subscribe((event)=>{
-      if(event instanceof NavigationEnd){
-        this.cargarFormulario();
-      }
-    });
   }
+
+
+  //  this.router.events.subscribe((event)=>{
+  //    if(event instanceof NavigationEnd){
+  //      this.cargarFormulario();
+  //    }
+  //  });
+  //}
 
   cargarFormulario(){
     this.fS.list().subscribe({
@@ -53,7 +56,10 @@ this.cargarFormulario();
 
   eliminar(id: number){
     this.fS.delete(id).subscribe(()=>{
-      this.cargarFormulario(); 
+      this.fS.list().subscribe((data)=>{
+          this.dataSource.data=data;
+      })
+      
     });
   }
 

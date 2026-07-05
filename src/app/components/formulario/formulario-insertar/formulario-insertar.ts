@@ -13,11 +13,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { Usuario } from '../../../models/usuario';
 import { UsuarioService } from '../../../services/usuario-service';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-formulario-insertar',
   imports: [
-    MatIconModule,MatInputModule, MatButtonModule,ReactiveFormsModule, MatDatepickerModule, MatSelectModule, CommonModule, MatFormFieldModule
+    MatIconModule,MatInputModule, MatButtonModule,ReactiveFormsModule, MatDatepickerModule, MatSelectModule, CommonModule, MatFormFieldModule,MatNativeDateModule
   ],
   templateUrl: './formulario-insertar.html',
   styleUrl: './formulario-insertar.css',
@@ -40,6 +41,7 @@ export class FormularioInsertar implements OnInit {
       this.listasUsuario = data
     });
     this.form = this.formBuilder.group({
+      idFormulario: [0],
       mensaje: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]], 
       usuarioN: ['',Validators.required]
@@ -55,7 +57,7 @@ export class FormularioInsertar implements OnInit {
       this.fI.insert(this.formulario).subscribe({
         next:()=>{
           
-          this.router.navigate(['/Formulario/nuevo']); 
+          this.router.navigate(['/formulario/nuevo']); 
         }
       });
     }

@@ -1,5 +1,5 @@
 export class FormularioDTO {
-    idFormulario: number = 0; // Mapeado de ID_Formulario
+    idFormulario: number = 0; 
     mensaje: string = '';
     correo: string = '';
     idUsuario: number = 0;

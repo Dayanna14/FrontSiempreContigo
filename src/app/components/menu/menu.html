@@ -1,9 +1,66 @@
-<mat-sidenav-container class="sidenav-container">
+<!--<mat-sidenav-container class="sidenav-container">
   <mat-sidenav #sidenav mode="over" class="custom-sidenav">
     <div class="sidenav-header">
       <h3>⚙️ Tablas del Sistema</h3>
       <button mat-icon-button (click)="sidenav.close()"><mat-icon>close</mat-icon></button>
-    </div>
+    </div>-->
+
+<div class="container">
+    @if (verificar()) {
+
+  <mat-toolbar class="custom-toolbar">
+    <button mat-button [routerLink]="['/homes']" class="btn-rojo">
+        <mat-icon>home</mat-icon>Home
+      </button>
+      @if (isPROFESIONAL()) {
+    <button
+      matButton
+      class="btn-rojo"
+      aria-label="Example icon-button with menu icon"
+      [matMenuTriggerFor]="verCita"
+    >
+      <mat-icon>home</mat-icon>ver citas 
+    </button>
+    }
+      @if (isPACIENTE()) {
+    <button
+      matButton
+      class="btn-rojo"
+      aria-label="Example icon-button with menu icon"
+      [matMenuTriggerFor]="registroSala"
+    >
+      <mat-icon>tool</mat-icon>registrar cita
+    </button>
+    
+    }
+  
+
+<span class="spacer"> </span>
+<button mat-button [matMenuTriggerFor]="menuSalir"><mat-icon>person</mat-icon>Usuario</button>
+
+  </mat-toolbar>
+}
+  <mat-menu #verCita="matMenu">
+    <button mat-menu-item routerLink="/citas/lista"><mat-icon>add</mat-icon>ver cita</button>
+  </mat-menu>
+  <mat-menu #registroSala="matMenu">
+    <button mat-menu-item routerLink="/citas/nuevo">
+      <mat-icon>bar_chart</mat-icon>Registrar cita
+    </button>
+  </mat-menu>
+  
+  <mat-menu #menuSalir="matMenu">
+    <button mat-menu-item routerLink="/login" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Cerrar sesión</span>
+    </button>
+    <button mat-menu-item>
+      Rol:
+      <span>{{ role }}</span>
+    </button>
+  </mat-menu>
+
+<!--
     <mat-divider></mat-divider>
     <mat-nav-list (click)="sidenav.close()">
       <a mat-list-item routerLink="/roles"><mat-icon matListItemIcon>manage_accounts</mat-icon> Roles</a>
@@ -11,7 +68,7 @@
       <a mat-list-item routerLink="/perfilProfesional"><mat-icon matListItemIcon>assignment_ind</mat-icon> Perfiles Prof.</a>
       <mat-divider></mat-divider>
       <a mat-list-item routerLink="/alertas"><mat-icon matListItemIcon>notification_important</mat-icon> Alertas</a>
-      <a mat-list-item routerLink="/citas"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
+      <a mat-list-item routerLink="/citas/nuevo"><mat-icon matListItemIcon>calendar_month</mat-icon> Citas</a>
       <a mat-list-item routerLink="/config-app"><mat-icon matListItemIcon>settings</mat-icon> Configuración</a>
       <a mat-list-item routerLink="/cursos"><mat-icon matListItemIcon>school</mat-icon> Cursos</a>
       <a mat-list-item routerLink="/est-emocional"><mat-icon matListItemIcon>mood</mat-icon> Estados Emocionales</a>
@@ -24,6 +81,7 @@
       <a mat-list-item routerLink="/valoracion"><mat-icon matListItemIcon>star</mat-icon> Valoraciones</a>
     </mat-nav-list>
   </mat-sidenav>
+
 
   <mat-sidenav-content>
     <mat-toolbar class="custom-toolbar">
@@ -48,4 +106,5 @@
       <router-outlet></router-outlet>
     </div>
   </mat-sidenav-content>
-</mat-sidenav-container>
+  -->
+</div>

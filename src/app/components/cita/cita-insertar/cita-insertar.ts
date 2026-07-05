@@ -34,6 +34,11 @@ export class CitaInsertar implements OnInit{
   ){}
 
   ngOnInit(): void {
+this.uS.list().subscribe(data =>{
+  this.listasUsuario = data;
+})
+
+
     this.form = this.formBuilder.group({
       idCita: [0],
       fechaCita: ['', Validators.required],
@@ -52,7 +57,7 @@ export class CitaInsertar implements OnInit{
       this.cita.idUsuario = this.form.value.UsuarioN;
       this.cT.insert(this.cita).subscribe({
         next: ()=>{
-          this.router.navigate(['/cita/nuevo']);
+          this.router.navigate(['/citas/nuevo']);
         }
       });
       

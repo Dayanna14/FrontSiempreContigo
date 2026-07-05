@@ -1,93 +1,108 @@
-.sidenav-container {
-  height: 100vh;
-  width: 100vw;
-}
+/* ===========================
+   TOOLBAR
+=========================== */
 
-.custom-sidenav {
-  width: 280px;
-  background-color: #FFFFFF;
-}
-
-.sidenav-header {
-  padding: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #F8FAFC;
-}
-
-.sidenav-header h3 {
-  margin: 0;
-  color: #1A365D;
-  font-weight: 600;
-}
-
-.mat-mdc-list-item {
-  border-radius: 12px;
-  margin: 5px 10px;
-  transition: all 0.3s ease;
-  color: #4A5568;
-}
-
-.mat-mdc-list-item:hover {
-  background-color: #EBF4FA !important;
-  color: #5A90C5 !important;
-}
-
-/* Alineación de íconos en el menú */
-mat-icon[matListItemIcon] {
-  margin-right: 16px;
-  color: #A0AEC0;
-}
-
-.mat-mdc-list-item:hover mat-icon[matListItemIcon] {
-  color: #5A90C5;
-}
-
-/* Toolbar y barra superior */
 .custom-toolbar {
-  background-color: #FFFFFF !important;
-  border-bottom: 1px solid #E2E8F0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 80px;
-  padding: 0 40px;
-}
-
-.left-section {
+  background-color: #fb0800;
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 0 8px;
 }
 
-.brand-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1A365D;
+/* Empuja el botón Usuario hacia la derecha */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* ===========================
+   BOTONES
+=========================== */
+
+.btn-rojo {
+  background-color: #fb0800;
+  border: none;
+  border-radius: 4px;
+  margin: 4px;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 0.9rem;
+  transition: background-color 0.25s ease;
 }
 
-.brand-title mat-icon {
-  color: #A1D6A0;
+.btn-rojo:hover {
+  background-color: rgb(106, 235, 157);
 }
 
-.btn-login-trigger {
-  background-color: #5A90C5 !important;
-  color: white !important;
-  border-radius: 20px !important;
-  font-size: 18px !important;
+/* ===========================
+   ICONOS
+=========================== */
+
+.btn-rojo mat-icon,
+.btn-rojo .material-symbols-outlined {
+  font-size: 20px;
+  line-height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
-.btn-logout {
-  color: #718096 !important;
+/* ===========================
+   COLOR DE TEXTO
+=========================== */
+
+.custom-toolbar button,
+.custom-toolbar mat-icon {
+  color: white;
 }
 
-.main-content-wrapper {
-  background-color: #F8FAFC;
-  min-height: calc(100vh - 80px);
-  padding: 20px;
+/* ===========================
+   MENÚ DESPLEGABLE
+=========================== */
+
+.mat-mdc-menu-panel {
+  background-color: rgba(250, 121, 16, 0.48) !important;
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(236, 143, 85, 0.3);
+  border-radius: 8px;
+  padding: 4px 0;
+}
+
+/* ===========================
+   OPCIONES DEL MENÚ
+=========================== */
+
+.mat-mdc-menu-item {
+  color: #0c570c !important;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.mat-mdc-menu-item:hover {
+  background-color: rgba(46, 158, 46, 0.2) !important;
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width: 768px) {
+  .custom-toolbar {
+    flex-wrap: wrap;
+    height: auto;
+    padding: 8px;
+  }
+
+  .btn-rojo {
+    margin: 2px;
+    font-size: 0.8rem;
+    padding: 5px 8px;
+  }
+
+  .spacer {
+    display: none;
+  }
 }
