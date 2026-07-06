@@ -57,6 +57,14 @@
         </button>
       }
 
+      <!-- SECCIÓN REPORTES / GRÁFICOS (Nueva) -->
+      @if (isPROFESIONAL()) {
+        <button mat-button [matMenuTriggerFor]="verReportes" class="nav-btn">
+          <mat-icon>analytics</mat-icon>
+          <span class="nav-label">Reportes</span>
+        </button>
+      }
+
       <!-- SECCIÓN USUARIO -->
       <button mat-button [matMenuTriggerFor]="menuSalir" class="nav-btn user-btn">
         <mat-icon>person</mat-icon>
@@ -85,7 +93,7 @@
   </button>
 </mat-menu>
 
-<!-- Menús de Cursos (Los que causaban el error) -->
+<!-- Menús de Cursos -->
 <mat-menu #verCurso="matMenu">
   <button mat-menu-item routerLink="/cursos/lista">
     <mat-icon>list</mat-icon>
@@ -104,7 +112,7 @@
   </button>
 </mat-menu>
 
-<!-- Menús de Formularios (Nuevos) -->
+<!-- Menús de Formularios -->
 <mat-menu #verFormulario="matMenu">
   <button mat-menu-item routerLink="/formulario/lista">
     <mat-icon>visibility</mat-icon>
@@ -116,6 +124,14 @@
   <button mat-menu-item routerLink="/formulario/nuevo">
     <mat-icon>edit_document</mat-icon>
     <span>Completar formulario</span>
+  </button>
+</mat-menu>
+
+<!-- Menú de Reportes (Nuevo) -->
+<mat-menu #verReportes="matMenu">
+  <button mat-menu-item routerLink="/reportes">
+    <mat-icon>dashboard</mat-icon>
+    <span>Ver panel de gráficos</span>
   </button>
 </mat-menu>
 

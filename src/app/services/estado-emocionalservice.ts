@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { EstadoEmocional } from "../models/estado-emocional";
 import { environment } from '../environment/environment.development';
+import { Observable } from "rxjs";
 
 
 
@@ -32,6 +33,10 @@ export class EstadoEmocionalservice {
 
    listId(id: number) {
     return this.http.get<EstadoEmocional>(`${this.url}/${id}`);
+  }
+
+  getReporteTendencia(): Observable<any[]> {
+   return this.http.get<any[]>(`${this.url}/reporte`); 
   }
 buscarHistorialPorPaciente(pacienteId: number) {
     return this.http.get<EstadoEmocional[]>(`${this.url}/paciente/${pacienteId}`);

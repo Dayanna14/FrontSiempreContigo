@@ -1,0 +1,48 @@
+<div class="dashboard-container">
+  <h2>Panel de Reportes</h2>
+
+  <div class="charts-grid">
+    
+    <!-- TARJETA: GRÁFICO DE CURSOS -->
+    <div class="chart-card">
+      <h3>Especialidades / Cursos más demandados</h3>
+      
+      <div *ngIf="hasDataCursos" class="chart-wrapper">
+        <canvas baseChart 
+          [datasets]="barChartData" 
+          [labels]="barChartLabels" 
+          [options]="barChartOptions" 
+          [legend]="barChartLegend" 
+          [type]="barChartType">
+        </canvas>
+      </div>
+
+      <!-- Estado vacío usando MatIcon igual que tu profesora -->
+      <div *ngIf="!hasDataCursos" class="empty-state">
+        <mat-icon>bar_chart</mat-icon>
+        <p>No hay datos suficientes para mostrar los cursos.</p>
+      </div>
+    </div>
+
+    <!-- TARJETA: GRÁFICO EMOCIONAL -->
+    <div class="chart-card">
+      <h3>Tendencia de Bienestar Emocional</h3>
+      
+      <div *ngIf="hasDataEmocional" class="chart-wrapper">
+        <canvas baseChart 
+          [datasets]="lineChartData" 
+          [labels]="lineChartLabels" 
+          [options]="lineChartOptions" 
+          [legend]="lineChartLegend" 
+          [type]="lineChartType">
+        </canvas>
+      </div>
+
+      <div *ngIf="!hasDataEmocional" class="empty-state">
+        <mat-icon>show_chart</mat-icon>
+        <p>No hay registros emocionales suficientes.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
