@@ -1,0 +1,46 @@
+<div class="dashboard-container">
+  <div class="title-section">
+    <h2>Panel de Reportes</h2>
+    <p>Métricas de rendimiento y evolución de los pacientes.</p>
+  </div>
+
+  <div class="charts-grid">
+    
+    <!-- Gráfico 1: Especialidades más demandadas -->
+    <div class="chart-card">
+      <h3>Cursos más demandados</h3>
+      <div class="chart-wrapper">
+        <ngx-charts-bar-vertical
+          [results]="dataCursos"
+          [scheme]="colorScheme"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Especialidades / Cursos"
+          yAxisLabel="N° de Pacientes Inscritos"
+          [animations]="true">
+        </ngx-charts-bar-vertical>
+      </div>
+    </div>
+
+    <!-- Gráfico 2: Tendencia de Estado Emocional -->
+    <div class="chart-card">
+      <h3>Tendencia de Bienestar Emocional</h3>
+      <div class="chart-wrapper">
+        <ngx-charts-line-chart
+          [results]="dataEmocional"
+          [scheme]="colorScheme"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          xAxisLabel="Fecha de Registro"
+          yAxisLabel="Promedio Nivel Emocional"
+          [animations]="true">
+        </ngx-charts-line-chart>
+      </div>
+    </div>
+
+  </div>
+</div>

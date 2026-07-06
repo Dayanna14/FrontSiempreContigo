@@ -43,6 +43,10 @@ export class CursosService {
     return this.http.get<any[]>(`${this.url}/reporte-aporte-especialidad`);
   }
 
+  getReporteInscritos(): Observable<any[]> {
+  return this.http.get<any[]>(`${this.url}/reporte`); 
+  }
+
   setList(listaNueva: Cursos[]) {
     this.listaCambio.next(listaNueva);
   }
