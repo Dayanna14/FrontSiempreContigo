@@ -1,8 +1,9 @@
 :host {
-  --color-primary: #c62828;
-  --color-primary-dark: #8e1c1c;
-  --color-primary-light: #fdecea;
-  --color-accent: #c62828;
+  /* Variables: Tonos de Verde */
+  --color-primary: #558B2F;        /* Verde medio */
+  --color-primary-dark: #2E7D32;   /* Verde oscuro */
+  --color-primary-light: #E8F5E9;  /* Verde muy claro (limpiado de tonos rosados) */
+  --color-accent: #7CB342;         /* Verde acento */
   --color-text: #2b2b2b;
   --color-text-muted: #6b6b6b;
   --color-bg: #fafafa;
@@ -69,12 +70,12 @@
 
 .nav-btn:hover,
 .nav-btn:focus-visible {
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary-light); /* Ahora es verde claro */
   color: var(--color-primary-dark);
 }
 
 .user-btn {
-  background-color: var(--color-primary-light);
+  background-color: var(--color-primary-light); /* Ahora es verde claro */
   color: var(--color-primary-dark);
 }
 

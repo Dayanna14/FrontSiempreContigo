@@ -1,9 +1,9 @@
 :host {
-  --color-primary: #c62828;
-  --color-primary-dark: #8e1c1c;
+  --color-primary: #A1D6A0;
+  --color-primary-dark: #285406;
   --color-primary-light: #fdecea;
-  --color-accent: #c62828;
-  --color-accent-dark: #8e1c1c;
+  --color-accent: #A1D6A0;
+  --color-accent-dark: #285406;
   --color-text: #2b2b2b;
   --color-text-muted: #6b6b6b;
   --color-bg: #fafafa;
@@ -126,7 +126,7 @@
 .btn-primary {
   background: var(--color-accent);
   color: var(--color-white);
-  box-shadow: 0 6px 16px rgba(198, 40, 40, 0.35);
+  box-shadow: 0 6px 16px rgba(102, 176, 90, 0.35);
 }
 
 .btn-primary:hover {
@@ -252,7 +252,7 @@
 }
 
 .icon-light-blue {
-  background: #fdecea;
+  background: #eafdecc1;
 }
 
 .card h3 {
