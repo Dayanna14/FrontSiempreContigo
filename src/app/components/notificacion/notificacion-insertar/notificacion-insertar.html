@@ -1,0 +1,66 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Emitir Nueva Notificación</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      
+      <mat-form-field>
+        <mat-label>Contenido del Aviso / Notificación</mat-label>
+        <textarea matInput formControlName="mensaje" rows="3" placeholder="Ej: ¡Nuevo curso disponible!"></textarea>
+        <mat-error>
+          @if (form.get('mensaje')?.hasError('required')) {
+            <span>El mensaje es obligatorio.</span>
+          }
+          @if (form.get('mensaje')?.hasError('maxlength')) {
+            <span>Límite superado (máximo 255 caracteres).</span>
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Fecha y Hora de Emisión</mat-label>
+        <input matInput type="datetime-local" formControlName="fechaNotificacion" />
+        @if (form.get('fechaNotificacion')?.hasError('required')) {
+          <mat-error>La fecha es obligatoria.</mat-error>
+        }
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Usuario Destinatario</mat-label>
+        <input matInput formControlName="idUsuario" placeholder="Ej: 5" />
+        <mat-error>
+          @if (form.get('idUsuario')?.hasError('required')) {
+            <span>El código de usuario es obligatorio.</span>
+          }
+          @if (form.get('idUsuario')?.hasError('pattern')) {
+            <span>Solo se admiten valores numéricos.</span>
+          }
+        </mat-error>
+      </mat-form-field>
+      <br />
+
+      <div class="radio-group-container">
+        <label class="radio-label">¿Marcar inicialmente como leída?</label>
+        <mat-radio-group formControlName="leido">
+          <mat-radio-button [value]="true">Sí</mat-radio-button>
+          <mat-radio-button [value]="false">No (Alerta Nueva)</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br />
+
+      <div class="radio-group-container">
+        <label class="radio-label">Estado de Vigencia</label>
+        <mat-radio-group formControlName="activo">
+          <mat-radio-button [value]="true">Vigente (Visible)</mat-radio-button>
+          <mat-radio-button [value]="false">Inactiva (Oculta)</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <br />
+
+      <div>
+        <button mat-raised-button type="submit" [disabled]="form.invalid" class="btn-submit">Enviar Notificación</button>
+      </div>
+    </form>
+  </div>
+</div>

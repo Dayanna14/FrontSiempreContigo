@@ -1,0 +1,38 @@
+<h1>Actualizar Formulario:</h1>
+
+<div>
+  <form [formGroup]="form" (ngSubmit)="aceptar()" class="example-form">
+    
+    <mat-form-field class="example-full-width">
+      <mat-label>Código de Formulario</mat-label>
+      <input matInput formControlName="codigo" readonly>
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>ID del Usuario</mat-label>
+      <input matInput formControlName="idUsuario" placeholder="Ej. 12345">
+      <mat-error *ngIf="form.get('idUsuario')?.hasError('pattern')">
+        Solo se permiten números.
+      </mat-error>
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Correo Electrónico</mat-label>
+      <input matInput type="email" formControlName="correo" placeholder="ejemplo@correo.com">
+    </mat-form-field>
+    <br/>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Mensaje</mat-label>
+      <textarea matInput formControlName="mensaje" placeholder="Escribe tu mensaje aquí..." rows="4"></textarea>
+    </mat-form-field>
+    <br/>
+
+    <button mat-raised-button color="accent" type="submit" [disabled]="form.invalid">
+      Actualizar Formulario
+    </button>
+
+  </form>
+</div>

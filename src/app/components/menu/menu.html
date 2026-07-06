@@ -1,0 +1,164 @@
+@if (verificar()) {
+  <mat-toolbar class="app-toolbar">
+    <div class="toolbar-left">
+      <span class="brand-title" routerLink="/homes">
+        <mat-icon>healing</mat-icon> <span class="brand-text">SiempreContigo</span>
+      </span>
+    </div>
+
+    <div class="toolbar-actions">
+      <button mat-button routerLink="/homes" class="nav-btn">
+        <mat-icon>home</mat-icon>
+        <span class="nav-label">Home</span>
+      </button>
+
+      <!-- SECCIÓN CITAS -->
+      @if (isPROFESIONAL()) {
+        <button mat-button [matMenuTriggerFor]="verCita" class="nav-btn">
+          <mat-icon>calendar_month</mat-icon>
+          <span class="nav-label">Citas</span>
+        </button>
+      }
+
+      @if (isPACIENTE()) {
+        <button mat-button [matMenuTriggerFor]="registrarCita" class="nav-btn">
+          <mat-icon>event_available</mat-icon>
+          <span class="nav-label">Citas</span>
+        </button>
+      }
+
+      <!-- SECCIÓN CURSOS (Restaurada) -->
+      @if (isPROFESIONAL()) {
+        <button mat-button [matMenuTriggerFor]="verCurso" class="nav-btn">
+          <mat-icon>school</mat-icon>
+          <span class="nav-label">Cursos</span>
+        </button>
+      }
+
+      @if (isPACIENTE()) {
+        <button mat-button [matMenuTriggerFor]="registrarCurso" class="nav-btn">
+          <mat-icon>school</mat-icon>
+          <span class="nav-label">Cursos</span>
+        </button>
+      }
+
+      <!-- SECCIÓN FORMULARIOS (Nueva) -->
+      @if (isPROFESIONAL()) {
+        <button mat-button [matMenuTriggerFor]="verFormulario" class="nav-btn">
+          <mat-icon>description</mat-icon>
+          <span class="nav-label">Formularios</span>
+        </button>
+      }
+
+      @if (isPACIENTE()) {
+        <button mat-button [matMenuTriggerFor]="registrarFormulario" class="nav-btn">
+          <mat-icon>assignment</mat-icon>
+          <span class="nav-label">Formularios</span>
+        </button>
+      }
+
+      <!-- SECCIÓN USUARIO -->
+      <button mat-button [matMenuTriggerFor]="menuSalir" class="nav-btn user-btn">
+        <mat-icon>person</mat-icon>
+        <span class="nav-label">Usuario</span>
+      </button>
+    </div>
+  </mat-toolbar>
+}
+
+<!-- ============================================== -->
+<!-- MENÚS DESPLEGABLES                             -->
+<!-- ============================================== -->
+
+<!-- Menús de Citas -->
+<mat-menu #verCita="matMenu">
+  <button mat-menu-item routerLink="/citas/lista">
+    <mat-icon>bar_chart</mat-icon>
+    <span>Ver citas</span>
+  </button>
+</mat-menu>
+
+<mat-menu #registrarCita="matMenu">
+  <button mat-menu-item routerLink="/citas/nuevo">
+    <mat-icon>add</mat-icon>
+    <span>Registrar cita</span>
+  </button>
+</mat-menu>
+
+<!-- Menús de Cursos (Los que causaban el error) -->
+<mat-menu #verCurso="matMenu">
+  <button mat-menu-item routerLink="/cursos/lista">
+    <mat-icon>list</mat-icon>
+    <span>Gestionar cursos</span>
+  </button>
+  <button mat-menu-item routerLink="/cursos/nuevo">
+    <mat-icon>add</mat-icon>
+    <span>Crear nuevo curso</span>
+  </button>
+</mat-menu>
+
+<mat-menu #registrarCurso="matMenu">
+  <button mat-menu-item routerLink="/cursos/lista">
+    <mat-icon>search</mat-icon>
+    <span>Explorar cursos</span>
+  </button>
+</mat-menu>
+
+<!-- Menús de Formularios (Nuevos) -->
+<mat-menu #verFormulario="matMenu">
+  <button mat-menu-item routerLink="/formulario/lista">
+    <mat-icon>visibility</mat-icon>
+    <span>Ver formularios llenados</span>
+  </button>
+</mat-menu>
+
+<mat-menu #registrarFormulario="matMenu">
+  <button mat-menu-item routerLink="/formulario/nuevo">
+    <mat-icon>edit_document</mat-icon>
+    <span>Completar formulario</span>
+  </button>
+</mat-menu>
+
+<!-- Menú de Usuario (Actualizado con Perfiles y Cambio de Rol) -->
+<mat-menu #menuSalir="matMenu" class="custom-menu">
+  <button mat-menu-item disabled class="role-item">
+    <mat-icon>badge</mat-icon>
+    <span>Rol: {{ role }}</span>
+  </button>
+
+  <!-- Perfil General (Para ambos roles) -->
+  <button mat-menu-item routerLink="/usuario/perfil">
+    <mat-icon>account_circle</mat-icon>
+    <span>Mi Perfil</span>
+  </button>
+
+  <mat-divider></mat-divider>
+
+  <!-- Opciones exclusivas del PROFESIONAL -->
+  @if (isPROFESIONAL()) {
+    <button mat-menu-item routerLink="/perfilProfesional/mi-perfil">
+      <mat-icon>assignment_ind</mat-icon>
+      <span>Mi Perfil Profesional</span>
+    </button>
+  }
+
+  <!-- Opciones exclusivas del PACIENTE -->
+  @if (isPACIENTE()) {
+    <button mat-menu-item routerLink="/perfilProfesional/lista">
+      <mat-icon>groups</mat-icon>
+      <span>Ver Profesionales</span>
+    </button>
+    
+    <button mat-menu-item routerLink="/perfilProfesional/nuevo-registro">
+      <mat-icon>upgrade</mat-icon>
+      <span>Quiero ser Profesional</span>
+    </button>
+  }
+
+  <mat-divider></mat-divider>
+
+  <button mat-menu-item routerLink="/login" (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Cerrar sesión</span>
+  </button>
+</mat-menu>

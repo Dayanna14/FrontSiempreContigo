@@ -1,0 +1,57 @@
+<div class="container">
+  <div style="text-align: center; margin: 2%"><h2>Modificar Registro Emocional</h2></div>
+  <div style="text-align: center; margin: 3%">
+    <form [formGroup]="form" (submit)="aceptar()" class="example-form">
+      
+      <mat-form-field>
+        <mat-label>ID Registro:</mat-label>
+        <input matInput formControlName="codigo" readonly="true" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Fecha Registro</mat-label>
+        <input matInput type="datetime-local" formControlName="fechaRegistro" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Emoción</mat-label>
+        <mat-select formControlName="tipoEstadoEmocional">
+          <mat-option *ngFor="let emo of emociones" [value]="emo.value">{{ emo.label }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Bienestar</mat-label>
+        <mat-select formControlName="nivelBienestar">
+          <mat-option *ngFor="let niv of niveles" [value]="niv">{{ niv }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Paciente</mat-label>
+        <input matInput formControlName="idUsuario" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>ID Profesional</mat-label>
+        <input matInput formControlName="idPerfilProfesional" />
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <mat-label>Observación</mat-label>
+        <textarea matInput formControlName="observacion" rows="3"></textarea>
+      </mat-form-field>
+      <br />
+
+      <div>
+        <button mat-raised-button class="btn-submit" type="submit" [disabled]="form.invalid">Guardar Cambios</button>
+      </div>
+    </form>
+  </div>
+</div>

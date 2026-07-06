@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="title-section">
+    <h2>Registrar Perfil Profesional</h2>
+  </div>
+
+  <form [formGroup]="form" (submit)="aceptar()" class="form-grid">
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Especialidad</mat-label>
+      <input matInput formControlName="especialidad" placeholder="Ej. Psicología Clínica" />
+      <mat-error *ngIf="form.get('especialidad')?.hasError('required')">La especialidad es obligatoria</mat-error>
+      <mat-error *ngIf="form.get('especialidad')?.hasError('maxlength')">Máximo 50 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Biografía</mat-label>
+      <textarea matInput formControlName="biografia" rows="4" placeholder="Breve descripción profesional..."></textarea>
+      <mat-error *ngIf="form.get('biografia')?.hasError('required')">La biografía es obligatoria</mat-error>
+      <mat-error *ngIf="form.get('biografia')?.hasError('maxlength')">Máximo 150 caracteres</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Usuario Vinculado</mat-label>
+      <mat-select formControlName="idUsuario">
+        @for (u of listaUsuarios; track u.idUsuario) {
+          <mat-option [value]="u.idUsuario">
+            {{ u.username }} - DNI: {{ u.dni }}
+          </mat-option>
+        }
+      </mat-select>
+      <mat-error *ngIf="form.get('idUsuario')?.hasError('required')">Debe seleccionar un usuario</mat-error>
+    </mat-form-field>
+
+    <div class="botones-container full-width">
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">Registrar</button>
+      <button mat-stroked-button type="button" routerLink="/perfilProfesional">Cancelar</button>
+    </div>
+  </form>
+</div>
