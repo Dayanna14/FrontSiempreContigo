@@ -62,6 +62,7 @@ import { PerfilProfInsertar } from './components/perfil-prof/perfil-prof-inserta
 import { PerfilProfActualizar } from './components/perfil-prof/perfil-prof-actualizar/perfil-prof-actualizar';
 import { Authenticate } from './components/authenticate/authenticate';
 import { seguridadGuard } from './components/guard/seguridad-guard';
+import { Graficos } from './components/graficos/graficos';
 
 export const routes: Routes = [
   { path: '', 
@@ -76,6 +77,11 @@ export const routes: Routes = [
   {
       path:'login',
       component: Authenticate,
+  },
+
+  { 
+    path: 'reportes', 
+    component: Graficos 
   },
 
   // 1. Alertas
